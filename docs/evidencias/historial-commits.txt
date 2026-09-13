@@ -1,0 +1,35 @@
+HISTORIAL DE COMMITS - APF1
+Repositorio: Rodrigo2326/sistema-matricula
+Comando: git log --pretty=format:'%h | %an | %ad | %s' --date=short
+
+bf57cc3 | Rodrigo Aparcana | 2026-09-13 | Fusionar fix/unificar-identidad-de-autor en main
+a92d622 | Rodrigo Aparcana | 2026-09-13 | Unificar el nombre de autor del historial con un archivo mailmap
+56aa5f9 | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/documentacion-apf1 en main
+7151cdf | Rodrigo2326 | 2026-09-13 | Agregar informe del avance APF1 y ampliar el README
+4c7a8c0 | Rodrigo Aparcana | 2026-09-13 | Fusionar fix/filtro-se-pierde-al-actualizar en main
+4fddf50 | Rodrigo2326 | 2026-09-13 | Corregir perdida del filtro al registrar o eliminar una matricula
+419cdf3 | Rodrigo2326 | 2026-09-13 | Fusionar feature/resumen-por-carrera en main resolviendo conflicto
+d9c5480 | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/exportar-csv en main
+54f3286 | Rodrigo2326 | 2026-09-13 | Agregar resumen de matriculas agrupado por carrera
+8a6437b | Rodrigo2326 | 2026-09-13 | Agregar exportacion del listado a CSV
+2f174b0 | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/validacion-formulario en main
+9cd80e2 | Rodrigo2326 | 2026-09-13 | Validar los datos del formulario antes de registrar
+8766e83 | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/busqueda-matriculas en main
+5f1d208 | Rodrigo2326 | 2026-09-13 | Agregar busqueda de matriculas por nombre, codigo, carrera y curso
+f725272 | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/listado-matriculas en main
+fd2490e | Rodrigo2326 | 2026-09-13 | Agregar listado de matriculas registradas
+e52859e | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/formulario-matricula en main
+14574f9 | Rodrigo2326 | 2026-09-13 | Agregar formulario de registro de matricula
+ad3c25a | Rodrigo2326 | 2026-09-13 | Agregar estructura base del proyecto
+
+== Resumen ==
+Total de commits   : 19
+Commits de fusion  : 9
+Commits de trabajo : 10
+
+== Commits por autor (git shortlog -sn) ==
+    19	Rodrigo Aparcana
+
+NOTA: el historial concentra los commits en un solo integrante. Los demas
+integrantes deben registrar sus propios commits desde sus cuentas antes de
+la sustentacion, segun exigen los lineamientos del curso.

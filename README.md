@@ -87,6 +87,7 @@ sistema-matricula/
 │   ├── generar_informe.py      Script que genera el PDF
 │   └── evidencias/             Salidas de Git que respaldan el avance
 ├── .gitignore
+├── .mailmap
 └── README.md
 ```
 
@@ -159,6 +160,8 @@ respaldan están en `docs/evidencias/`:
 | `conflicto-02-marcadores.txt` | Marcadores de conflicto tal como los dejó Git |
 | `conflicto-03-resolucion.txt` | Criterio y pasos de la resolución |
 | `sincronizacion-local-remoto.txt` | Estado de sincronización entre local y remoto |
+| `verificacion-funcional.txt` | Prueba de las funcionalidades en el navegador |
+| `aplicacion-en-ejecucion.png` | Captura de la aplicación con registros cargados |
 
 ## Licencia
 
