@@ -1,0 +1,4 @@
+# Unifica las variantes del nombre de autor usadas en el historial.
+# Ambas corresponden a la misma persona y al mismo correo electronico.
+# Git aplica este mapeo en log, shortlog y blame sin reescribir commits.
+Rodrigo Aparcana <r.aparcana0103@gmail.com> Rodrigo2326 <r.aparcana0103@gmail.com>
