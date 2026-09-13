@@ -1,0 +1,30 @@
+EVIDENCIA DE CONFLICTO DE INTEGRACION - APF1
+Repositorio: Rodrigo2326/sistema-matricula
+
+== Comando ejecutado ==
+$ git merge --no-ff feature/resumen-por-carrera
+
+== Salida de Git ==
+Auto-merging css/estilos.css
+CONFLICT (content): Merge conflict in css/estilos.css
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Auto-merging js/app.js
+CONFLICT (content): Merge conflict in js/app.js
+Automatic merge failed; fix conflicts and then commit the result.
+
+== Estado del area de trabajo (git status --short) ==
+UU css/estilos.css
+UU index.html
+UU js/app.js
+?? docs/
+
+== Ramas involucradas ==
+HEAD (main)     : d9c5480 - incluye feature/exportar-csv
+MERGE_HEAD      : 54f3286 - feature/resumen-por-carrera
+Base comun      : 2f174b0
+
+== Archivos en conflicto (git diff --name-only --diff-filter=U) ==
+css/estilos.css
+index.html
+js/app.js

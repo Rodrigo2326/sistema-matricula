@@ -65,7 +65,7 @@ function registrarMatricula(evento) {
   matriculas.push(matricula);
   guardarMatriculas();
 
-  renderizarTabla(matriculas);
+  refrescarListado();
   formMatricula.reset();
   mostrarAviso('Matrícula registrada correctamente');
 }
@@ -125,7 +125,7 @@ function eliminarMatricula(evento) {
 
   matriculas = matriculas.filter(matricula => matricula.id !== id);
   guardarMatriculas();
-  renderizarTabla(matriculas);
+  refrescarListado();
   mostrarAviso('Matrícula eliminada');
 }
 
@@ -155,7 +155,15 @@ function filtrarMatriculas() {
   return matriculas.filter(matricula => coincideConBusqueda(matricula, termino));
 }
 
-buscador.addEventListener('input', () => renderizarTabla(filtrarMatriculas()));
+/**
+ * Redibuja la tabla respetando lo que haya escrito en el buscador.
+ * Debe usarse despues de registrar o eliminar, para no perder el filtro activo.
+ */
+function refrescarListado() {
+  renderizarTabla(filtrarMatriculas());
+}
+
+buscador.addEventListener('input', refrescarListado);
 
 /* ===== Validación del formulario ===== */
 

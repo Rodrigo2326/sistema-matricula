@@ -1,0 +1,149 @@
+MARCADORES DE CONFLICTO GENERADOS POR GIT - APF1
+Repositorio: Rodrigo2326/sistema-matricula
+
+Contenido literal de las regiones en conflicto, tal como Git las dejo
+en el area de trabajo antes de la resolucion manual.
+
+======================================================================
+ARCHIVO: index.html
+======================================================================
+(linea 72)
+<<<<<<< HEAD
+        <button type="button" class="btn-secundario" id="btnExportar">Exportar CSV</button>
+=======
+        <button type="button" class="btn-secundario" id="btnResumen">Ver resumen</button>
+>>>>>>> feature/resumen-por-carrera
+
+
+======================================================================
+ARCHIVO: css/estilos.css
+======================================================================
+(linea 252)
+<<<<<<< HEAD
+=======
+
+/* ===== Panel de resumen por carrera ===== */
+.resumen {
+  background: #f7f9ff;
+  border: 1px solid #dde5f8;
+  border-radius: 9px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.resumen.oculto { display: none; }
+
+.resumen ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #333;
+}
+
+.resumen li { padding: 2px 0; }
+
+.resumen strong { color: #1a2a52; }
+>>>>>>> feature/resumen-por-carrera
+
+
+======================================================================
+ARCHIVO: js/app.js
+======================================================================
+(linea 196)
+<<<<<<< HEAD
+/* ===== Exportación a CSV ===== */
+
+const ENCABEZADOS_CSV = ['Codigo', 'Nombres', 'Apellidos', 'DNI', 'Carrera', 'Ciclo', 'Curso', 'Fecha'];
+
+/** Escapa un valor para que pueda incluirse en una celda CSV. */
+function escaparCsv(valor) {
+  return `"${String(valor).replace(/"/g, '""')}"`;
+}
+
+/** Arma el contenido CSV a partir de las matrículas indicadas. */
+function construirCsv(lista) {
+  const filas = lista.map(matricula => [
+    matricula.codigo,
+    matricula.nombres,
+    matricula.apellidos,
+    matricula.dni,
+    matricula.carrera,
+    matricula.ciclo,
+    matricula.curso,
+    matricula.fecha
+  ].map(escaparCsv).join(';'));
+
+  return [ENCABEZADOS_CSV.join(';'), ...filas].join('\n');
+}
+
+/** Descarga el listado actual como archivo CSV. */
+function exportarCsv() {
+  if (matriculas.length === 0) {
+    mostrarAviso('No hay matrículas para exportar.', 'error');
+    return;
+  }
+
+  // El BOM inicial permite que Excel reconozca los acentos como UTF-8.
+  const contenido = new Blob(['\ufeff' + construirCsv(matriculas)], {
+    type: 'text/csv;charset=utf-8;'
+  });
+
+  const enlace = document.createElement('a');
+  enlace.href = URL.createObjectURL(contenido);
+  enlace.download = 'matriculas.csv';
+  enlace.click();
+  URL.revokeObjectURL(enlace.href);
+
+  mostrarAviso('Listado exportado a CSV');
+}
+
+document.getElementById('btnExportar').addEventListener('click', exportarCsv);
+=======
+/* ===== Resumen por carrera ===== */
+
+const panelResumen = document.getElementById('panelResumen');
+
+/** Cuenta cuántas matrículas hay por cada carrera. */
+function contarPorCarrera() {
+  return matriculas.reduce((conteo, matricula) => {
+    conteo[matricula.carrera] = (conteo[matricula.carrera] || 0) + 1;
+    return conteo;
+  }, {});
+}
+
+/** Dibuja el panel con el total de matrículas de cada carrera. */
+function renderizarResumen() {
+  const conteo = contarPorCarrera();
+  const carreras = Object.keys(conteo).sort();
+
+  panelResumen.innerHTML = '';
+
+  if (carreras.length === 0) {
+    const vacio = document.createElement('p');
+    vacio.className = 'sin-datos';
+    vacio.textContent = 'Todavía no hay matrículas para resumir.';
+    panelResumen.appendChild(vacio);
+    return;
+  }
+
+  const lista = document.createElement('ul');
+  carreras.forEach(carrera => {
+    const item = document.createElement('li');
+    const nombre = document.createElement('strong');
+    nombre.textContent = carrera;
+    item.appendChild(nombre);
+    item.appendChild(document.createTextNode(`: ${conteo[carrera]} matriculado(s)`));
+    lista.appendChild(item);
+  });
+  panelResumen.appendChild(lista);
+}
+
+/** Muestra u oculta el panel de resumen. */
+function alternarResumen() {
+  renderizarResumen();
+  panelResumen.classList.toggle('oculto');
+}
+
+document.getElementById('btnResumen').addEventListener('click', alternarResumen);
+>>>>>>> feature/resumen-por-carrera
+
