@@ -66,6 +66,25 @@
 
     <section class="tarjeta" id="seccionListado">
       <h2>Estudiantes matriculados</h2>
+      <div class="barra-herramientas">
+        <span class="contador" id="contador">0</span> registros
+      </div>
+      <table id="tablaMatriculas">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre completo</th>
+            <th>DNI</th>
+            <th>Carrera</th>
+            <th>Ciclo</th>
+            <th>Curso</th>
+            <th>Fecha</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla"></tbody>
+      </table>
+      <p class="sin-datos" id="mensajeVacio">Aún no hay estudiantes matriculados.</p>
     </section>
   </main>
 

@@ -58,8 +58,70 @@ function registrarMatricula(evento) {
   matriculas.push(matricula);
   guardarMatriculas();
 
+  renderizarTabla(matriculas);
   formMatricula.reset();
   mostrarAviso('Matrícula registrada correctamente');
 }
 
 formMatricula.addEventListener('submit', registrarMatricula);
+
+/* ===== Listado de matrículas ===== */
+
+const cuerpoTabla = document.getElementById('cuerpoTabla');
+const mensajeVacio = document.getElementById('mensajeVacio');
+const contador = document.getElementById('contador');
+
+/** Crea una celda de tabla con el texto indicado. */
+function crearCelda(texto) {
+  const celda = document.createElement('td');
+  celda.textContent = texto;
+  return celda;
+}
+
+/** Construye la fila correspondiente a una matrícula. */
+function crearFila(matricula) {
+  const fila = document.createElement('tr');
+  fila.appendChild(crearCelda(matricula.codigo));
+  fila.appendChild(crearCelda(`${matricula.nombres} ${matricula.apellidos}`));
+  fila.appendChild(crearCelda(matricula.dni));
+  fila.appendChild(crearCelda(matricula.carrera));
+  fila.appendChild(crearCelda(matricula.ciclo));
+  fila.appendChild(crearCelda(matricula.curso));
+  fila.appendChild(crearCelda(matricula.fecha));
+
+  const celdaAccion = document.createElement('td');
+  const boton = document.createElement('button');
+  boton.className = 'btn-eliminar';
+  boton.title = 'Eliminar';
+  boton.textContent = '✕';
+  boton.dataset.id = matricula.id;
+  celdaAccion.appendChild(boton);
+  fila.appendChild(celdaAccion);
+
+  return fila;
+}
+
+/** Dibuja en la tabla la lista de matrículas recibida. */
+function renderizarTabla(lista) {
+  cuerpoTabla.innerHTML = '';
+  mensajeVacio.style.display = lista.length === 0 ? 'block' : 'none';
+  lista.forEach(matricula => cuerpoTabla.appendChild(crearFila(matricula)));
+  contador.textContent = lista.length;
+}
+
+/** Elimina la matrícula indicada previa confirmación. */
+function eliminarMatricula(evento) {
+  if (!evento.target.classList.contains('btn-eliminar')) return;
+
+  const id = Number(evento.target.dataset.id);
+  if (!confirm('¿Eliminar esta matrícula?')) return;
+
+  matriculas = matriculas.filter(matricula => matricula.id !== id);
+  guardarMatriculas();
+  renderizarTabla(matriculas);
+  mostrarAviso('Matrícula eliminada');
+}
+
+cuerpoTabla.addEventListener('click', eliminarMatricula);
+
+renderizarTabla(matriculas);
