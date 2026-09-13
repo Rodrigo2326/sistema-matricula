@@ -2,9 +2,10 @@ RAMAS DEL PROYECTO - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 
 == Ramas locales (git branch -vv) ==
+* feature/actualizar-evidencias      4c766c9 Fusionar feature/evidencias-apf1 en main
   feature/busqueda-matriculas        5f1d208 [origin/feature/busqueda-matriculas] Agregar busqueda de matriculas por nombre, codigo, carrera y curso
   feature/documentacion-apf1         7151cdf [origin/feature/documentacion-apf1] Agregar informe del avance APF1 y ampliar el README
-* feature/evidencias-apf1            bf57cc3 Fusionar fix/unificar-identidad-de-autor en main
+  feature/evidencias-apf1            2cb1836 [origin/feature/evidencias-apf1] Agregar evidencias de Git e informe del avance en PDF
   feature/exportar-csv               8a6437b [origin/feature/exportar-csv] Agregar exportacion del listado a CSV
   feature/formulario-matricula       14574f9 [origin/feature/formulario-matricula] Agregar formulario de registro de matricula
   feature/listado-matriculas         fd2490e [origin/feature/listado-matriculas] Agregar listado de matriculas registradas
@@ -12,11 +13,13 @@ Repositorio: Rodrigo2326/sistema-matricula
   feature/validacion-formulario      9cd80e2 [origin/feature/validacion-formulario] Validar los datos del formulario antes de registrar
   fix/filtro-se-pierde-al-actualizar 4fddf50 [origin/fix/filtro-se-pierde-al-actualizar] Corregir perdida del filtro al registrar o eliminar una matricula
   fix/unificar-identidad-de-autor    a92d622 [origin/fix/unificar-identidad-de-autor] Unificar el nombre de autor del historial con un archivo mailmap
-  main                               bf57cc3 [origin/main] Fusionar fix/unificar-identidad-de-autor en main
+  main                               4c766c9 [origin/main] Fusionar feature/evidencias-apf1 en main
 
 == Ramas remotas (git branch -r) ==
+  origin/HEAD -> origin/main
   origin/feature/busqueda-matriculas
   origin/feature/documentacion-apf1
+  origin/feature/evidencias-apf1
   origin/feature/exportar-csv
   origin/feature/formulario-matricula
   origin/feature/listado-matriculas
@@ -27,17 +30,20 @@ Repositorio: Rodrigo2326/sistema-matricula
   origin/main
 
 == Proposito de cada rama ==
-main                                Version principal estable.
-feature/formulario-matricula        Formulario de registro de matriculas.
-feature/listado-matriculas          Tabla de registros, contador y eliminacion.
-feature/busqueda-matriculas         Filtrado del listado.
-feature/validacion-formulario       Reglas de validacion previas al registro.
-feature/exportar-csv                Exportacion del listado a CSV.
-feature/resumen-por-carrera         Resumen de matriculas por carrera.
-fix/filtro-se-pierde-al-actualizar  Correccion del filtro al registrar/eliminar.
-feature/documentacion-apf1          Informe del avance y ampliacion del README.
-fix/unificar-identidad-de-autor     Archivo mailmap para el nombre de autor.
-feature/evidencias-apf1             Evidencias de Git e informe en PDF.
+main                                 Version principal estable.
+feature/formulario-matricula         Formulario de registro de matriculas.
+feature/listado-matriculas           Tabla de registros, contador y eliminacion.
+feature/busqueda-matriculas          Filtrado del listado.
+feature/validacion-formulario        Reglas de validacion previas al registro.
+feature/exportar-csv                 Exportacion del listado a CSV.
+feature/resumen-por-carrera          Resumen de matriculas por carrera.
+fix/filtro-se-pierde-al-actualizar   Correccion del filtro al registrar/eliminar.
+feature/documentacion-apf1           Informe del avance y ampliacion del README.
+fix/unificar-identidad-de-autor      Archivo mailmap para el nombre de autor.
+feature/evidencias-apf1              Evidencias de Git e informe en PDF.
+feature/actualizar-evidencias        Actualizacion final de las evidencias.
 
 Todas las ramas tienen cambios reales asociados; ninguna se creo solo para
 figurar en el historial.
+
+NOTA: esta salida es una instantanea tomada al generar el archivo. Los commits que la incorporan al repositorio aparecen despues de este punto en el historial.
