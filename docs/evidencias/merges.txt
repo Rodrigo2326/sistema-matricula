@@ -1,0 +1,72 @@
+FUSIONES REALIZADAS HACIA MAIN - APF1
+Repositorio: Rodrigo2326/sistema-matricula
+Comando: git log --merges --pretty=format:'%h | %ad | %s' --date=short
+
+bf57cc3 | 2026-09-13 | Fusionar fix/unificar-identidad-de-autor en main
+56aa5f9 | 2026-09-13 | Fusionar feature/documentacion-apf1 en main
+4c7a8c0 | 2026-09-13 | Fusionar fix/filtro-se-pierde-al-actualizar en main
+419cdf3 | 2026-09-13 | Fusionar feature/resumen-por-carrera en main resolviendo conflicto
+d9c5480 | 2026-09-13 | Fusionar feature/exportar-csv en main
+2f174b0 | 2026-09-13 | Fusionar feature/validacion-formulario en main
+8766e83 | 2026-09-13 | Fusionar feature/busqueda-matriculas en main
+f725272 | 2026-09-13 | Fusionar feature/listado-matriculas en main
+e52859e | 2026-09-13 | Fusionar feature/formulario-matricula en main
+
+== Detalle de archivos por fusion ==
+
+--- bf57cc3 : Fusionar fix/unificar-identidad-de-autor en main
+ .mailmap | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+--- 56aa5f9 : Fusionar feature/documentacion-apf1 en main
+ README.md            |  67 +++++++++-
+ docs/informe-apf1.md | 360 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 423 insertions(+), 4 deletions(-)
+
+--- 4c7a8c0 : Fusionar fix/filtro-se-pierde-al-actualizar en main
+ docs/evidencias/conflicto-01-deteccion.txt  |  30 ++++++
+ docs/evidencias/conflicto-02-marcadores.txt | 149 ++++++++++++++++++++++++++++
+ docs/evidencias/conflicto-03-resolucion.txt |  37 +++++++
+ js/app.js                                   |  14 ++-
+ 4 files changed, 227 insertions(+), 3 deletions(-)
+
+--- 419cdf3 : Fusionar feature/resumen-por-carrera en main resolviendo conflicto
+ css/estilos.css | 27 ++++++++++++++++++++++++++-
+ index.html      |  2 ++
+ js/app.js       | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 74 insertions(+), 1 deletion(-)
+
+--- d9c5480 : Fusionar feature/exportar-csv en main
+ css/estilos.css | 16 ++++++++++++++++
+ index.html      |  1 +
+ js/app.js       | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 65 insertions(+)
+
+--- 2f174b0 : Fusionar feature/validacion-formulario en main
+ js/app.js | 43 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
+
+--- 8766e83 : Fusionar feature/busqueda-matriculas en main
+ css/estilos.css |  7 +++++++
+ index.html      |  1 +
+ js/app.js       | 24 ++++++++++++++++++++++++
+ 3 files changed, 32 insertions(+)
+
+--- f725272 : Fusionar feature/listado-matriculas en main
+ css/estilos.css | 63 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ index.html      | 19 +++++++++++++++++
+ js/app.js       | 62 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 144 insertions(+)
+
+--- e52859e : Fusionar feature/formulario-matricula en main
+ css/estilos.css | 62 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ index.html      | 43 +++++++++++++++++++++++++++++++++++++++
+ js/app.js       | 33 ++++++++++++++++++++++++++++++
+ 3 files changed, 138 insertions(+)
+
+
+== Nota sobre --no-ff ==
+Todas las integraciones usan git merge --no-ff. Sin esa opcion Git resolveria
+la fusion con un avance rapido (fast-forward) y los commits de la rama
+quedarian mezclados en la linea principal, perdiendo la informacion de que
+trabajo pertenecio a que funcionalidad.

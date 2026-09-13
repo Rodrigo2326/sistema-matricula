@@ -1,0 +1,50 @@
+GRAFICO DE RAMAS E HISTORIAL - APF1
+Repositorio: Rodrigo2326/sistema-matricula
+Comando: git log --graph --oneline --decorate --all
+
+*   bf57cc3 (HEAD -> feature/evidencias-apf1, origin/main, main) Fusionar fix/unificar-identidad-de-autor en main
+|\  
+| * a92d622 (origin/fix/unificar-identidad-de-autor, fix/unificar-identidad-de-autor) Unificar el nombre de autor del historial con un archivo mailmap
+|/  
+*   56aa5f9 Fusionar feature/documentacion-apf1 en main
+|\  
+| * 7151cdf (origin/feature/documentacion-apf1, feature/documentacion-apf1) Agregar informe del avance APF1 y ampliar el README
+|/  
+*   4c7a8c0 Fusionar fix/filtro-se-pierde-al-actualizar en main
+|\  
+| * 4fddf50 (origin/fix/filtro-se-pierde-al-actualizar, fix/filtro-se-pierde-al-actualizar) Corregir perdida del filtro al registrar o eliminar una matricula
+|/  
+*   419cdf3 Fusionar feature/resumen-por-carrera en main resolviendo conflicto
+|\  
+| * 54f3286 (origin/feature/resumen-por-carrera, feature/resumen-por-carrera) Agregar resumen de matriculas agrupado por carrera
+* |   d9c5480 Fusionar feature/exportar-csv en main
+|\ \  
+| |/  
+|/|   
+| * 8a6437b (origin/feature/exportar-csv, feature/exportar-csv) Agregar exportacion del listado a CSV
+|/  
+*   2f174b0 Fusionar feature/validacion-formulario en main
+|\  
+| * 9cd80e2 (origin/feature/validacion-formulario, feature/validacion-formulario) Validar los datos del formulario antes de registrar
+|/  
+*   8766e83 Fusionar feature/busqueda-matriculas en main
+|\  
+| * 5f1d208 (origin/feature/busqueda-matriculas, feature/busqueda-matriculas) Agregar busqueda de matriculas por nombre, codigo, carrera y curso
+|/  
+*   f725272 Fusionar feature/listado-matriculas en main
+|\  
+| * fd2490e (origin/feature/listado-matriculas, feature/listado-matriculas) Agregar listado de matriculas registradas
+|/  
+*   e52859e Fusionar feature/formulario-matricula en main
+|\  
+| * 14574f9 (origin/feature/formulario-matricula, feature/formulario-matricula) Agregar formulario de registro de matricula
+|/  
+* ad3c25a Agregar estructura base del proyecto
+
+
+== Lectura del grafico ==
+Cada rama de trabajo se abre desde main, acumula sus commits y regresa a main
+mediante un commit de fusion (--no-ff), visible como bifurcacion que vuelve a
+unirse. Las ramas feature/exportar-csv y feature/resumen-por-carrera parten del
+mismo commit 2f174b0: ese punto comun es el origen del conflicto de integracion
+documentado en conflicto-01-deteccion.txt.

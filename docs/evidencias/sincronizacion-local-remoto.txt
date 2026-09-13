@@ -1,0 +1,51 @@
+SINCRONIZACION LOCAL / REMOTO - APF1
+Repositorio remoto: https://github.com/Rodrigo2326/sistema-matricula
+
+== Remoto configurado (git remote -v) ==
+origin	https://github.com/Rodrigo2326/sistema-matricula.git (fetch)
+origin	https://github.com/Rodrigo2326/sistema-matricula.git (push)
+
+== Seguimiento de cada rama local (git branch -vv) ==
+  feature/busqueda-matriculas        5f1d208 [origin/feature/busqueda-matriculas] Agregar busqueda de matriculas por nombre, codigo, carrera y curso
+  feature/documentacion-apf1         7151cdf [origin/feature/documentacion-apf1] Agregar informe del avance APF1 y ampliar el README
+* feature/evidencias-apf1            bf57cc3 Fusionar fix/unificar-identidad-de-autor en main
+  feature/exportar-csv               8a6437b [origin/feature/exportar-csv] Agregar exportacion del listado a CSV
+  feature/formulario-matricula       14574f9 [origin/feature/formulario-matricula] Agregar formulario de registro de matricula
+  feature/listado-matriculas         fd2490e [origin/feature/listado-matriculas] Agregar listado de matriculas registradas
+  feature/resumen-por-carrera        54f3286 [origin/feature/resumen-por-carrera] Agregar resumen de matriculas agrupado por carrera
+  feature/validacion-formulario      9cd80e2 [origin/feature/validacion-formulario] Validar los datos del formulario antes de registrar
+  fix/filtro-se-pierde-al-actualizar 4fddf50 [origin/fix/filtro-se-pierde-al-actualizar] Corregir perdida del filtro al registrar o eliminar una matricula
+  fix/unificar-identidad-de-autor    a92d622 [origin/fix/unificar-identidad-de-autor] Unificar el nombre de autor del historial con un archivo mailmap
+  main                               bf57cc3 [origin/main] Fusionar fix/unificar-identidad-de-autor en main
+
+== Estado respecto al remoto (git status --short --branch) ==
+## feature/evidencias-apf1
+?? docs/evidencias/grafico-ramas.txt
+?? docs/evidencias/historial-commits.txt
+?? docs/evidencias/merges.txt
+?? docs/evidencias/ramas.txt
+?? docs/evidencias/sincronizacion-local-remoto.txt
+
+== Comprobacion rama por rama ==
+RAMA                                 LOCAL      REMOTO     ESTADO
+feature/busqueda-matriculas          5f1d208    5f1d208    sincronizada
+feature/documentacion-apf1           7151cdf    7151cdf    sincronizada
+feature/evidencias-apf1              bf57cc3    -          no publicada
+feature/exportar-csv                 8a6437b    8a6437b    sincronizada
+feature/formulario-matricula         14574f9    14574f9    sincronizada
+feature/listado-matriculas           fd2490e    fd2490e    sincronizada
+feature/resumen-por-carrera          54f3286    54f3286    sincronizada
+feature/validacion-formulario        9cd80e2    9cd80e2    sincronizada
+fix/filtro-se-pierde-al-actualizar   4fddf50    4fddf50    sincronizada
+fix/unificar-identidad-de-autor      a92d622    a92d622    sincronizada
+main                                 bf57cc3    bf57cc3    sincronizada
+
+== Flujo aplicado en cada funcionalidad ==
+git checkout main                 # ubicarse en la rama principal
+git pull                          # traer los cambios del remoto
+git checkout -b feature/nueva     # crear la rama de trabajo
+git add . && git commit           # confirmar los cambios
+git push -u origin feature/nueva  # publicar la rama
+git checkout main                 # volver a la principal
+git merge --no-ff feature/nueva   # integrar conservando el punto de fusion
+git push origin main              # sincronizar la integracion

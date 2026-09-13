@@ -1,0 +1,51 @@
+VERIFICACION FUNCIONAL DE LA APLICACION - APF1
+Repositorio: Rodrigo2326/sistema-matricula
+
+Prueba ejecutada sobre index.html en un navegador Chromium sin interfaz,
+partiendo de un almacenamiento local vacio.
+
+== Carga de la pagina ==
+HTTP                      : 200
+Titulo                    : Sistema de Matricula
+Errores de consola        : 0
+Peticiones fallidas       : 0
+
+== Registro de matriculas ==
+Estado inicial            : 0 filas, mensaje de listado vacio visible
+Tras 1er registro         : 1 fila, contador = 1
+Aviso mostrado            : 'Matricula registrada correctamente'
+Tras 3 registros          : 3 filas, contador = 3
+
+== Validacion ==
+DNI '123'                 : RECHAZADO - 'El DNI debe tener exactamente 8 digitos.'
+Codigo 'ABC123'           : RECHAZADO - 'El codigo de estudiante debe tener el formato 2026-0001.'
+Matricula duplicada       : RECHAZADO - 'El estudiante 2026-0001 ya esta matriculado en ese curso.'
+En los tres casos el listado se mantuvo en 3 filas: no se guardo el registro.
+
+== Busqueda ==
+Termino 'quispe'          : 1 fila (coincidencia por apellido)
+Termino 'Sistemas'        : 2 filas (coincidencia por carrera)
+Termino 'zzzz'            : 0 filas y mensaje de listado vacio
+Campo vacio               : 3 filas (listado completo restaurado)
+
+== Correccion fix/filtro-se-pierde-al-actualizar ==
+Con el filtro 'Sistemas' aplicado (2 filas) se elimino un registro.
+Resultado                 : 1 fila, el filtro sigue aplicado y el buscador
+                            conserva el texto 'Sistemas'.
+Antes de la correccion la tabla volvia a mostrar el listado completo.
+
+== Resumen por carrera ==
+Panel visible al pulsar 'Ver resumen'.
+Contenido                 : 'Contabilidad: 1 matriculado(s)'
+                            'Ingenieria de Sistemas: 1 matriculado(s)'
+El panel se oculta al pulsar el boton nuevamente.
+
+== Exportacion a CSV ==
+Pulsar 'Exportar CSV' genera la descarga del archivo matriculas.csv.
+
+== Persistencia ==
+Tras recargar la pagina se conservan los 2 registros y el contador = 2.
+
+== Captura ==
+aplicacion-en-ejecucion.png muestra la interfaz con registros cargados y los
+botones 'Exportar CSV' y 'Ver resumen' integrados tras resolver el conflicto.
