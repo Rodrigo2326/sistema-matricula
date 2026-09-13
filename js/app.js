@@ -55,6 +55,13 @@ function registrarMatricula(evento) {
   evento.preventDefault();
 
   const matricula = leerFormulario();
+
+  const error = validarMatricula(matricula);
+  if (error !== '') {
+    mostrarAviso(error, 'error');
+    return;
+  }
+
   matriculas.push(matricula);
   guardarMatriculas();
 
@@ -149,3 +156,39 @@ function filtrarMatriculas() {
 }
 
 buscador.addEventListener('input', () => renderizarTabla(filtrarMatriculas()));
+
+/* ===== Validación del formulario ===== */
+
+const FORMATO_DNI = /^\d{8}$/;
+const FORMATO_CODIGO = /^\d{4}-\d{4}$/;
+
+/**
+ * Revisa los datos de una matrícula antes de registrarla.
+ * Devuelve el primer mensaje de error encontrado, o una cadena vacía si todo es válido.
+ */
+function validarMatricula(matricula) {
+  if (matricula.nombres === '' || matricula.apellidos === '') {
+    return 'Los nombres y apellidos son obligatorios.';
+  }
+  if (!FORMATO_CODIGO.test(matricula.codigo)) {
+    return 'El código de estudiante debe tener el formato 2026-0001.';
+  }
+  if (!FORMATO_DNI.test(matricula.dni)) {
+    return 'El DNI debe tener exactamente 8 dígitos.';
+  }
+  if (matricula.curso === '') {
+    return 'Debe indicar el curso a matricular.';
+  }
+  if (existeMatriculaDuplicada(matricula)) {
+    return `El estudiante ${matricula.codigo} ya está matriculado en ese curso.`;
+  }
+  return '';
+}
+
+/** Indica si el estudiante ya está matriculado en el mismo curso. */
+function existeMatriculaDuplicada(nueva) {
+  return matriculas.some(matricula =>
+    matricula.codigo === nueva.codigo &&
+    matricula.curso.toLowerCase() === nueva.curso.toLowerCase()
+  );
+}
