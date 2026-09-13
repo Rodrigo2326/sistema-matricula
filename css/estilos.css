@@ -236,7 +236,6 @@ tr:hover td { background: #f9fafd; }
 
 /* ===== Botones secundarios de la barra ===== */
 .btn-secundario {
-  margin-left: auto;
   background: #f0f4ff;
   color: #1a2a52;
   border: 1.5px solid #c5d0ee;
@@ -249,3 +248,29 @@ tr:hover td { background: #f9fafd; }
 }
 
 .btn-secundario:hover { background: #dce6ff; }
+
+/* Al integrar exportacion y resumen la barra quedo con dos botones:
+   solo el primero empuja el grupo hacia la derecha. */
+.barra-herramientas .btn-secundario:first-of-type { margin-left: auto; }
+
+/* ===== Panel de resumen por carrera ===== */
+.resumen {
+  background: #f7f9ff;
+  border: 1px solid #dde5f8;
+  border-radius: 9px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.resumen.oculto { display: none; }
+
+.resumen ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  color: #333;
+}
+
+.resumen li { padding: 2px 0; }
+
+.resumen strong { color: #1a2a52; }
