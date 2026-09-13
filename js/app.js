@@ -192,3 +192,51 @@ function existeMatriculaDuplicada(nueva) {
     matricula.curso.toLowerCase() === nueva.curso.toLowerCase()
   );
 }
+
+/* ===== Exportación a CSV ===== */
+
+const ENCABEZADOS_CSV = ['Codigo', 'Nombres', 'Apellidos', 'DNI', 'Carrera', 'Ciclo', 'Curso', 'Fecha'];
+
+/** Escapa un valor para que pueda incluirse en una celda CSV. */
+function escaparCsv(valor) {
+  return `"${String(valor).replace(/"/g, '""')}"`;
+}
+
+/** Arma el contenido CSV a partir de las matrículas indicadas. */
+function construirCsv(lista) {
+  const filas = lista.map(matricula => [
+    matricula.codigo,
+    matricula.nombres,
+    matricula.apellidos,
+    matricula.dni,
+    matricula.carrera,
+    matricula.ciclo,
+    matricula.curso,
+    matricula.fecha
+  ].map(escaparCsv).join(';'));
+
+  return [ENCABEZADOS_CSV.join(';'), ...filas].join('\n');
+}
+
+/** Descarga el listado actual como archivo CSV. */
+function exportarCsv() {
+  if (matriculas.length === 0) {
+    mostrarAviso('No hay matrículas para exportar.', 'error');
+    return;
+  }
+
+  // El BOM inicial permite que Excel reconozca los acentos como UTF-8.
+  const contenido = new Blob(['\ufeff' + construirCsv(matriculas)], {
+    type: 'text/csv;charset=utf-8;'
+  });
+
+  const enlace = document.createElement('a');
+  enlace.href = URL.createObjectURL(contenido);
+  enlace.download = 'matriculas.csv';
+  enlace.click();
+  URL.revokeObjectURL(enlace.href);
+
+  mostrarAviso('Listado exportado a CSV');
+}
+
+document.getElementById('btnExportar').addEventListener('click', exportarCsv);
