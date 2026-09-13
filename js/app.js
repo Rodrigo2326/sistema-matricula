@@ -30,3 +30,36 @@ function mostrarAviso(mensaje, tipo = 'exito') {
   aviso.classList.add('visible');
   setTimeout(() => aviso.classList.remove('visible'), 2800);
 }
+
+/* ===== Registro de matrículas ===== */
+
+const formMatricula = document.getElementById('formMatricula');
+
+/** Toma los valores del formulario y arma el objeto de la matrícula. */
+function leerFormulario() {
+  return {
+    id: Date.now(),
+    nombres: document.getElementById('nombres').value.trim(),
+    apellidos: document.getElementById('apellidos').value.trim(),
+    codigo: document.getElementById('codigo').value.trim().toUpperCase(),
+    dni: document.getElementById('dni').value.trim(),
+    carrera: document.getElementById('carrera').value,
+    ciclo: document.getElementById('ciclo').value,
+    curso: document.getElementById('curso').value.trim(),
+    fecha: new Date().toLocaleDateString('es-PE')
+  };
+}
+
+/** Registra una nueva matrícula y la persiste. */
+function registrarMatricula(evento) {
+  evento.preventDefault();
+
+  const matricula = leerFormulario();
+  matriculas.push(matricula);
+  guardarMatriculas();
+
+  formMatricula.reset();
+  mostrarAviso('Matrícula registrada correctamente');
+}
+
+formMatricula.addEventListener('submit', registrarMatricula);
