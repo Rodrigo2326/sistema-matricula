@@ -1,0 +1,37 @@
+RESOLUCION DEL CONFLICTO - APF1
+Repositorio: Rodrigo2326/sistema-matricula
+
+== Causa ==
+Las ramas feature/exportar-csv y feature/resumen-por-carrera partieron del
+mismo commit (2f174b0) y ambas agregaron un boton nuevo en la misma linea de
+la barra de herramientas del listado, ademas de anexar codigo al final de
+css/estilos.css y js/app.js. Al integrar la segunda rama, Git no pudo decidir
+cual de los dos cambios conservar y marco las tres regiones como conflicto.
+
+== Criterio de resolucion ==
+Las dos funcionalidades son complementarias y ninguna reemplaza a la otra, por
+lo que se conservo el contenido de ambas ramas en lugar de descartar una:
+
+  - index.html      : se mantuvieron los dos botones (Exportar CSV y Ver
+                      resumen) dentro de la misma barra de herramientas.
+  - css/estilos.css : se conservaron los estilos del panel de resumen. La
+                      regla .btn-secundario era identica en ambas ramas, por
+                      lo que Git la unifico automaticamente.
+  - js/app.js       : se conservaron los dos bloques de logica, el de
+                      exportacion a CSV y el del resumen por carrera.
+
+Como la barra paso a tener dos botones, se ajusto la regla de alineacion para
+que solo el primero empuje el grupo hacia la derecha.
+
+== Comandos utilizados ==
+$ git merge --no-ff feature/resumen-por-carrera   # genera el conflicto
+$ git status --short                              # UU en los 3 archivos
+# edicion manual de los archivos: se eliminan los marcadores <<<<<<<, =======
+# y >>>>>>> conservando el contenido de ambas ramas
+$ git add index.html css/estilos.css js/app.js
+$ git commit                                      # confirma la fusion
+
+== Verificacion posterior ==
+- No quedan marcadores de conflicto en el arbol de trabajo.
+- La barra muestra los dos botones y ambos responden correctamente.
+- El listado, la busqueda y la validacion siguen operativos.
