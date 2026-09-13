@@ -19,6 +19,49 @@
   <main>
     <section class="tarjeta" id="seccionRegistro">
       <h2>Nueva matrícula</h2>
+      <form id="formMatricula">
+        <div>
+          <label for="nombres">Nombres</label>
+          <input type="text" id="nombres" placeholder="Ej: Juan Carlos" required>
+        </div>
+        <div>
+          <label for="apellidos">Apellidos</label>
+          <input type="text" id="apellidos" placeholder="Ej: García López" required>
+        </div>
+        <div>
+          <label for="codigo">Código de estudiante</label>
+          <input type="text" id="codigo" placeholder="Ej: 2026-0001" required>
+        </div>
+        <div>
+          <label for="dni">DNI</label>
+          <input type="text" id="dni" placeholder="8 dígitos" maxlength="8" required>
+        </div>
+        <div>
+          <label for="carrera">Carrera</label>
+          <select id="carrera">
+            <option>Ingeniería de Sistemas</option>
+            <option>Administración</option>
+            <option>Contabilidad</option>
+            <option>Derecho</option>
+            <option>Marketing</option>
+            <option>Psicología</option>
+            <option>Arquitectura</option>
+          </select>
+        </div>
+        <div>
+          <label for="ciclo">Ciclo</label>
+          <select id="ciclo">
+            <option>I</option><option>II</option><option>III</option>
+            <option>IV</option><option>V</option><option>VI</option>
+            <option>VII</option><option>VIII</option><option>IX</option><option>X</option>
+          </select>
+        </div>
+        <div class="ancho-completo">
+          <label for="curso">Curso a matricular</label>
+          <input type="text" id="curso" placeholder="Ej: Algoritmos y Estructuras de Datos" required>
+        </div>
+        <button type="submit" class="btn-primario">+ Registrar matrícula</button>
+      </form>
     </section>
 
     <section class="tarjeta" id="seccionListado">
