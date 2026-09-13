@@ -76,12 +76,17 @@ python -m http.server 8000
 
 ```
 sistema-matricula/
-├── index.html          Interfaz de la aplicación
+├── index.html                  Interfaz de la aplicación
 ├── css/
-│   └── estilos.css     Hoja de estilos
+│   └── estilos.css             Hoja de estilos
 ├── js/
-│   └── app.js          Lógica de la aplicación
-├── docs/               Documentación y evidencias del avance
+│   └── app.js                  Lógica de la aplicación
+├── docs/
+│   ├── informe-apf1.md         Informe del avance 1
+│   ├── Informe_APF1.pdf        Informe del avance 1 en PDF
+│   ├── generar_informe.py      Script que genera el PDF
+│   └── evidencias/             Salidas de Git que respaldan el avance
+├── .gitignore
 └── README.md
 ```
 
@@ -100,6 +105,60 @@ avance.
 
 Cada rama se integra a `main` mediante una fusión explícita (`git merge --no-ff`)
 para que el historial conserve el punto de integración.
+
+### Ramas utilizadas en el APF1
+
+| Rama | Propósito | Estado |
+| --- | --- | --- |
+| `main` | Versión principal estable | Activa |
+| `feature/formulario-matricula` | Formulario de registro de matrículas | Fusionada |
+| `feature/listado-matriculas` | Tabla de registros, contador y eliminación | Fusionada |
+| `feature/busqueda-matriculas` | Filtrado del listado | Fusionada |
+| `feature/validacion-formulario` | Reglas de validación previas al registro | Fusionada |
+| `feature/exportar-csv` | Exportación del listado a CSV | Fusionada |
+| `feature/resumen-por-carrera` | Resumen de matrículas por carrera | Fusionada (con conflicto) |
+| `fix/filtro-se-pierde-al-actualizar` | Corrección del filtro al registrar o eliminar | Fusionada |
+| `feature/documentacion-apf1` | Informe y evidencias del avance | Fusionada |
+
+### Ejemplo de uso
+
+```bash
+# 1. Partir siempre de main actualizado
+git checkout main
+git pull
+
+# 2. Crear la rama de trabajo
+git checkout -b feature/mi-funcionalidad
+
+# 3. Trabajar y confirmar los cambios
+git add .
+git commit -m "Agregar mi funcionalidad"
+
+# 4. Publicar la rama
+git push -u origin feature/mi-funcionalidad
+
+# 5. Integrar a main conservando el punto de fusión
+git checkout main
+git merge --no-ff feature/mi-funcionalidad
+git push origin main
+```
+
+## Evidencias del APF1
+
+El detalle del avance está en [`docs/informe-apf1.md`](docs/informe-apf1.md) y en
+[`docs/Informe_APF1.pdf`](docs/Informe_APF1.pdf). Las salidas de Git que lo
+respaldan están en `docs/evidencias/`:
+
+| Archivo | Contenido |
+| --- | --- |
+| `historial-commits.txt` | Historial completo de commits con autor y fecha |
+| `grafico-ramas.txt` | Gráfico del historial con ramas y puntos de fusión |
+| `ramas.txt` | Ramas locales y remotas del proyecto |
+| `merges.txt` | Fusiones realizadas hacia `main` |
+| `conflicto-01-deteccion.txt` | Salida de Git al detectar el conflicto |
+| `conflicto-02-marcadores.txt` | Marcadores de conflicto tal como los dejó Git |
+| `conflicto-03-resolucion.txt` | Criterio y pasos de la resolución |
+| `sincronizacion-local-remoto.txt` | Estado de sincronización entre local y remoto |
 
 ## Licencia
 
