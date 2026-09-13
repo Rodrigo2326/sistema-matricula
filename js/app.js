@@ -192,3 +192,50 @@ function existeMatriculaDuplicada(nueva) {
     matricula.curso.toLowerCase() === nueva.curso.toLowerCase()
   );
 }
+
+/* ===== Resumen por carrera ===== */
+
+const panelResumen = document.getElementById('panelResumen');
+
+/** Cuenta cuántas matrículas hay por cada carrera. */
+function contarPorCarrera() {
+  return matriculas.reduce((conteo, matricula) => {
+    conteo[matricula.carrera] = (conteo[matricula.carrera] || 0) + 1;
+    return conteo;
+  }, {});
+}
+
+/** Dibuja el panel con el total de matrículas de cada carrera. */
+function renderizarResumen() {
+  const conteo = contarPorCarrera();
+  const carreras = Object.keys(conteo).sort();
+
+  panelResumen.innerHTML = '';
+
+  if (carreras.length === 0) {
+    const vacio = document.createElement('p');
+    vacio.className = 'sin-datos';
+    vacio.textContent = 'Todavía no hay matrículas para resumir.';
+    panelResumen.appendChild(vacio);
+    return;
+  }
+
+  const lista = document.createElement('ul');
+  carreras.forEach(carrera => {
+    const item = document.createElement('li');
+    const nombre = document.createElement('strong');
+    nombre.textContent = carrera;
+    item.appendChild(nombre);
+    item.appendChild(document.createTextNode(`: ${conteo[carrera]} matriculado(s)`));
+    lista.appendChild(item);
+  });
+  panelResumen.appendChild(lista);
+}
+
+/** Muestra u oculta el panel de resumen. */
+function alternarResumen() {
+  renderizarResumen();
+  panelResumen.classList.toggle('oculto');
+}
+
+document.getElementById('btnResumen').addEventListener('click', alternarResumen);
