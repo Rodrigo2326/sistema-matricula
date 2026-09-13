@@ -125,3 +125,27 @@ function eliminarMatricula(evento) {
 cuerpoTabla.addEventListener('click', eliminarMatricula);
 
 renderizarTabla(matriculas);
+
+/* ===== Búsqueda de matrículas ===== */
+
+const buscador = document.getElementById('buscador');
+
+/** Indica si la matrícula coincide con el término buscado. */
+function coincideConBusqueda(matricula, termino) {
+  const campos = [
+    `${matricula.nombres} ${matricula.apellidos}`,
+    matricula.codigo,
+    matricula.carrera,
+    matricula.curso
+  ];
+  return campos.some(campo => campo.toLowerCase().includes(termino));
+}
+
+/** Devuelve las matrículas que coinciden con lo escrito en el buscador. */
+function filtrarMatriculas() {
+  const termino = buscador.value.trim().toLowerCase();
+  if (termino === '') return matriculas;
+  return matriculas.filter(matricula => coincideConBusqueda(matricula, termino));
+}
+
+buscador.addEventListener('input', () => renderizarTabla(filtrarMatriculas()));

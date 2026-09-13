@@ -226,3 +226,10 @@ tr:hover td { background: #f9fafd; }
 }
 
 .btn-eliminar:hover { background: #ffe5e5; }
+
+/* ===== Buscador ===== */
+.barra-herramientas input[type="search"] {
+  max-width: 320px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
