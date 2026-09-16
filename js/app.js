@@ -100,7 +100,7 @@ function crearFila(matricula) {
   const btnEditar = document.createElement('button');
   btnEditar.className = 'btn-editar';
   btnEditar.title = 'Editar';
-  btnEditar.textContent = '✎'; // Puedes usar un emoji o texto
+  btnEditar.textContent = '✎'; 
   btnEditar.dataset.id = matricula.id;
   celdaAccion.appendChild(btnEditar);
 
@@ -135,7 +135,32 @@ function eliminarMatricula(evento) {
   refrescarListado();
   mostrarAviso('Matrícula eliminada');
 }
+let idEdicion = null; // Variable para saber si estamos editando
 
+/** Carga los datos de una matrícula en el formulario para editarla */
+function cargarDatosEdicion(evento) {
+  if (!evento.target.classList.contains('btn-editar')) return;
+
+  const id = Number(evento.target.dataset.id);
+  const matricula = matriculas.find(m => m.id === id);
+  if (!matricula) return;
+
+  document.getElementById('nombres').value = matricula.nombres;
+  document.getElementById('apellidos').value = matricula.apellidos;
+  document.getElementById('codigo').value = matricula.codigo;
+  document.getElementById('dni').value = matricula.dni;
+  document.getElementById('carrera').value = matricula.carrera;
+  document.getElementById('ciclo').value = matricula.ciclo;
+  document.getElementById('curso').value = matricula.curso;
+
+  idEdicion = id; // Guardamos el ID que estamos editando
+  
+  // Cambiamos el texto del botón
+  const btnSubmit = formMatricula.querySelector('button[type="submit"]');
+  btnSubmit.textContent = '💾 Guardar cambios';
+}
+
+cuerpoTabla.addEventListener('click', cargarDatosEdicion);
 cuerpoTabla.addEventListener('click', eliminarMatricula);
 
 renderizarTabla(matriculas);
