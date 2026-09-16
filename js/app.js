@@ -50,11 +50,16 @@ function leerFormulario() {
   };
 }
 
-/** Registra una nueva matrícula y la persiste. */
+/** Registra una nueva matrícula o actualiza una existente y la persiste. */
 function registrarMatricula(evento) {
   evento.preventDefault();
 
   const matricula = leerFormulario();
+  
+  // Si estamos editando, mantenemos el ID original
+  if (idEdicion !== null) {
+    matricula.id = idEdicion;
+  }
 
   const error = validarMatricula(matricula);
   if (error !== '') {
@@ -62,12 +67,23 @@ function registrarMatricula(evento) {
     return;
   }
 
-  matriculas.push(matricula);
+  if (idEdicion !== null) {
+    // Reemplazamos la matrícula existente
+    matriculas = matriculas.map(m => m.id === idEdicion ? matricula : m);
+    mostrarAviso('Cambios guardados correctamente');
+  } else {
+    // Agregamos como nueva
+    matriculas.push(matricula);
+    mostrarAviso('Matrícula registrada correctamente');
+  }
+  
   guardarMatriculas();
-
   refrescarListado();
   formMatricula.reset();
-  mostrarAviso('Matrícula registrada correctamente');
+  
+  // Restauramos el estado del formulario
+  idEdicion = null;
+  formMatricula.querySelector('button[type="submit"]').textContent = '+ Registrar matrícula';
 }
 
 formMatricula.addEventListener('submit', registrarMatricula);
