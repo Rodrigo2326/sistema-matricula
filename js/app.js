@@ -96,14 +96,21 @@ function crearFila(matricula) {
   fila.appendChild(crearCelda(matricula.curso));
   fila.appendChild(crearCelda(matricula.fecha));
 
-  const celdaAccion = document.createElement('td');
-  const boton = document.createElement('button');
-  boton.className = 'btn-eliminar';
-  boton.title = 'Eliminar';
-  boton.textContent = '✕';
-  boton.dataset.id = matricula.id;
-  celdaAccion.appendChild(boton);
-  fila.appendChild(celdaAccion);
+  // Botón Editar
+  const btnEditar = document.createElement('button');
+  btnEditar.className = 'btn-editar';
+  btnEditar.title = 'Editar';
+  btnEditar.textContent = '✎'; // Puedes usar un emoji o texto
+  btnEditar.dataset.id = matricula.id;
+  celdaAccion.appendChild(btnEditar);
+
+  // Botón Eliminar
+  const btnEliminar = document.createElement('button');
+  btnEliminar.className = 'btn-eliminar';
+  btnEliminar.title = 'Eliminar';
+  btnEliminar.textContent = '✕';
+  btnEliminar.dataset.id = matricula.id;
+  celdaAccion.appendChild(btnEliminar);
 
   return fila;
 }
