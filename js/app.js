@@ -241,9 +241,10 @@ function validarMatricula(matricula) {
   return '';
 }
 
-/** Indica si el estudiante ya está matriculado en el mismo curso. */
+/** Indica si el estudiante ya está matriculado en el mismo curso, ignorando el registro actual en edición. */
 function existeMatriculaDuplicada(nueva) {
   return matriculas.some(matricula =>
+    matricula.id !== nueva.id && // Excluye el registro que estamos editando
     matricula.codigo === nueva.codigo &&
     matricula.curso.toLowerCase() === nueva.curso.toLowerCase()
   );
