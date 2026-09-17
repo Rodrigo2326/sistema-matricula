@@ -3,6 +3,7 @@
 const CLAVE_ALMACEN = 'matriculas';
 
 let matriculas = cargarMatriculas();
+let idEnEdicion = null;
 
 /**
  * Lee las matrículas guardadas en el navegador.
@@ -50,24 +51,47 @@ function leerFormulario() {
   };
 }
 
-/** Registra una nueva matrícula y la persiste. */
+/** Carga los datos de una matrícula en el formulario para editarla. */
+function cargarEnFormulario(matricula) {
+  document.getElementById('nombres').value = matricula.nombres;
+  document.getElementById('apellidos').value = matricula.apellidos;
+  document.getElementById('codigo').value = matricula.codigo;
+  document.getElementById('dni').value = matricula.dni;
+  document.getElementById('carrera').value = matricula.carrera;
+  document.getElementById('ciclo').value = matricula.ciclo;
+  document.getElementById('curso').value = matricula.curso;
+
+  idEnEdicion = matricula.id;
+  document.getElementById('btnEnviar').textContent = 'Guardar cambios';
+  formMatricula.scrollIntoView({ behavior: 'smooth' });
+}
+
+/** Registra una nueva matrícula o actualiza una existente, según el modo actual. */
 function registrarMatricula(evento) {
   evento.preventDefault();
 
-  const matricula = leerFormulario();
+  const datos = leerFormulario();
 
-  const error = validarMatricula(matricula);
+  const error = validarMatricula(datos, idEnEdicion);
   if (error !== '') {
     mostrarAviso(error, 'error');
     return;
   }
 
-  matriculas.push(matricula);
-  guardarMatriculas();
+  if (idEnEdicion !== null) {
+    const indice = matriculas.findIndex(matricula => matricula.id === idEnEdicion);
+    matriculas[indice] = { ...matriculas[indice], ...datos, id: idEnEdicion };
+    mostrarAviso('Matrícula actualizada correctamente');
+  } else {
+    matriculas.push(datos);
+    mostrarAviso('Matrícula registrada correctamente');
+  }
 
+  guardarMatriculas();
   refrescarListado();
   formMatricula.reset();
-  mostrarAviso('Matrícula registrada correctamente');
+  idEnEdicion = null;
+  document.getElementById('btnEnviar').textContent = '+ Registrar matrícula';
 }
 
 formMatricula.addEventListener('submit', registrarMatricula);
@@ -97,14 +121,22 @@ function crearFila(matricula) {
   fila.appendChild(crearCelda(matricula.fecha));
 
   const celdaAccion = document.createElement('td');
-  const boton = document.createElement('button');
-  boton.className = 'btn-eliminar';
-  boton.title = 'Eliminar';
-  boton.textContent = '✕';
-  boton.dataset.id = matricula.id;
-  celdaAccion.appendChild(boton);
-  fila.appendChild(celdaAccion);
 
+  const botonEditar = document.createElement('button');
+  botonEditar.className = 'btn-editar';
+  botonEditar.title = 'Editar';
+  botonEditar.textContent = '✎';
+  botonEditar.dataset.id = matricula.id;
+  celdaAccion.appendChild(botonEditar);
+
+  const botonEliminar = document.createElement('button');
+  botonEliminar.className = 'btn-eliminar';
+  botonEliminar.title = 'Eliminar';
+  botonEliminar.textContent = '✕';
+  botonEliminar.dataset.id = matricula.id;
+  celdaAccion.appendChild(botonEliminar);
+
+  fila.appendChild(celdaAccion);
   return fila;
 }
 
@@ -116,20 +148,26 @@ function renderizarTabla(lista) {
   contador.textContent = lista.length;
 }
 
-/** Elimina la matrícula indicada previa confirmación. */
-function eliminarMatricula(evento) {
-  if (!evento.target.classList.contains('btn-eliminar')) return;
-
+/** Maneja los clics en la tabla: editar o eliminar según el botón presionado. */
+function manejarClicTabla(evento) {
   const id = Number(evento.target.dataset.id);
-  if (!confirm('¿Eliminar esta matrícula?')) return;
 
-  matriculas = matriculas.filter(matricula => matricula.id !== id);
-  guardarMatriculas();
-  refrescarListado();
-  mostrarAviso('Matrícula eliminada');
+  if (evento.target.classList.contains('btn-editar')) {
+    const matricula = matriculas.find(matricula => matricula.id === id);
+    if (matricula) cargarEnFormulario(matricula);
+    return;
+  }
+
+  if (evento.target.classList.contains('btn-eliminar')) {
+    if (!confirm('¿Eliminar esta matrícula?')) return;
+    matriculas = matriculas.filter(matricula => matricula.id !== id);
+    guardarMatriculas();
+    refrescarListado();
+    mostrarAviso('Matrícula eliminada');
+  }
 }
 
-cuerpoTabla.addEventListener('click', eliminarMatricula);
+cuerpoTabla.addEventListener('click', manejarClicTabla);
 
 renderizarTabla(matriculas);
 
@@ -171,10 +209,12 @@ const FORMATO_DNI = /^\d{8}$/;
 const FORMATO_CODIGO = /^\d{4}-\d{4}$/;
 
 /**
- * Revisa los datos de una matrícula antes de registrarla.
+ * Revisa los datos de una matrícula antes de registrarla o actualizarla.
+ * idExcluir es el id de la matrícula que se está editando (si aplica), para que
+ * la validación de duplicados no se dispare contra sí misma.
  * Devuelve el primer mensaje de error encontrado, o una cadena vacía si todo es válido.
  */
-function validarMatricula(matricula) {
+function validarMatricula(matricula, idExcluir = null) {
   if (matricula.nombres === '' || matricula.apellidos === '') {
     return 'Los nombres y apellidos son obligatorios.';
   }
@@ -187,15 +227,16 @@ function validarMatricula(matricula) {
   if (matricula.curso === '') {
     return 'Debe indicar el curso a matricular.';
   }
-  if (existeMatriculaDuplicada(matricula)) {
+  if (existeMatriculaDuplicada(matricula, idExcluir)) {
     return `El estudiante ${matricula.codigo} ya está matriculado en ese curso.`;
   }
   return '';
 }
 
-/** Indica si el estudiante ya está matriculado en el mismo curso. */
-function existeMatriculaDuplicada(nueva) {
+/** Indica si el estudiante ya está matriculado en el mismo curso (ignorando idExcluir). */
+function existeMatriculaDuplicada(nueva, idExcluir = null) {
   return matriculas.some(matricula =>
+    matricula.id !== idExcluir &&
     matricula.codigo === nueva.codigo &&
     matricula.curso.toLowerCase() === nueva.curso.toLowerCase()
   );
