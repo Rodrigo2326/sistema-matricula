@@ -150,6 +150,9 @@ def bloque_tabla(filas, estilos):
     # minimo y un maximo para que una columna de texto largo no deje sin espacio
     # a las demas, y para que la palabra mas larga de cada columna quepa entera.
     TOPE = 45
+    RELLENO = 10          # 5 pt de padding a cada lado de la celda
+    CARACTER = 5.6        # ancho aproximado de un caracter a 8.5 pt en negrita
+
     anchos_texto = []
     for i in range(len(cabecera)):
         celdas = [cabecera[i]] + [f[i] for f in cuerpo]
@@ -158,8 +161,28 @@ def bloque_tabla(filas, estilos):
         palabra = max((len(p) for c in celdas for p in c.split()), default=6)
         anchos_texto.append(max(largo, palabra, 6))
 
+    # El relleno de las celdas no escala con el texto: se descuenta antes de
+    # repartir el ancho y se devuelve despues, para que una columna estrecha no
+    # termine partiendo su encabezado.
+    disponible = ANCHO_UTIL - RELLENO * len(cabecera)
     total = float(sum(anchos_texto))
-    anchos = [ANCHO_UTIL * a / total for a in anchos_texto]
+    anchos = [disponible * a / total + RELLENO for a in anchos_texto]
+
+    # Garantiza que la palabra mas larga de cada columna quepa entera.
+    for i in range(len(cabecera)):
+        celdas = [cabecera[i]] + [f[i] for f in cuerpo]
+        palabra = max((len(p) for c in celdas for p in c.split()), default=6)
+        minimo = palabra * CARACTER + RELLENO
+        if anchos[i] < minimo:
+            anchos[i] = minimo
+
+    # Si los minimos desbordaron la pagina, se reduce la columna mas ancha.
+    exceso = sum(anchos) - ANCHO_UTIL
+    while exceso > 0.5:
+        i = anchos.index(max(anchos))
+        recorte = min(exceso, anchos[i] * 0.25)
+        anchos[i] -= recorte
+        exceso -= recorte
 
     datos = [[
         Paragraph(formato_linea(c, tam_codigo=7.5), estilos['celda_cab'])

@@ -1,8 +1,9 @@
 VERIFICACION FUNCIONAL DE LA APLICACION - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 
-Prueba ejecutada sobre index.html en un navegador Chromium sin interfaz,
-partiendo de un almacenamiento local vacio.
+Pruebas ejecutadas sobre index.html en un navegador Chromium sin interfaz,
+partiendo de un almacenamiento local vacio, sobre la rama main con todas las
+funcionalidades de los tres integrantes ya integradas.
 
 == Carga de la pagina ==
 HTTP                      : 200
@@ -10,42 +11,70 @@ Titulo                    : Sistema de Matricula
 Errores de consola        : 0
 Peticiones fallidas       : 0
 
-== Registro de matriculas ==
+== Registro de matriculas (Rodrigo) ==
 Estado inicial            : 0 filas, mensaje de listado vacio visible
 Tras 1er registro         : 1 fila, contador = 1
-Aviso mostrado            : 'Matricula registrada correctamente'
 Tras 3 registros          : 3 filas, contador = 3
 
-== Validacion ==
+== Validacion (Rodrigo) ==
 DNI '123'                 : RECHAZADO - 'El DNI debe tener exactamente 8 digitos.'
 Codigo 'ABC123'           : RECHAZADO - 'El codigo de estudiante debe tener el formato 2026-0001.'
 Matricula duplicada       : RECHAZADO - 'El estudiante 2026-0001 ya esta matriculado en ese curso.'
 En los tres casos el listado se mantuvo en 3 filas: no se guardo el registro.
 
-== Busqueda ==
+== Busqueda (Rodrigo) ==
 Termino 'quispe'          : 1 fila (coincidencia por apellido)
 Termino 'Sistemas'        : 2 filas (coincidencia por carrera)
 Termino 'zzzz'            : 0 filas y mensaje de listado vacio
 Campo vacio               : 3 filas (listado completo restaurado)
 
-== Correccion fix/filtro-se-pierde-al-actualizar ==
+== Correccion del filtro al actualizar (Rodrigo) ==
 Con el filtro 'Sistemas' aplicado (2 filas) se elimino un registro.
 Resultado                 : 1 fila, el filtro sigue aplicado y el buscador
                             conserva el texto 'Sistemas'.
-Antes de la correccion la tabla volvia a mostrar el listado completo.
 
-== Resumen por carrera ==
-Panel visible al pulsar 'Ver resumen'.
-Contenido                 : 'Contabilidad: 1 matriculado(s)'
-                            'Ingenieria de Sistemas: 1 matriculado(s)'
-El panel se oculta al pulsar el boton nuevamente.
+== Edicion de matriculas (Giancarlo Ccahuana) ==
+Boton de editar           : presente en cada fila del listado
+Al pulsar editar          : los campos se cargan con los datos del registro
+Texto del boton de envio  : cambia a 'Guardar cambios'
+Al guardar                : el registro se ACTUALIZA, no se duplica
+                            (1 fila, DNI modificado de 45781236 a 99999999)
+Aviso mostrado            : 'Matricula actualizada correctamente'
+Validacion de duplicados  : excluye el propio registro en edicion
+Errores de JavaScript     : 0
 
-== Exportacion a CSV ==
+== Filtros y ordenamiento (Arnold) ==
+Filtro por carrera        : 2 filas de 3 (esperado 2)
+Carrera + ciclo combinados: 1 fila (esperado 1)
+Filtros limpiados         : 3 filas (listado completo)
+Orden por nombre          : Ana Alvarez, Mario Medina, Zulema Zapata
+Orden por codigo          : 2026-0001, 2026-0002, 2026-0003
+Conversion de fechas      : 31/1/2026 -> 16/9/2026 -> 5/12/2026 -> 1/1/2027
+                            (orden cronologico correcto, no alfabetico)
+Errores de JavaScript     : 0
+
+== Exportacion a CSV (Rodrigo) ==
 Pulsar 'Exportar CSV' genera la descarga del archivo matriculas.csv.
 
+== Resumen por carrera (Rodrigo) ==
+Panel visible al pulsar 'Ver resumen', con el total por carrera.
+El panel se oculta al pulsar el boton nuevamente.
+
 == Persistencia ==
-Tras recargar la pagina se conservan los 2 registros y el contador = 2.
+Tras recargar la pagina se conservan los registros y el contador.
+
+== Pruebas de regresion ==
+Las 11 pruebas de las funcionalidades originales se volvieron a ejecutar tras
+integrar el trabajo de los tres integrantes: todas pasaron sin errores.
+
+== Observacion pendiente ==
+La barra de herramientas quedo visualmente apretada al sumar los dos
+selectores de filtro: el boton 'Limpiar' ocupa media fila, el boton de editar
+conserva el estilo por defecto del navegador y los botones de la barra
+parten su texto en dos lineas. No afecta el funcionamiento y queda registrado
+como ajuste pendiente de CSS.
 
 == Captura ==
-aplicacion-en-ejecucion.png muestra la interfaz con registros cargados y los
-botones 'Exportar CSV' y 'Ver resumen' integrados tras resolver el conflicto.
+aplicacion-en-ejecucion.png muestra la interfaz con tres registros cargados,
+los filtros por carrera y ciclo, el listado ordenado por nombre (indicador de
+orden visible en el encabezado) y los botones de editar y eliminar.

@@ -95,8 +95,13 @@ búsqueda, validación, exportación a CSV y resumen por carrera.
 | 4 | Validación | Verifica formato de código y DNI, campos obligatorios y matrículas duplicadas. | `feature/validacion-formulario` |
 | 5 | Exportación a CSV | Descarga el listado como archivo CSV compatible con Excel. | `feature/exportar-csv` |
 | 6 | Resumen por carrera | Panel desplegable con el total de matriculados en cada carrera. | `feature/resumen-por-carrera` |
+| 7 | Edición de matrícula | Permite corregir un registro ya guardado sin eliminarlo y volver a crearlo. | `feature/editar-matricula` |
+| 8 | Filtros por carrera y ciclo | Dos selectores que se combinan entre sí y con la búsqueda de texto. | `feature-filtros-ordenamiento` |
+| 9 | Ordenamiento del listado | Ordena por cualquier columna al hacer clic en su encabezado. | `feature-filtros-ordenamiento` |
 
-El avance supera el mínimo exigido de tres funcionalidades identificables.
+El avance supera holgadamente el mínimo exigido de tres funcionalidades
+identificables. Las funcionalidades 1 a 6 corresponden a Rodrigo Aparcana, la 7
+a Giancarlo Ccahuana y las 8 y 9 a Arnold.
 
 ### 6.1. Reglas de validación aplicadas
 
@@ -162,8 +167,11 @@ corrección concreta. Ninguna rama se creó sin cambios reales asociados.
 | `feature/resumen-por-carrera` | Resumen agrupado por carrera |
 | `fix/filtro-se-pierde-al-actualizar` | Corrección de un error detectado |
 | `feature/documentacion-apf1` | Informe y evidencias del avance |
+| `feature/editar-matricula` | Edición de matrículas (Giancarlo Ccahuana) |
+| `feature-filtros-ordenamiento` | Filtros y ordenamiento (Arnold) |
 
-La evidencia completa está en `docs/evidencias/ramas.txt`.
+La evidencia completa está en `docs/evidencias/ramas.txt`, que indica además el
+responsable de cada rama.
 
 ## 9. Historial de commits y gráfico de ramas
 
@@ -319,19 +327,54 @@ de sincronización está registrado en
 
 ## 14. Participación del equipo
 
-| Integrante | Usuario de GitHub | Rol |
-| --- | --- | --- |
-| Rodrigo Aparcana | @Rodrigo2326 | Responsable de repositorio |
-| Por asignar | Por asignar | Responsable funcional |
-| Por asignar | Por asignar | Responsable de calidad/automatización |
-| Por asignar | Por asignar | Responsable de despliegue/documentación |
+| Integrante | Usuario de GitHub | Rol | Commits |
+| --- | --- | --- | --- |
+| Rodrigo Aparcana | @Rodrigo2326 | Responsable de repositorio y documentación | 26 |
+| Arnold | @gamergggpro123-lgtm | Responsable de calidad y automatización | 5 |
+| Giancarlo Ccahuana | @soulahrikermette-hub | Responsable funcional | 3 |
 
-**Observación.** A la fecha de este avance el repositorio registra commits de un
-solo integrante. Los lineamientos exigen participación técnica de todos los
-miembros, por lo que antes de la sustentación cada integrante debe ser agregado
-como colaborador del repositorio y registrar sus propios commits desde su
-cuenta. La distribución prevista para el APF2 es que cada integrante tome al
-menos una rama de funcionalidad completa.
+Los tres integrantes están registrados como colaboradores del repositorio y
+tienen commits propios en el historial, verificables con `git shortlog -sn` y en
+la pestaña *Contributors* de GitHub.
+
+### 14.1. Reparto del trabajo
+
+**Rodrigo Aparcana** levantó la estructura del proyecto y las funcionalidades
+iniciales: formulario de registro, listado, búsqueda, validación, exportación a
+CSV y resumen por carrera. También se encargó de la configuración del
+repositorio, las convenciones de ramas y commits, y la documentación del avance.
+
+**Giancarlo Ccahuana** desarrolló la edición de matrículas en la rama
+`feature/editar-matricula`. Era la carencia funcional más evidente de la primera
+versión: se podía crear y eliminar un registro, pero no corregirlo, de modo que
+un error de tipeo obligaba a borrar y volver a registrar. Su implementación
+resolvió además un detalle sutil: la validación de duplicados debía excluir el
+propio registro en edición, porque de lo contrario el sistema rechazaba guardar
+un registro por considerarlo duplicado de sí mismo.
+
+**Arnold** desarrolló los filtros por carrera y ciclo y el ordenamiento del
+listado en la rama `feature-filtros-ordenamiento`. El punto técnico más
+interesante de su aporte fue el ordenamiento por fecha: las fechas se almacenan
+como texto en formato `DD/MM/YYYY`, por lo que compararlas directamente producía
+un orden alfabético incorrecto. Su solución convierte cada fecha a milisegundos
+antes de compararlas, de modo que el orden resultante es cronológico.
+
+### 14.2. Integración y revisión
+
+Cada rama se revisó antes de integrarla a `main`, ejecutando la aplicación en un
+navegador y comprobando tanto la funcionalidad nueva como las anteriores. Ese
+control detectó tres defectos que fueron corregidos por sus autores antes de la
+fusión:
+
+- Un identificador ausente en el HTML que impedía que el botón de envío cambiara
+  su texto al entrar en modo edición.
+- Una función `refrescarListado` declarada dos veces, cuya segunda declaración
+  anulaba el ordenamiento por efecto del *hoisting* de JavaScript.
+- Un elemento `id="contador"` duplicado en la barra de herramientas.
+
+Las dos ramas se integraron sin conflictos entre sí, y las pruebas de las
+funcionalidades originales volvieron a ejecutarse después de la integración sin
+detectar regresiones.
 
 ## 15. Conclusiones
 
@@ -347,14 +390,17 @@ menos una rama de funcionalidad completa.
    los puntos de fusión, fue posible identificar con precisión qué dos ramas
    entraron en conflicto y desde qué commit partieron.
 
-4. La principal brecha del avance es la participación individual: el historial
-   concentra los commits en un solo integrante. Es el punto a corregir de
-   inmediato para el APF2.
+4. El trabajo en paralelo de tres personas sobre el mismo archivo confirmó el
+   valor de revisar antes de integrar. Los tres defectos detectados no eran
+   visibles leyendo el código: aparecieron al ejecutar la aplicación. Ninguno
+   habría sido evidente en una revisión superficial del historial.
 
 ## 16. Próximos pasos (APF2)
 
-- Incorporar a todos los integrantes como colaboradores y distribuir las ramas.
-- Sustituir la integración directa por Pull Requests con revisión previa.
+- Sustituir la integración directa por Pull Requests con revisión previa, de modo
+  que las observaciones queden registradas en el repositorio y no fuera de él.
+- Ajustar la barra de herramientas del listado, que quedó visualmente apretada al
+  incorporar los dos selectores de filtro.
 - Publicar una Release que identifique la versión del proyecto.
 - Incorporar un tablero de actividades con responsables y estados.
 - Agregar al menos una funcionalidad nueva o una mejora importante.

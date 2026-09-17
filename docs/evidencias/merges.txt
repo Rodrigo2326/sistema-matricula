@@ -2,6 +2,9 @@ FUSIONES REALIZADAS HACIA MAIN - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 Comando: git log --merges --pretty=format:'%h | %ad | %s' --date=short
 
+8845c30 | 2026-09-17 | Fusionar feature-filtros-ordenamiento en main
+3d70220 | 2026-09-17 | Fusionar feature/editar-matricula en main
+ab8e96e | 2026-09-13 | Fusionar feature/actualizar-evidencias en main
 4c766c9 | 2026-09-13 | Fusionar feature/evidencias-apf1 en main
 bf57cc3 | 2026-09-13 | Fusionar fix/unificar-identidad-de-autor en main
 56aa5f9 | 2026-09-13 | Fusionar feature/documentacion-apf1 en main
@@ -14,6 +17,24 @@ f725272 | 2026-09-13 | Fusionar feature/listado-matriculas en main
 e52859e | 2026-09-13 | Fusionar feature/formulario-matricula en main
 
 == Detalle de archivos por fusion ==
+
+--- 8845c30 : Fusionar feature-filtros-ordenamiento en main
+ index.html | 35 +++++++++++++++++++------
+ js/app.js  | 86 ++++++++++++++++++++++++++++++++++++++++++++++++++++++--------
+ 2 files changed, 103 insertions(+), 18 deletions(-)
+
+--- 3d70220 : Fusionar feature/editar-matricula en main
+ index.html | 21 +++++++++----
+ js/app.js  | 99 ++++++++++++++++++++++++++++++++++++++++++++------------------
+ 2 files changed, 86 insertions(+), 34 deletions(-)
+
+--- ab8e96e : Fusionar feature/actualizar-evidencias en main
+ docs/evidencias/grafico-ramas.txt               |  8 ++++++-
+ docs/evidencias/historial-commits.txt           | 12 ++++++----
+ docs/evidencias/merges.txt                      | 16 +++++++++++++
+ docs/evidencias/ramas.txt                       | 32 +++++++++++++++----------
+ docs/evidencias/sincronizacion-local-remoto.txt | 28 ++++------------------
+ 5 files changed, 55 insertions(+), 41 deletions(-)
 
 --- 4c766c9 : Fusionar feature/evidencias-apf1 en main
  README.md                                       |   3 +
@@ -83,6 +104,6 @@ e52859e | 2026-09-13 | Fusionar feature/formulario-matricula en main
 Todas las integraciones usan git merge --no-ff. Sin esa opcion Git resolveria
 la fusion con un avance rapido (fast-forward) y los commits de la rama
 quedarian mezclados en la linea principal, perdiendo la informacion de que
-trabajo pertenecio a que funcionalidad.
+trabajo pertenecio a que funcionalidad y a que integrante.
 
 NOTA: esta salida es una instantanea tomada al generar el archivo. Los commits que la incorporan al repositorio aparecen despues de este punto en el historial.
