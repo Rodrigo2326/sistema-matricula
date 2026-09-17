@@ -29,7 +29,10 @@ Git. Funcionalmente incluye:
 
 - Registro de matrículas mediante formulario.
 - Listado de las matrículas registradas con contador.
-- Búsqueda y filtrado de los registros.
+- Búsqueda por nombre, código, carrera o curso.
+- Filtros por carrera y por ciclo, combinables con la búsqueda.
+- Ordenamiento del listado al hacer clic en los encabezados.
+- Edición de una matrícula ya registrada.
 - Validación de los datos ingresados.
 - Exportación del listado a CSV.
 - Resumen de matrículas agrupado por carrera.
@@ -41,15 +44,15 @@ Esos puntos corresponden a los avances APF2, APF3 y al proyecto final.
 
 ## Integrantes
 
-| Integrante | Usuario de GitHub | Rol |
-| --- | --- | --- |
-| Rodrigo Aparcana | [@Rodrigo2326](https://github.com/Rodrigo2326) | Responsable de repositorio |
-| _Por asignar_ | _Por asignar_ | Responsable funcional |
-| _Por asignar_ | _Por asignar_ | Responsable de calidad/automatización |
-| _Por asignar_ | _Por asignar_ | Responsable de despliegue/documentación |
+| Integrante | Usuario de GitHub | Rol | Aporte principal |
+| --- | --- | --- | --- |
+| Rodrigo Aparcana | [@Rodrigo2326](https://github.com/Rodrigo2326) | Responsable de repositorio y documentación | Estructura base, registro, listado, búsqueda, validación, exportación CSV y resumen por carrera |
+| Giancarlo Ccahuana | [@soulahrikermette-hub](https://github.com/soulahrikermette-hub) | Responsable funcional | Edición de matrículas registradas y botón de limpieza del formulario |
+| Arnold | [@gamergggpro123-lgtm](https://github.com/gamergggpro123-lgtm) | Responsable de calidad y automatización | Filtros por carrera y ciclo, y ordenamiento del listado por columnas |
 
-> Los integrantes pendientes deben ser agregados como colaboradores del
-> repositorio y registrar sus propios commits desde sus cuentas.
+Los tres integrantes tienen commits propios en el historial del repositorio.
+Cada funcionalidad se desarrolló en su propia rama y se integró a `main`
+mediante una fusión explícita.
 
 ## Requisitos
 
@@ -120,6 +123,11 @@ para que el historial conserve el punto de integración.
 | `feature/resumen-por-carrera` | Resumen de matrículas por carrera | Fusionada (con conflicto) |
 | `fix/filtro-se-pierde-al-actualizar` | Corrección del filtro al registrar o eliminar | Fusionada |
 | `feature/documentacion-apf1` | Informe y evidencias del avance | Fusionada |
+| `fix/unificar-identidad-de-autor` | Archivo mailmap del nombre de autor | Fusionada |
+| `feature/evidencias-apf1` | Evidencias de Git e informe en PDF | Fusionada |
+| `feature/actualizar-evidencias` | Actualización de las evidencias | Fusionada |
+| `feature/editar-matricula` | Edición de matrículas registradas | Fusionada |
+| `feature-filtros-ordenamiento` | Filtros por carrera/ciclo y ordenamiento | Fusionada |
 
 ### Ejemplo de uso
 
