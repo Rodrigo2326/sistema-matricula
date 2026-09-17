@@ -78,21 +78,40 @@
       <h2>Estudiantes matriculados</h2>
       <div class="barra-herramientas">
         <input type="search" id="buscador" placeholder="Buscar por nombre, código, carrera o curso...">
+        
+        <!-- Nuevos filtros -->
+        <select id="filtroCarrera">
+          <option value="">Todas las carreras</option>
+          <option>Ingeniería de Sistemas</option>
+          <option>Administración</option>
+          <option>Contabilidad</option>
+          <option>Derecho</option>
+          <option>Marketing</option>
+          <option>Psicología</option>
+          <option>Arquitectura</option>
+        </select>
+        <select id="filtroCiclo">
+          <option value="">Todos los ciclos</option>
+          <option>I</option><option>II</option><option>III</option>
+          <option>IV</option><option>V</option><option>VI</option>
+          <option>VII</option><option>VIII</option><option>IX</option><option>X</option>
+        </select>
+        <!-- Fin nuevos filtros -->
         <span class="contador" id="contador">0</span> registros
         <button type="button" class="btn-secundario" id="btnExportar">Exportar CSV</button>
         <button type="button" class="btn-secundario" id="btnResumen">Ver resumen</button>
       </div>
       <div class="resumen oculto" id="panelResumen"></div>
       <table id="tablaMatriculas">
-        <thead>
+      <thead>
           <tr>
-            <th>Código</th>
-            <th>Nombre completo</th>
-            <th>DNI</th>
-            <th>Carrera</th>
-            <th>Ciclo</th>
-            <th>Curso</th>
-            <th>Fecha</th>
+            <th data-columna="codigo" class="ordenable">Código <span></span></th>
+            <th data-columna="nombres" class="ordenable">Nombre completo <span></span></th>
+            <th data-columna="dni" class="ordenable">DNI <span></span></th>
+            <th data-columna="carrera" class="ordenable">Carrera <span></span></th>
+            <th data-columna="ciclo" class="ordenable">Ciclo <span></span></th>
+            <th data-columna="curso" class="ordenable">Curso <span></span></th>
+            <th data-columna="fecha" class="ordenable">Fecha <span></span></th>
             <th></th>
           </tr>
         </thead>

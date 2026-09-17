@@ -171,11 +171,68 @@ cuerpoTabla.addEventListener('click', manejarClicTabla);
 
 renderizarTabla(matriculas);
 
-/* ===== Búsqueda de matrículas ===== */
+/* ===== Búsqueda y Filtros de matrículas ===== */
 
 const buscador = document.getElementById('buscador');
+const filtroCarrera = document.getElementById('filtroCarrera');
+const filtroCiclo = document.getElementById('filtroCiclo');
+/* ===== Ordenamiento de tabla ===== */
 
-/** Indica si la matrícula coincide con el término buscado. */
+let columnaOrden = null;
+let ordenAscendente = true;
+
+document.querySelectorAll('th.ordenable').forEach(th => {
+  th.addEventListener('click', () => {
+    const columna = th.dataset.columna;
+    
+    // Alternar dirección si es la misma columna, sino reiniciar a ascendente
+    if (columnaOrden === columna) {
+      ordenAscendente = !ordenAscendente;
+    } else {
+      columnaOrden = columna;
+      ordenAscendente = true;
+    }
+
+    // Actualizar flechas visuales (opcional pero recomendado)
+    document.querySelectorAll('th.ordenable span').forEach(span => span.textContent = '');
+    th.querySelector('span').textContent = ordenAscendente ? ' ▲' : ' ▼';
+
+    refrescarListado();
+  });
+});
+
+function ordenarMatriculas(lista) {
+  if (!columnaOrden) return lista;
+
+  return lista.sort((a, b) => {
+    let valorA, valorB;
+
+    // EL DETALLE TÉCNICO: Conversión de fechas DD/MM/YYYY a milisegundos para comparar
+    if (columnaOrden === 'fecha') {
+      const convertirFecha = (fechaStr) => {
+        const [dia, mes, anio] = fechaStr.split('/');
+        // Formato ISO YYYY-MM-DD funciona de forma nativa en new Date()
+        return new Date(`${anio}-${mes}-${dia}`).getTime();
+      };
+      
+      valorA = convertirFecha(a.fecha);
+      valorB = convertirFecha(b.fecha);
+      
+    } else if (columnaOrden === 'nombres') {
+      valorA = `${a.nombres} ${a.apellidos}`.toLowerCase();
+      valorB = `${b.nombres} ${b.apellidos}`.toLowerCase();
+    } else {
+      valorA = String(a[columnaOrden]).toLowerCase();
+      valorB = String(b[columnaOrden]).toLowerCase();
+    }
+
+    // Retorno basado en la dirección del orden
+    if (valorA < valorB) return ordenAscendente ? -1 : 1;
+    if (valorA > valorB) return ordenAscendente ? 1 : -1;
+    return 0;
+  });
+}
+
 function coincideConBusqueda(matricula, termino) {
   const campos = [
     `${matricula.nombres} ${matricula.apellidos}`,
@@ -186,22 +243,31 @@ function coincideConBusqueda(matricula, termino) {
   return campos.some(campo => campo.toLowerCase().includes(termino));
 }
 
-/** Devuelve las matrículas que coinciden con lo escrito en el buscador. */
 function filtrarMatriculas() {
   const termino = buscador.value.trim().toLowerCase();
-  if (termino === '') return matriculas;
-  return matriculas.filter(matricula => coincideConBusqueda(matricula, termino));
+  const fCarrera = filtroCarrera.value;
+  const fCiclo = filtroCiclo.value;
+
+  return matriculas.filter(matricula => {
+    // Si el filtro está vacío, pasa la validación (true), sino compara
+    const pasaBuscador = termino === '' || coincideConBusqueda(matricula, termino);
+    const pasaCarrera = fCarrera === '' || matricula.carrera === fCarrera;
+    const pasaCiclo = fCiclo === '' || matricula.ciclo === fCiclo;
+    
+    // Solo devuelve la matrícula si cumple TODOS los filtros activos
+    return pasaBuscador && pasaCarrera && pasaCiclo;
+  });
 }
 
-/**
- * Redibuja la tabla respetando lo que haya escrito en el buscador.
- * Debe usarse despues de registrar o eliminar, para no perder el filtro activo.
- */
 function refrescarListado() {
-  renderizarTabla(filtrarMatriculas());
+  const filtradas = filtrarMatriculas();
+  const ordenadas = ordenarMatriculas(filtradas);
+  renderizarTabla(ordenadas);
 }
 
 buscador.addEventListener('input', refrescarListado);
+filtroCarrera.addEventListener('change', refrescarListado);
+filtroCiclo.addEventListener('change', refrescarListado);
 
 /* ===== Validación del formulario ===== */
 
