@@ -5,9 +5,15 @@ Repositorio remoto: https://github.com/Rodrigo2326/sistema-matricula
 origin	https://github.com/Rodrigo2326/sistema-matricula.git (fetch)
 origin	https://github.com/Rodrigo2326/sistema-matricula.git (push)
 
+== Colaboradores del repositorio ==
+Rodrigo2326            admin  (propietario)
+soulahrikermette-hub   write  (Giancarlo Ccahuana)
+gamergggpro123-lgtm    write  (Arnold)
+
 == Comprobacion rama por rama ==
 RAMA                                 LOCAL      REMOTO     ESTADO
-feature/actualizar-evidencias        4c766c9    -          no publicada
+feature/actualizar-documentacion-equipo 9f149f1    -          no publicada
+feature/actualizar-evidencias        a2e7ead    a2e7ead    sincronizada
 feature/busqueda-matriculas          5f1d208    5f1d208    sincronizada
 feature/documentacion-apf1           7151cdf    7151cdf    sincronizada
 feature/evidencias-apf1              2cb1836    2cb1836    sincronizada
@@ -18,7 +24,7 @@ feature/resumen-por-carrera          54f3286    54f3286    sincronizada
 feature/validacion-formulario        9cd80e2    9cd80e2    sincronizada
 fix/filtro-se-pierde-al-actualizar   4fddf50    4fddf50    sincronizada
 fix/unificar-identidad-de-autor      a92d622    a92d622    sincronizada
-main                                 4c766c9    4c766c9    sincronizada
+main                                 8845c30    8845c30    sincronizada
 
 == Flujo aplicado en cada funcionalidad ==
 git checkout main                 # ubicarse en la rama principal

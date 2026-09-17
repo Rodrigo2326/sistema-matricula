@@ -2,7 +2,27 @@ GRAFICO DE RAMAS E HISTORIAL - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 Comando: git log --graph --oneline --decorate --all
 
-*   4c766c9 (HEAD -> feature/actualizar-evidencias, origin/main, origin/HEAD, main) Fusionar feature/evidencias-apf1 en main
+* 9f149f1 (HEAD -> feature/actualizar-documentacion-equipo) Actualizar el README con los integrantes y las funcionalidades nuevas
+*   8845c30 (origin/main, origin/HEAD, main) Fusionar feature-filtros-ordenamiento en main
+|\  
+| * 64b7dc3 (origin/feature-filtros-ordenamiento) fix: eliminar funcion duplicada en JS y contador repetido en HTML
+| * 0be6d21 convertir string DD/MM/YYYY a timestamp para correcto ordenamiento de fechas
+| * e4c20af habilitar ordenamiento al hacer click en las columnas
+| * c2ac34b habilitar ordenamiento alfabetico al hacer click en las columnas
+| * 82c87f7 agregar selectores para filtrar por carrera y ciclo
+* |   3d70220 Fusionar feature/editar-matricula en main
+|\ \  
+| |/  
+|/|   
+| * a02fbde (origin/feature/editar-matricula) Agregar identificador al boton de envio del formulario
+| * 7494073 Agregar funcionalidad de editar matricula
+| * 11289e7 Agregar boton para limpiar formulario
+|/  
+*   ab8e96e Fusionar feature/actualizar-evidencias en main
+|\  
+| * a2e7ead (origin/feature/actualizar-evidencias, feature/actualizar-evidencias) Actualizar las evidencias de Git con el historial completo
+|/  
+*   4c766c9 Fusionar feature/evidencias-apf1 en main
 |\  
 | * 2cb1836 (origin/feature/evidencias-apf1, feature/evidencias-apf1) Agregar evidencias de Git e informe del avance en PDF
 |/  
@@ -49,8 +69,13 @@ Comando: git log --graph --oneline --decorate --all
 == Lectura del grafico ==
 Cada rama de trabajo se abre desde main, acumula sus commits y regresa a main
 mediante un commit de fusion (--no-ff), visible como bifurcacion que vuelve a
-unirse. Las ramas feature/exportar-csv y feature/resumen-por-carrera parten del
-mismo commit 2f174b0: ese punto comun es el origen del conflicto de integracion
+unirse.
+
+Las ramas feature/exportar-csv y feature/resumen-por-carrera parten del mismo
+commit 2f174b0: ese punto comun es el origen del conflicto de integracion
 documentado en conflicto-01-deteccion.txt.
+
+Las ramas feature/editar-matricula y feature-filtros-ordenamiento corresponden
+al trabajo de los otros dos integrantes del equipo.
 
 NOTA: esta salida es una instantanea tomada al generar el archivo. Los commits que la incorporan al repositorio aparecen despues de este punto en el historial.

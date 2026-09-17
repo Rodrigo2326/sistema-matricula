@@ -1,24 +1,12 @@
 RAMAS DEL PROYECTO - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 
-== Ramas locales (git branch -vv) ==
-* feature/actualizar-evidencias      4c766c9 Fusionar feature/evidencias-apf1 en main
-  feature/busqueda-matriculas        5f1d208 [origin/feature/busqueda-matriculas] Agregar busqueda de matriculas por nombre, codigo, carrera y curso
-  feature/documentacion-apf1         7151cdf [origin/feature/documentacion-apf1] Agregar informe del avance APF1 y ampliar el README
-  feature/evidencias-apf1            2cb1836 [origin/feature/evidencias-apf1] Agregar evidencias de Git e informe del avance en PDF
-  feature/exportar-csv               8a6437b [origin/feature/exportar-csv] Agregar exportacion del listado a CSV
-  feature/formulario-matricula       14574f9 [origin/feature/formulario-matricula] Agregar formulario de registro de matricula
-  feature/listado-matriculas         fd2490e [origin/feature/listado-matriculas] Agregar listado de matriculas registradas
-  feature/resumen-por-carrera        54f3286 [origin/feature/resumen-por-carrera] Agregar resumen de matriculas agrupado por carrera
-  feature/validacion-formulario      9cd80e2 [origin/feature/validacion-formulario] Validar los datos del formulario antes de registrar
-  fix/filtro-se-pierde-al-actualizar 4fddf50 [origin/fix/filtro-se-pierde-al-actualizar] Corregir perdida del filtro al registrar o eliminar una matricula
-  fix/unificar-identidad-de-autor    a92d622 [origin/fix/unificar-identidad-de-autor] Unificar el nombre de autor del historial con un archivo mailmap
-  main                               4c766c9 [origin/main] Fusionar feature/evidencias-apf1 en main
-
 == Ramas remotas (git branch -r) ==
-  origin/HEAD -> origin/main
+  origin/feature-filtros-ordenamiento
+  origin/feature/actualizar-evidencias
   origin/feature/busqueda-matriculas
   origin/feature/documentacion-apf1
+  origin/feature/editar-matricula
   origin/feature/evidencias-apf1
   origin/feature/exportar-csv
   origin/feature/formulario-matricula
@@ -29,19 +17,22 @@ Repositorio: Rodrigo2326/sistema-matricula
   origin/fix/unificar-identidad-de-autor
   origin/main
 
-== Proposito de cada rama ==
-main                                 Version principal estable.
-feature/formulario-matricula         Formulario de registro de matriculas.
-feature/listado-matriculas           Tabla de registros, contador y eliminacion.
-feature/busqueda-matriculas          Filtrado del listado.
-feature/validacion-formulario        Reglas de validacion previas al registro.
-feature/exportar-csv                 Exportacion del listado a CSV.
-feature/resumen-por-carrera          Resumen de matriculas por carrera.
-fix/filtro-se-pierde-al-actualizar   Correccion del filtro al registrar/eliminar.
-feature/documentacion-apf1           Informe del avance y ampliacion del README.
-fix/unificar-identidad-de-autor      Archivo mailmap para el nombre de autor.
-feature/evidencias-apf1              Evidencias de Git e informe en PDF.
-feature/actualizar-evidencias        Actualizacion final de las evidencias.
+== Proposito y responsable de cada rama ==
+RAMA                                 INTEGRANTE     PROPOSITO
+main                                 -              Version principal estable.
+feature/formulario-matricula         Rodrigo        Formulario de registro.
+feature/listado-matriculas           Rodrigo        Tabla, contador y eliminacion.
+feature/busqueda-matriculas          Rodrigo        Filtrado por texto.
+feature/validacion-formulario        Rodrigo        Reglas de validacion.
+feature/exportar-csv                 Rodrigo        Exportacion a CSV.
+feature/resumen-por-carrera          Rodrigo        Resumen por carrera.
+fix/filtro-se-pierde-al-actualizar   Rodrigo        Correccion del filtro activo.
+feature/documentacion-apf1           Rodrigo        Informe del avance.
+fix/unificar-identidad-de-autor      Rodrigo        Archivo mailmap.
+feature/evidencias-apf1              Rodrigo        Evidencias e informe PDF.
+feature/actualizar-evidencias        Rodrigo        Actualizacion de evidencias.
+feature/editar-matricula             Giancarlo      Edicion de matriculas.
+feature-filtros-ordenamiento         Arnold         Filtros y ordenamiento.
 
 Todas las ramas tienen cambios reales asociados; ninguna se creo solo para
 figurar en el historial.

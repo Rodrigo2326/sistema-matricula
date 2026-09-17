@@ -2,6 +2,19 @@ HISTORIAL DE COMMITS - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 Comando: git log --pretty=format:'%h | %an | %ad | %s' --date=short
 
+9f149f1 | Rodrigo Aparcana | 2026-09-17 | Actualizar el README con los integrantes y las funcionalidades nuevas
+8845c30 | Rodrigo Aparcana | 2026-09-17 | Fusionar feature-filtros-ordenamiento en main
+3d70220 | Rodrigo Aparcana | 2026-09-17 | Fusionar feature/editar-matricula en main
+64b7dc3 | Arnold | 2026-09-17 | fix: eliminar funcion duplicada en JS y contador repetido en HTML
+0be6d21 | Arnold | 2026-09-16 | convertir string DD/MM/YYYY a timestamp para correcto ordenamiento de fechas
+e4c20af | Arnold | 2026-09-16 | habilitar ordenamiento al hacer click en las columnas
+c2ac34b | Arnold | 2026-09-16 | habilitar ordenamiento alfabetico al hacer click en las columnas
+82c87f7 | Arnold | 2026-09-16 | agregar selectores para filtrar por carrera y ciclo
+a02fbde | giancarlo ccahuana | 2026-09-16 | Agregar identificador al boton de envio del formulario
+7494073 | giancarlo ccahuana | 2026-09-16 | Agregar funcionalidad de editar matricula
+11289e7 | giancarlo ccahuana | 2026-09-16 | Agregar boton para limpiar formulario
+ab8e96e | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/actualizar-evidencias en main
+a2e7ead | Rodrigo Aparcana | 2026-09-13 | Actualizar las evidencias de Git con el historial completo
 4c766c9 | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/evidencias-apf1 en main
 2cb1836 | Rodrigo Aparcana | 2026-09-13 | Agregar evidencias de Git e informe del avance en PDF
 bf57cc3 | Rodrigo Aparcana | 2026-09-13 | Fusionar fix/unificar-identidad-de-autor en main
@@ -25,15 +38,17 @@ e52859e | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/formulario-matricula 
 ad3c25a | Rodrigo2326 | 2026-09-13 | Agregar estructura base del proyecto
 
 == Resumen ==
-Total de commits   : 21
-Commits de fusion  : 10
-Commits de trabajo : 11
+Total de commits   : 34
+Commits de fusion  : 13
+Commits de trabajo : 21
 
-== Commits por autor (git shortlog -sn) ==
-    21	Rodrigo Aparcana
+== Commits por integrante (git shortlog -sn) ==
+    26	Rodrigo Aparcana
+     5	Arnold
+     3	giancarlo ccahuana
 
-NOTA: el historial concentra los commits en un solo integrante. Los demas
-integrantes deben registrar sus propios commits desde sus cuentas antes de
-la sustentacion, segun exigen los lineamientos del curso.
+Los tres integrantes del equipo registran commits propios en el historial.
+Cada uno desarrollo sus funcionalidades en ramas independientes que luego se
+integraron a main mediante fusiones explicitas.
 
 NOTA: esta salida es una instantanea tomada al generar el archivo. Los commits que la incorporan al repositorio aparecen despues de este punto en el historial.
