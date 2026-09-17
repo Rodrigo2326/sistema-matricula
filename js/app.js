@@ -169,8 +169,18 @@ function ordenarMatriculas(lista) {
   return lista.sort((a, b) => {
     let valorA, valorB;
 
-    // Manejo especial para el nombre completo (ya que en el objeto están separados)
-    if (columnaOrden === 'nombres') {
+    // EL DETALLE TÉCNICO: Conversión de fechas DD/MM/YYYY a milisegundos para comparar
+    if (columnaOrden === 'fecha') {
+      const convertirFecha = (fechaStr) => {
+        const [dia, mes, anio] = fechaStr.split('/');
+        // Formato ISO YYYY-MM-DD funciona de forma nativa en new Date()
+        return new Date(`${anio}-${mes}-${dia}`).getTime();
+      };
+      
+      valorA = convertirFecha(a.fecha);
+      valorB = convertirFecha(b.fecha);
+      
+    } else if (columnaOrden === 'nombres') {
       valorA = `${a.nombres} ${a.apellidos}`.toLowerCase();
       valorB = `${b.nombres} ${b.apellidos}`.toLowerCase();
     } else {
@@ -178,6 +188,7 @@ function ordenarMatriculas(lista) {
       valorB = String(b[columnaOrden]).toLowerCase();
     }
 
+    // Retorno basado en la dirección del orden
     if (valorA < valorB) return ordenAscendente ? -1 : 1;
     if (valorA > valorB) return ordenAscendente ? 1 : -1;
     return 0;
