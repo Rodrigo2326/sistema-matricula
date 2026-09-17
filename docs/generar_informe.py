@@ -61,15 +61,15 @@ def construir_estilos():
     )
     e['h1'] = ParagraphStyle(
         'h1', parent=base['Heading1'], fontSize=15, leading=19, textColor=AZUL,
-        spaceBefore=16, spaceAfter=7,
+        spaceBefore=13, spaceAfter=6,
     )
     e['h2'] = ParagraphStyle(
         'h2', parent=base['Heading2'], fontSize=12, leading=16,
         textColor=AZUL_CLARO, spaceBefore=11, spaceAfter=5,
     )
     e['cuerpo'] = ParagraphStyle(
-        'cuerpo', parent=base['Normal'], fontSize=10, leading=14.5,
-        alignment=TA_JUSTIFY, spaceAfter=7,
+        'cuerpo', parent=base['Normal'], fontSize=10, leading=14.2,
+        alignment=TA_JUSTIFY, spaceAfter=6,
     )
     e['vineta'] = ParagraphStyle(
         'vineta', parent=e['cuerpo'], spaceAfter=2.5,
