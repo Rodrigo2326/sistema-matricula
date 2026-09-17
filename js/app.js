@@ -133,11 +133,12 @@ cuerpoTabla.addEventListener('click', eliminarMatricula);
 
 renderizarTabla(matriculas);
 
-/* ===== Búsqueda de matrículas ===== */
+/* ===== Búsqueda y Filtros de matrículas ===== */
 
 const buscador = document.getElementById('buscador');
+const filtroCarrera = document.getElementById('filtroCarrera');
+const filtroCiclo = document.getElementById('filtroCiclo');
 
-/** Indica si la matrícula coincide con el término buscado. */
 function coincideConBusqueda(matricula, termino) {
   const campos = [
     `${matricula.nombres} ${matricula.apellidos}`,
@@ -148,12 +149,31 @@ function coincideConBusqueda(matricula, termino) {
   return campos.some(campo => campo.toLowerCase().includes(termino));
 }
 
-/** Devuelve las matrículas que coinciden con lo escrito en el buscador. */
 function filtrarMatriculas() {
   const termino = buscador.value.trim().toLowerCase();
-  if (termino === '') return matriculas;
-  return matriculas.filter(matricula => coincideConBusqueda(matricula, termino));
+  const fCarrera = filtroCarrera.value;
+  const fCiclo = filtroCiclo.value;
+
+  return matriculas.filter(matricula => {
+    // Si el filtro está vacío, pasa la validación (true), sino compara
+    const pasaBuscador = termino === '' || coincideConBusqueda(matricula, termino);
+    const pasaCarrera = fCarrera === '' || matricula.carrera === fCarrera;
+    const pasaCiclo = fCiclo === '' || matricula.ciclo === fCiclo;
+    
+    // Solo devuelve la matrícula si cumple TODOS los filtros activos
+    return pasaBuscador && pasaCarrera && pasaCiclo;
+  });
 }
+
+function refrescarListado() {
+  // Ahora pasará por el ordenamiento antes de renderizar (lo implementaremos en el siguiente paso)
+  const filtradas = filtrarMatriculas();
+  renderizarTabla(filtradas);
+}
+
+buscador.addEventListener('input', refrescarListado);
+filtroCarrera.addEventListener('change', refrescarListado);
+filtroCiclo.addEventListener('change', refrescarListado);
 
 /**
  * Redibuja la tabla respetando lo que haya escrito en el buscador.
