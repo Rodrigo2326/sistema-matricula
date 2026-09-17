@@ -138,6 +138,51 @@ renderizarTabla(matriculas);
 const buscador = document.getElementById('buscador');
 const filtroCarrera = document.getElementById('filtroCarrera');
 const filtroCiclo = document.getElementById('filtroCiclo');
+/* ===== Ordenamiento de tabla ===== */
+
+let columnaOrden = null;
+let ordenAscendente = true;
+
+document.querySelectorAll('th.ordenable').forEach(th => {
+  th.addEventListener('click', () => {
+    const columna = th.dataset.columna;
+    
+    // Alternar dirección si es la misma columna, sino reiniciar a ascendente
+    if (columnaOrden === columna) {
+      ordenAscendente = !ordenAscendente;
+    } else {
+      columnaOrden = columna;
+      ordenAscendente = true;
+    }
+
+    // Actualizar flechas visuales (opcional pero recomendado)
+    document.querySelectorAll('th.ordenable span').forEach(span => span.textContent = '');
+    th.querySelector('span').textContent = ordenAscendente ? ' ▲' : ' ▼';
+
+    refrescarListado();
+  });
+});
+
+function ordenarMatriculas(lista) {
+  if (!columnaOrden) return lista;
+
+  return lista.sort((a, b) => {
+    let valorA, valorB;
+
+    // Manejo especial para el nombre completo (ya que en el objeto están separados)
+    if (columnaOrden === 'nombres') {
+      valorA = `${a.nombres} ${a.apellidos}`.toLowerCase();
+      valorB = `${b.nombres} ${b.apellidos}`.toLowerCase();
+    } else {
+      valorA = String(a[columnaOrden]).toLowerCase();
+      valorB = String(b[columnaOrden]).toLowerCase();
+    }
+
+    if (valorA < valorB) return ordenAscendente ? -1 : 1;
+    if (valorA > valorB) return ordenAscendente ? 1 : -1;
+    return 0;
+  });
+}
 
 function coincideConBusqueda(matricula, termino) {
   const campos = [
@@ -165,10 +210,11 @@ function filtrarMatriculas() {
   });
 }
 
+// ACTUALIZA ESTA FUNCIÓN (Reemplaza la del Commit 1)
 function refrescarListado() {
-  // Ahora pasará por el ordenamiento antes de renderizar (lo implementaremos en el siguiente paso)
   const filtradas = filtrarMatriculas();
-  renderizarTabla(filtradas);
+  const ordenadas = ordenarMatriculas(filtradas);
+  renderizarTabla(ordenadas);
 }
 
 buscador.addEventListener('input', refrescarListado);
