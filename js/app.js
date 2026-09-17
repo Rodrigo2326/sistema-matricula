@@ -221,7 +221,6 @@ function filtrarMatriculas() {
   });
 }
 
-// ACTUALIZA ESTA FUNCIÓN (Reemplaza la del Commit 1)
 function refrescarListado() {
   const filtradas = filtrarMatriculas();
   const ordenadas = ordenarMatriculas(filtradas);
@@ -231,16 +230,6 @@ function refrescarListado() {
 buscador.addEventListener('input', refrescarListado);
 filtroCarrera.addEventListener('change', refrescarListado);
 filtroCiclo.addEventListener('change', refrescarListado);
-
-/**
- * Redibuja la tabla respetando lo que haya escrito en el buscador.
- * Debe usarse despues de registrar o eliminar, para no perder el filtro activo.
- */
-function refrescarListado() {
-  renderizarTabla(filtrarMatriculas());
-}
-
-buscador.addEventListener('input', refrescarListado);
 
 /* ===== Validación del formulario ===== */
 
