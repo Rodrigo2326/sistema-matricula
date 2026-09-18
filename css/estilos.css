@@ -305,6 +305,11 @@ form > button[type="reset"] {
 
 /* Buscador ocupa el espacio disponible en vez de quedar angosto */
 .barra-herramientas input[type="search"] {
-  flex: 1;
+  flex: 1 1 200px;
   max-width: none;
+}
+
+/* La columna de acciones no se parte en dos líneas */
+#tablaMatriculas td:last-child {
+  white-space: nowrap;
 }
