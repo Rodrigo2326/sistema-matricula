@@ -274,3 +274,42 @@ tr:hover td { background: #f9fafd; }
 .resumen li { padding: 2px 0; }
 
 .resumen strong { color: #1a2a52; }
+
+/* ===== Arreglos barra de herramientas ===== */
+
+/* Botón "Limpiar" ya no queda descuadrado en una sola columna del form */
+form > button[type="reset"] {
+  grid-column: 1 / -1;
+}
+
+/* Icono de editar con el mismo estilo que el de eliminar */
+.btn-editar {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2e4a9e;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  transition: background 0.15s;
+  line-height: 1;
+}
+
+.btn-editar:hover { background: #dce6ff; }
+
+/* Botones de la barra ya no se parten en dos líneas */
+.btn-secundario {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Buscador ocupa el espacio disponible en vez de quedar angosto */
+.barra-herramientas input[type="search"] {
+  flex: 1 1 200px;
+  max-width: none;
+}
+
+/* La columna de acciones no se parte en dos líneas */
+#tablaMatriculas td:last-child {
+  white-space: nowrap;
+}
