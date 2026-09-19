@@ -3,7 +3,9 @@ Repositorio: Rodrigo2326/sistema-matricula
 
 == Ramas remotas (git branch -r) ==
   origin/feature-filtros-ordenamiento
+  origin/feature/actualizar-documentacion-equipo
   origin/feature/actualizar-evidencias
+  origin/feature/arreglar-toolbar
   origin/feature/busqueda-matriculas
   origin/feature/documentacion-apf1
   origin/feature/editar-matricula
@@ -13,26 +15,35 @@ Repositorio: Rodrigo2326/sistema-matricula
   origin/feature/listado-matriculas
   origin/feature/resumen-por-carrera
   origin/feature/validacion-formulario
+  origin/fix/ancho-del-buscador
   origin/fix/filtro-se-pierde-al-actualizar
+  origin/fix/pagina-huerfana-del-informe
   origin/fix/unificar-identidad-de-autor
+  origin/fix/unificar-nombres-de-autor
   origin/main
 
 == Proposito y responsable de cada rama ==
-RAMA                                 INTEGRANTE     PROPOSITO
-main                                 -              Version principal estable.
-feature/formulario-matricula         Rodrigo        Formulario de registro.
-feature/listado-matriculas           Rodrigo        Tabla, contador y eliminacion.
-feature/busqueda-matriculas          Rodrigo        Filtrado por texto.
-feature/validacion-formulario        Rodrigo        Reglas de validacion.
-feature/exportar-csv                 Rodrigo        Exportacion a CSV.
-feature/resumen-por-carrera          Rodrigo        Resumen por carrera.
-fix/filtro-se-pierde-al-actualizar   Rodrigo        Correccion del filtro activo.
-feature/documentacion-apf1           Rodrigo        Informe del avance.
-fix/unificar-identidad-de-autor      Rodrigo        Archivo mailmap.
-feature/evidencias-apf1              Rodrigo        Evidencias e informe PDF.
-feature/actualizar-evidencias        Rodrigo        Actualizacion de evidencias.
-feature/editar-matricula             Giancarlo      Edicion de matriculas.
-feature-filtros-ordenamiento         Arnold         Filtros y ordenamiento.
+RAMA                                   INTEGRANTE   PROPOSITO
+main                                   -            Version principal estable.
+feature/formulario-matricula           Rodrigo      Formulario de registro.
+feature/listado-matriculas             Rodrigo      Tabla, contador y eliminacion.
+feature/busqueda-matriculas            Rodrigo      Filtrado por texto.
+feature/validacion-formulario          Rodrigo      Reglas de validacion.
+feature/exportar-csv                   Rodrigo      Exportacion a CSV.
+feature/resumen-por-carrera            Rodrigo      Resumen por carrera.
+fix/filtro-se-pierde-al-actualizar     Rodrigo      Correccion del filtro activo.
+feature/documentacion-apf1             Rodrigo      Informe del avance.
+fix/unificar-identidad-de-autor        Rodrigo      Archivo mailmap.
+feature/evidencias-apf1                Rodrigo      Evidencias e informe PDF.
+feature/actualizar-evidencias          Rodrigo      Actualizacion de evidencias.
+feature/editar-matricula               Giancarlo    Edicion de matriculas.
+feature-filtros-ordenamiento           Arnold       Filtros y ordenamiento.
+feature/actualizar-documentacion-equipo Rodrigo      README, evidencias e informe.
+fix/pagina-huerfana-del-informe        Rodrigo      Maquetacion del PDF.
+feature/arreglar-toolbar               Giancarlo    Estilos de la barra y el listado.
+fix/ancho-del-buscador                 Rodrigo      Ancho del campo de busqueda.
+fix/unificar-nombres-de-autor          Rodrigo      Mailmap de los tres integrantes.
+feature/documentacion-final-apf1       Rodrigo      Cierre de la documentacion.
 
 Todas las ramas tienen cambios reales asociados; ninguna se creo solo para
 figurar en el historial.

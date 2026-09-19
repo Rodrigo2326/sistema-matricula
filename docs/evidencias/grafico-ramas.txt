@@ -2,8 +2,31 @@ GRAFICO DE RAMAS E HISTORIAL - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 Comando: git log --graph --oneline --decorate --all
 
-* 9f149f1 (HEAD -> feature/actualizar-documentacion-equipo) Actualizar el README con los integrantes y las funcionalidades nuevas
-*   8845c30 (origin/main, origin/HEAD, main) Fusionar feature-filtros-ordenamiento en main
+*   0364128 (HEAD -> feature/documentacion-final-apf1, origin/main, origin/HEAD, main) Fusionar fix/unificar-nombres-de-autor en main
+|\  
+| * c63ca21 (origin/fix/unificar-nombres-de-autor, fix/unificar-nombres-de-autor) Unificar tambien las variantes del nombre de Giancarlo Ccahuana
+|/  
+*   856d474 Fusionar fix/ancho-del-buscador en main
+|\  
+| * f58ed67 (origin/fix/ancho-del-buscador, fix/ancho-del-buscador) Corregir el ancho del buscador en la barra de herramientas
+|/  
+*   4f161fd Fusionar feature/arreglar-toolbar en main
+|\  
+| * 44d4162 (origin/feature/arreglar-toolbar) Evitar salto de linea en columna de acciones
+| * 4418e6f Corregir ancho del buscador en la barra de herramientas
+| * e5e6e97 Arreglar estilos de la barra de herramientas
+|/  
+*   e057e29 Fusionar fix/pagina-huerfana-del-informe en main
+|\  
+| * 3030e39 (origin/fix/pagina-huerfana-del-informe, fix/pagina-huerfana-del-informe) Evitar la pagina huerfana al final del informe
+|/  
+*   d44af45 Fusionar feature/actualizar-documentacion-equipo en main
+|\  
+| * eade0cb (origin/feature/actualizar-documentacion-equipo, feature/actualizar-documentacion-equipo) Actualizar el informe con la participacion de los tres integrantes
+| * 6d24012 Actualizar las evidencias con la participacion de los tres integrantes
+| * 9f149f1 Actualizar el README con los integrantes y las funcionalidades nuevas
+|/  
+*   8845c30 Fusionar feature-filtros-ordenamiento en main
 |\  
 | * 64b7dc3 (origin/feature-filtros-ordenamiento) fix: eliminar funcion duplicada en JS y contador repetido en HTML
 | * 0be6d21 convertir string DD/MM/YYYY a timestamp para correcto ordenamiento de fechas
@@ -75,7 +98,8 @@ Las ramas feature/exportar-csv y feature/resumen-por-carrera parten del mismo
 commit 2f174b0: ese punto comun es el origen del conflicto de integracion
 documentado en conflicto-01-deteccion.txt.
 
-Las ramas feature/editar-matricula y feature-filtros-ordenamiento corresponden
-al trabajo de los otros dos integrantes del equipo.
+Las ramas feature/editar-matricula, feature/arreglar-toolbar (Giancarlo
+Ccahuana) y feature-filtros-ordenamiento (Arnold) corresponden al trabajo de
+los otros dos integrantes del equipo.
 
 NOTA: esta salida es una instantanea tomada al generar el archivo. Los commits que la incorporan al repositorio aparecen despues de este punto en el historial.

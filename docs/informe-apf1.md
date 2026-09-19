@@ -154,8 +154,10 @@ commits pertenecieron a cada funcionalidad.
 
 ## 8. Ramas de trabajo
 
-Se crearon ocho ramas de trabajo, cada una asociada a una funcionalidad o
-corrección concreta. Ninguna rama se creó sin cambios reales asociados.
+Se crearon dieciocho ramas de trabajo, cada una asociada a una funcionalidad
+o corrección concreta. Ninguna rama se creó sin cambios reales asociados.
+La tabla siguiente recoge las principales; el listado completo, con el
+responsable de cada una, está en `docs/evidencias/ramas.txt`.
 
 | Rama | Propósito |
 | --- | --- |
@@ -320,7 +322,7 @@ git merge --no-ff feature/nueva       # integrar conservando el punto de fusión
 git push origin main                  # sincronizar la integración
 ```
 
-Las ocho ramas de trabajo están publicadas en el repositorio remoto, no solo en
+Todas las ramas de trabajo están publicadas en el repositorio remoto, no solo en
 local, de modo que el historial completo es verificable desde GitHub. El estado
 de sincronización está registrado en
 `docs/evidencias/sincronizacion-local-remoto.txt`.
@@ -329,13 +331,18 @@ de sincronización está registrado en
 
 | Integrante | Usuario de GitHub | Rol | Commits |
 | --- | --- | --- | --- |
-| Rodrigo Aparcana | @Rodrigo2326 | Responsable de repositorio y documentación | 26 |
+| Rodrigo Aparcana | @Rodrigo2326 | Responsable de repositorio y documentación | 36 |
+| Giancarlo Ccahuana | @soulahrikermette-hub | Responsable funcional | 6 |
 | Arnold | @gamergggpro123-lgtm | Responsable de calidad y automatización | 5 |
-| Giancarlo Ccahuana | @soulahrikermette-hub | Responsable funcional | 3 |
 
 Los tres integrantes están registrados como colaboradores del repositorio y
 tienen commits propios en el historial, verificables con `git shortlog -sn` y en
 la pestaña *Contributors* de GitHub.
+
+El repositorio incluye un archivo `.mailmap` porque dos integrantes configuraron
+Git con más de un nombre sobre el mismo correo, y el historial los contaba como
+personas distintas. El mapeo corrige el recuento en `git log`, `git shortlog` y
+`git blame` sin reescribir ningún commit ni alterar sus identificadores.
 
 ### 14.1. Reparto del trabajo
 
@@ -352,6 +359,10 @@ resolvió además un detalle sutil: la validación de duplicados debía excluir 
 propio registro en edición, porque de lo contrario el sistema rechazaba guardar
 un registro por considerarlo duplicado de sí mismo.
 
+Giancarlo se encargó además del ajuste visual de la barra de herramientas y del
+listado en la rama `feature/arreglar-toolbar`, que había quedado desalineada al
+sumar los selectores de filtro.
+
 **Arnold** desarrolló los filtros por carrera y ciclo y el ordenamiento del
 listado en la rama `feature-filtros-ordenamiento`. El punto técnico más
 interesante de su aporte fue el ordenamiento por fecha: las fechas se almacenan
@@ -363,14 +374,17 @@ antes de compararlas, de modo que el orden resultante es cronológico.
 
 Cada rama se revisó antes de integrarla a `main`, ejecutando la aplicación en un
 navegador y comprobando tanto la funcionalidad nueva como las anteriores. Ese
-control detectó tres defectos que fueron corregidos por sus autores antes de la
-fusión:
+control detectó cuatro defectos, que fueron corregidos antes de la fusión:
 
 - Un identificador ausente en el HTML que impedía que el botón de envío cambiara
   su texto al entrar en modo edición.
 - Una función `refrescarListado` declarada dos veces, cuya segunda declaración
   anulaba el ordenamiento por efecto del *hoisting* de JavaScript.
 - Un elemento `id="contador"` duplicado en la barra de herramientas.
+- Un campo de búsqueda reducido a unos pocos píxeles. El origen no estaba en las
+  reglas de la barra sino en la regla general `input, select { width: 100% }` de
+  la hoja de estilos, que hacía que los campos reclamaran el ancho completo del
+  contenedor.
 
 Las dos ramas se integraron sin conflictos entre sí, y las pruebas de las
 funcionalidades originales volvieron a ejecutarse después de la integración sin
@@ -379,8 +393,8 @@ detectar regresiones.
 ## 15. Conclusiones
 
 1. El proyecto cuenta con una base versionada correcta: repositorio inicializado
-   con `main` como rama principal, remoto público configurado y ocho ramas de
-   trabajo asociadas a funcionalidades concretas.
+   con `main` como rama principal, remoto público configurado y dieciocho ramas
+   de trabajo asociadas a funcionalidades concretas.
 
 2. La separación de la aplicación en `index.html`, `css/estilos.css` y
    `js/app.js` no fue solo una decisión de orden: redujo el alcance de los
@@ -391,7 +405,7 @@ detectar regresiones.
    entraron en conflicto y desde qué commit partieron.
 
 4. El trabajo en paralelo de tres personas sobre el mismo archivo confirmó el
-   valor de revisar antes de integrar. Los tres defectos detectados no eran
+   valor de revisar antes de integrar. Los cuatro defectos detectados no eran
    visibles leyendo el código: aparecieron al ejecutar la aplicación. Ninguno
    habría sido evidente en una revisión superficial del historial.
 
@@ -399,8 +413,6 @@ detectar regresiones.
 
 - Sustituir la integración directa por Pull Requests con revisión previa, de modo
   que las observaciones queden registradas en el repositorio y no fuera de él.
-- Ajustar la barra de herramientas del listado, que quedó visualmente apretada al
-  incorporar los dos selectores de filtro.
 - Publicar una Release que identifique la versión del proyecto.
 - Incorporar un tablero de actividades con responsables y estados.
 - Agregar al menos una funcionalidad nueva o una mejora importante.

@@ -2,6 +2,19 @@ HISTORIAL DE COMMITS - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 Comando: git log --pretty=format:'%h | %an | %ad | %s' --date=short
 
+0364128 | Rodrigo Aparcana | 2026-09-18 | Fusionar fix/unificar-nombres-de-autor en main
+c63ca21 | Rodrigo Aparcana | 2026-09-18 | Unificar tambien las variantes del nombre de Giancarlo Ccahuana
+856d474 | Rodrigo Aparcana | 2026-09-18 | Fusionar fix/ancho-del-buscador en main
+f58ed67 | Rodrigo Aparcana | 2026-09-18 | Corregir el ancho del buscador en la barra de herramientas
+4f161fd | Rodrigo Aparcana | 2026-09-18 | Fusionar feature/arreglar-toolbar en main
+44d4162 | giancarlo ccahuana | 2026-09-18 | Evitar salto de linea en columna de acciones
+4418e6f | giancarlo ccahuana | 2026-09-18 | Corregir ancho del buscador en la barra de herramientas
+e5e6e97 | Giancarlo | 2026-09-17 | Arreglar estilos de la barra de herramientas
+e057e29 | Rodrigo Aparcana | 2026-09-17 | Fusionar fix/pagina-huerfana-del-informe en main
+3030e39 | Rodrigo Aparcana | 2026-09-17 | Evitar la pagina huerfana al final del informe
+d44af45 | Rodrigo Aparcana | 2026-09-17 | Fusionar feature/actualizar-documentacion-equipo en main
+eade0cb | Rodrigo Aparcana | 2026-09-17 | Actualizar el informe con la participacion de los tres integrantes
+6d24012 | Rodrigo Aparcana | 2026-09-17 | Actualizar las evidencias con la participacion de los tres integrantes
 9f149f1 | Rodrigo Aparcana | 2026-09-17 | Actualizar el README con los integrantes y las funcionalidades nuevas
 8845c30 | Rodrigo Aparcana | 2026-09-17 | Fusionar feature-filtros-ordenamiento en main
 3d70220 | Rodrigo Aparcana | 2026-09-17 | Fusionar feature/editar-matricula en main
@@ -38,17 +51,21 @@ e52859e | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/formulario-matricula 
 ad3c25a | Rodrigo2326 | 2026-09-13 | Agregar estructura base del proyecto
 
 == Resumen ==
-Total de commits   : 34
-Commits de fusion  : 13
-Commits de trabajo : 21
+Total de commits   : 47
+Commits de fusion  : 18
+Commits de trabajo : 29
 
 == Commits por integrante (git shortlog -sn) ==
-    26	Rodrigo Aparcana
+    36	Rodrigo Aparcana
+     6	Giancarlo Ccahuana
      5	Arnold
-     3	giancarlo ccahuana
 
 Los tres integrantes del equipo registran commits propios en el historial.
 Cada uno desarrollo sus funcionalidades en ramas independientes que luego se
 integraron a main mediante fusiones explicitas.
+
+El archivo .mailmap unifica las variantes de nombre con que cada integrante
+configuro Git, de modo que el recuento anterior refleje personas y no
+configuraciones distintas.
 
 NOTA: esta salida es una instantanea tomada al generar el archivo. Los commits que la incorporan al repositorio aparecen despues de este punto en el historial.

@@ -2,6 +2,11 @@ FUSIONES REALIZADAS HACIA MAIN - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 Comando: git log --merges --pretty=format:'%h | %ad | %s' --date=short
 
+0364128 | 2026-09-18 | Fusionar fix/unificar-nombres-de-autor en main
+856d474 | 2026-09-18 | Fusionar fix/ancho-del-buscador en main
+4f161fd | 2026-09-18 | Fusionar feature/arreglar-toolbar en main
+e057e29 | 2026-09-17 | Fusionar fix/pagina-huerfana-del-informe en main
+d44af45 | 2026-09-17 | Fusionar feature/actualizar-documentacion-equipo en main
 8845c30 | 2026-09-17 | Fusionar feature-filtros-ordenamiento en main
 3d70220 | 2026-09-17 | Fusionar feature/editar-matricula en main
 ab8e96e | 2026-09-13 | Fusionar feature/actualizar-evidencias en main
@@ -17,6 +22,37 @@ f725272 | 2026-09-13 | Fusionar feature/listado-matriculas en main
 e52859e | 2026-09-13 | Fusionar feature/formulario-matricula en main
 
 == Detalle de archivos por fusion ==
+
+--- 0364128 : Fusionar fix/unificar-nombres-de-autor en main
+ .mailmap | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+--- 856d474 : Fusionar fix/ancho-del-buscador en main
+ css/estilos.css | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+--- 4f161fd : Fusionar feature/arreglar-toolbar en main
+ css/estilos.css | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
+
+--- e057e29 : Fusionar fix/pagina-huerfana-del-informe en main
+ docs/Informe_APF1.pdf   | 109 ++++++++++++++++++++----------------------------
+ docs/generar_informe.py |   6 +--
+ 2 files changed, 48 insertions(+), 67 deletions(-)
+
+--- d44af45 : Fusionar feature/actualizar-documentacion-equipo en main
+ README.md                                       |  26 ++++--
+ docs/Informe_APF1.pdf                           | 109 ++++++++++++++----------
+ docs/evidencias/aplicacion-en-ejecucion.png     | Bin 103457 -> 109723 bytes
+ docs/evidencias/grafico-ramas.txt               |  31 ++++++-
+ docs/evidencias/historial-commits.txt           |  31 +++++--
+ docs/evidencias/merges.txt                      |  23 ++++-
+ docs/evidencias/ramas.txt                       |  47 +++++-----
+ docs/evidencias/sincronizacion-local-remoto.txt |  10 ++-
+ docs/evidencias/verificacion-funcional.txt      |  63 ++++++++++----
+ docs/generar_informe.py                         |  25 +++++-
+ docs/informe-apf1.md                            |  86 ++++++++++++++-----
+ 11 files changed, 317 insertions(+), 134 deletions(-)
 
 --- 8845c30 : Fusionar feature-filtros-ordenamiento en main
  index.html | 35 +++++++++++++++++++------
