@@ -59,6 +59,10 @@ def construir_estilos():
         'dato_portada', parent=base['Normal'], fontSize=10.5, leading=17,
         alignment=TA_CENTER, textColor=GRIS_TEXTO,
     )
+    e['integrante_portada'] = ParagraphStyle(
+        'integrante_portada', parent=base['Normal'], fontSize=11, leading=18,
+        alignment=TA_CENTER, textColor=AZUL,
+    )
     e['h1'] = ParagraphStyle(
         'h1', parent=base['Heading1'], fontSize=15, leading=19, textColor=AZUL,
         spaceBefore=11, spaceAfter=5,
@@ -357,17 +361,23 @@ def convertir(markdown, estilos):
 # Portada y pie de pagina
 # --------------------------------------------------------------------------
 
-def portada(estilos, metadatos):
+def portada(estilos, metadatos, integrantes):
     elementos = [
-        Spacer(1, 4.2 * cm),
+        Spacer(1, 3.4 * cm),
         Paragraph('Avance de Proyecto Final 1', estilos['titulo_portada']),
         Paragraph('Sistema de Matr&iacute;cula', estilos['subtitulo_portada']),
-        Spacer(1, 1.6 * cm),
+        Spacer(1, 1.5 * cm),
     ]
     for etiqueta, valor in metadatos:
         elementos.append(
             Paragraph('<b>%s:</b> %s' % (etiqueta, valor), estilos['dato_portada'])
         )
+
+    elementos.append(Spacer(1, 0.9 * cm))
+    elementos.append(Paragraph('<b>Integrantes:</b>', estilos['dato_portada']))
+    for nombre in integrantes:
+        elementos.append(Paragraph(nombre, estilos['integrante_portada']))
+
     elementos.append(PageBreak())
     return elementos
 
@@ -402,7 +412,12 @@ def main():
         ('Semana', '6'),
         ('Proyecto', 'Sistema de Matr&iacute;cula'),
         ('Repositorio', 'github.com/Rodrigo2326/sistema-matricula'),
-        ('Integrante', 'Rodrigo Aparcana (@Rodrigo2326)'),
+    ]
+
+    integrantes = [
+        'Ccahuana Huillca Giancarlo',
+        'Aparcana Mamani Rodrigo Alonso',
+        'Arnold Jhuncor Díaz Silva',
     ]
 
     documento = BaseDocTemplate(
@@ -420,7 +435,7 @@ def main():
         PageTemplate(id='principal', frames=[marco], onPage=pie_de_pagina)
     ])
 
-    historia = portada(estilos, metadatos) + convertir(markdown, estilos)
+    historia = portada(estilos, metadatos, integrantes) + convertir(markdown, estilos)
     documento.build(historia)
 
     print('PDF generado: %s' % DESTINO)

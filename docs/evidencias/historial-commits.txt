@@ -2,6 +2,9 @@ HISTORIAL DE COMMITS - APF1
 Repositorio: Rodrigo2326/sistema-matricula
 Comando: git log --pretty=format:'%h | %an | %ad | %s' --date=short
 
+4c27068 | Rodrigo Aparcana | 2026-09-18 | Fusionar feature/documentacion-final-apf1 en main
+4da6f71 | Rodrigo Aparcana | 2026-09-18 | Corregir el informe y la numeracion de listas del generador
+b6a1649 | Rodrigo Aparcana | 2026-09-18 | Actualizar README y evidencias con el cierre del avance
 0364128 | Rodrigo Aparcana | 2026-09-18 | Fusionar fix/unificar-nombres-de-autor en main
 c63ca21 | Rodrigo Aparcana | 2026-09-18 | Unificar tambien las variantes del nombre de Giancarlo Ccahuana
 856d474 | Rodrigo Aparcana | 2026-09-18 | Fusionar fix/ancho-del-buscador en main
@@ -51,21 +54,21 @@ e52859e | Rodrigo Aparcana | 2026-09-13 | Fusionar feature/formulario-matricula 
 ad3c25a | Rodrigo2326 | 2026-09-13 | Agregar estructura base del proyecto
 
 == Resumen ==
-Total de commits   : 47
-Commits de fusion  : 18
-Commits de trabajo : 29
+Total de commits   : 50
+Commits de fusion  : 19
+Commits de trabajo : 31
 
 == Commits por integrante (git shortlog -sn) ==
-    36	Rodrigo Aparcana
-     6	Giancarlo Ccahuana
-     5	Arnold
+    39	Aparcana Mamani Rodrigo Alonso
+     6	Ccahuana Huillca Giancarlo
+     5	Arnold Jhuncor Díaz Silva
 
 Los tres integrantes del equipo registran commits propios en el historial.
 Cada uno desarrollo sus funcionalidades en ramas independientes que luego se
 integraron a main mediante fusiones explicitas.
 
 El archivo .mailmap unifica las variantes de nombre con que cada integrante
-configuro Git, de modo que el recuento anterior refleje personas y no
-configuraciones distintas.
+configuro Git y fija su nombre completo, de modo que el recuento anterior
+refleje personas y coincida con la documentacion del proyecto.
 
 NOTA: esta salida es una instantanea tomada al generar el archivo. Los commits que la incorporan al repositorio aparecen despues de este punto en el historial.

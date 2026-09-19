@@ -33,7 +33,7 @@ Con el filtro 'Sistemas' aplicado (2 filas) se elimino un registro.
 Resultado                 : 1 fila, el filtro sigue aplicado y el buscador
                             conserva el texto 'Sistemas'.
 
-== Edicion de matriculas (Giancarlo Ccahuana) ==
+== Edicion de matriculas (Ccahuana Huillca Giancarlo) ==
 Boton de editar           : presente en cada fila del listado
 Al pulsar editar          : los campos se cargan con los datos del registro
 Texto del boton de envio  : cambia a 'Guardar cambios'
@@ -43,7 +43,7 @@ Aviso mostrado            : 'Matricula actualizada correctamente'
 Validacion de duplicados  : excluye el propio registro en edicion
 Errores de JavaScript     : 0
 
-== Filtros y ordenamiento (Arnold) ==
+== Filtros y ordenamiento (Arnold Jhuncor Diaz Silva) ==
 Filtro por carrera        : 2 filas de 3 (esperado 2)
 Carrera + ciclo combinados: 1 fila (esperado 1)
 Filtros limpiados         : 3 filas (listado completo)
@@ -67,7 +67,7 @@ Tras recargar la pagina se conservan los registros y el contador.
 Las 11 pruebas de las funcionalidades originales se volvieron a ejecutar tras
 integrar el trabajo de los tres integrantes: todas pasaron sin errores.
 
-== Ajustes de presentacion (Giancarlo Ccahuana) ==
+== Ajustes de presentacion (Ccahuana Huillca Giancarlo) ==
 La barra de herramientas habia quedado apretada al sumar los dos selectores de
 filtro. Tras los ajustes de la rama feature/arreglar-toolbar y la correccion del
 ancho del buscador, las medidas verificadas en el navegador son:
