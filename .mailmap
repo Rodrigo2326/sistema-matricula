@@ -1,9 +1,15 @@
-# Unifica las variantes del nombre de autor usadas en el historial.
+# Unifica las variantes del nombre de autor usadas en el historial y fija el
+# nombre completo de cada integrante, de modo que git log, git shortlog y
+# git blame coincidan con la documentacion del proyecto.
+#
 # Cada bloque corresponde a una sola persona que configuro Git con nombres
-# distintos sobre el mismo correo electronico. Git aplica este mapeo en log,
-# shortlog y blame sin reescribir los commits ni alterar sus identificadores.
+# distintos sobre el mismo correo electronico. El mapeo no reescribe los
+# commits ni altera sus identificadores.
 
-Rodrigo Aparcana <r.aparcana0103@gmail.com> Rodrigo2326 <r.aparcana0103@gmail.com>
+Aparcana Mamani Rodrigo Alonso <r.aparcana0103@gmail.com> Rodrigo Aparcana <r.aparcana0103@gmail.com>
+Aparcana Mamani Rodrigo Alonso <r.aparcana0103@gmail.com> Rodrigo2326 <r.aparcana0103@gmail.com>
 
-Giancarlo Ccahuana <soulahrikermette@gmail.com> giancarlo ccahuana <soulahrikermette@gmail.com>
-Giancarlo Ccahuana <soulahrikermette@gmail.com> Giancarlo <soulahrikermette@gmail.com>
+Ccahuana Huillca Giancarlo <soulahrikermette@gmail.com> giancarlo ccahuana <soulahrikermette@gmail.com>
+Ccahuana Huillca Giancarlo <soulahrikermette@gmail.com> Giancarlo <soulahrikermette@gmail.com>
+
+Arnold Jhuncor Díaz Silva <gamergggpro123@gmail.com> Arnold <gamergggpro123@gmail.com>

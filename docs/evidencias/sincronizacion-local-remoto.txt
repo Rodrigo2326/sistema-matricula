@@ -6,9 +6,9 @@ origin	https://github.com/Rodrigo2326/sistema-matricula.git (fetch)
 origin	https://github.com/Rodrigo2326/sistema-matricula.git (push)
 
 == Colaboradores del repositorio ==
-Rodrigo2326            admin  (Rodrigo Aparcana, propietario)
-soulahrikermette-hub   write  (Giancarlo Ccahuana)
-gamergggpro123-lgtm    write  (Arnold)
+Rodrigo2326            admin  (Aparcana Mamani Rodrigo Alonso, propietario)
+soulahrikermette-hub   write  (Ccahuana Huillca Giancarlo)
+gamergggpro123-lgtm    write  (Arnold Jhuncor Diaz Silva)
 
 == Comprobacion rama por rama ==
 RAMA                                     LOCAL      REMOTO     ESTADO

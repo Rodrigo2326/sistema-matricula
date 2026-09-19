@@ -46,9 +46,9 @@ Esos puntos corresponden a los avances APF2, APF3 y al proyecto final.
 
 | Integrante | Usuario de GitHub | Rol | Aporte principal |
 | --- | --- | --- | --- |
-| Rodrigo Aparcana | [@Rodrigo2326](https://github.com/Rodrigo2326) | Responsable de repositorio y documentación | Estructura base, registro, listado, búsqueda, validación, exportación CSV y resumen por carrera |
-| Giancarlo Ccahuana | [@soulahrikermette-hub](https://github.com/soulahrikermette-hub) | Responsable funcional | Edición de matrículas registradas y botón de limpieza del formulario |
-| Arnold | [@gamergggpro123-lgtm](https://github.com/gamergggpro123-lgtm) | Responsable de calidad y automatización | Filtros por carrera y ciclo, y ordenamiento del listado por columnas |
+| Aparcana Mamani Rodrigo Alonso | [@Rodrigo2326](https://github.com/Rodrigo2326) | Responsable de repositorio y documentación | Estructura base, registro, listado, búsqueda, validación, exportación CSV y resumen por carrera |
+| Ccahuana Huillca Giancarlo | [@soulahrikermette-hub](https://github.com/soulahrikermette-hub) | Responsable funcional | Edición de matrículas registradas y botón de limpieza del formulario |
+| Arnold Jhuncor Díaz Silva | [@gamergggpro123-lgtm](https://github.com/gamergggpro123-lgtm) | Responsable de calidad y automatización | Filtros por carrera y ciclo, y ordenamiento del listado por columnas |
 
 Los tres integrantes tienen commits propios en el historial del repositorio.
 Cada funcionalidad se desarrolló en su propia rama y se integró a `main`

@@ -23,7 +23,7 @@ Repositorio: Rodrigo2326/sistema-matricula
   origin/main
 
 == Proposito y responsable de cada rama ==
-RAMA                                   INTEGRANTE   PROPOSITO
+RAMA                                   RESPONSABLE   PROPOSITO
 main                                   -            Version principal estable.
 feature/formulario-matricula           Rodrigo      Formulario de registro.
 feature/listado-matriculas             Rodrigo      Tabla, contador y eliminacion.

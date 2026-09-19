@@ -331,9 +331,9 @@ de sincronización está registrado en
 
 | Integrante | Usuario de GitHub | Rol | Commits |
 | --- | --- | --- | --- |
-| Rodrigo Aparcana | @Rodrigo2326 | Responsable de repositorio y documentación | 36 |
-| Giancarlo Ccahuana | @soulahrikermette-hub | Responsable funcional | 6 |
-| Arnold | @gamergggpro123-lgtm | Responsable de calidad y automatización | 5 |
+| Aparcana Mamani Rodrigo Alonso | @Rodrigo2326 | Responsable de repositorio y documentación | 39 |
+| Ccahuana Huillca Giancarlo | @soulahrikermette-hub | Responsable funcional | 6 |
+| Arnold Jhuncor Díaz Silva | @gamergggpro123-lgtm | Responsable de calidad y automatización | 5 |
 
 Los tres integrantes están registrados como colaboradores del repositorio y
 tienen commits propios en el historial, verificables con `git shortlog -sn` y en
