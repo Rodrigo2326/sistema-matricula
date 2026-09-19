@@ -67,14 +67,24 @@ Tras recargar la pagina se conservan los registros y el contador.
 Las 11 pruebas de las funcionalidades originales se volvieron a ejecutar tras
 integrar el trabajo de los tres integrantes: todas pasaron sin errores.
 
-== Observacion pendiente ==
-La barra de herramientas quedo visualmente apretada al sumar los dos
-selectores de filtro: el boton 'Limpiar' ocupa media fila, el boton de editar
-conserva el estilo por defecto del navegador y los botones de la barra
-parten su texto en dos lineas. No afecta el funcionamiento y queda registrado
-como ajuste pendiente de CSS.
+== Ajustes de presentacion (Giancarlo Ccahuana) ==
+La barra de herramientas habia quedado apretada al sumar los dos selectores de
+filtro. Tras los ajustes de la rama feature/arreglar-toolbar y la correccion del
+ancho del buscador, las medidas verificadas en el navegador son:
+
+Boton 'Limpiar'           : 796 px, el mismo ancho que 'Registrar matricula'
+Campo de busqueda         : 180 px, con su texto de ayuda legible
+Filtro por carrera        : 150 px
+Filtro por ciclo          : 150 px
+Boton 'Exportar CSV'      : 118 px, en una sola linea
+Boton 'Ver resumen'       : 112 px, en una sola linea
+Alto de la barra          : 38 px, es decir una sola linea
+Iconos de editar/eliminar : alineados horizontalmente en la misma fila
+Icono de editar           : color azul y sin borde, igual criterio que el de
+                            eliminar, que se mantiene en rojo
 
 == Captura ==
 aplicacion-en-ejecucion.png muestra la interfaz con tres registros cargados,
 los filtros por carrera y ciclo, el listado ordenado por nombre (indicador de
-orden visible en el encabezado) y los botones de editar y eliminar.
+orden visible en el encabezado) y los botones de editar y eliminar, ya con los
+ajustes de presentacion aplicados.

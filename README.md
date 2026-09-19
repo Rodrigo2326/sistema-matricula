@@ -128,6 +128,11 @@ para que el historial conserve el punto de integración.
 | `feature/actualizar-evidencias` | Actualización de las evidencias | Fusionada |
 | `feature/editar-matricula` | Edición de matrículas registradas | Fusionada |
 | `feature-filtros-ordenamiento` | Filtros por carrera/ciclo y ordenamiento | Fusionada |
+| `feature/actualizar-documentacion-equipo` | README, evidencias e informe del equipo | Fusionada |
+| `fix/pagina-huerfana-del-informe` | Maquetación del informe en PDF | Fusionada |
+| `feature/arreglar-toolbar` | Estilos de la barra de herramientas y del listado | Fusionada |
+| `fix/ancho-del-buscador` | Ancho del campo de búsqueda | Fusionada |
+| `fix/unificar-nombres-de-autor` | Mailmap de los tres integrantes | Fusionada |
 
 ### Ejemplo de uso
 
