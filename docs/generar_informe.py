@@ -61,18 +61,18 @@ def construir_estilos():
     )
     e['h1'] = ParagraphStyle(
         'h1', parent=base['Heading1'], fontSize=15, leading=19, textColor=AZUL,
-        spaceBefore=13, spaceAfter=6,
+        spaceBefore=11, spaceAfter=5,
     )
     e['h2'] = ParagraphStyle(
-        'h2', parent=base['Heading2'], fontSize=12, leading=16,
-        textColor=AZUL_CLARO, spaceBefore=11, spaceAfter=5,
+        'h2', parent=base['Heading2'], fontSize=12, leading=15,
+        textColor=AZUL_CLARO, spaceBefore=9, spaceAfter=4,
     )
     e['cuerpo'] = ParagraphStyle(
-        'cuerpo', parent=base['Normal'], fontSize=10, leading=14.2,
-        alignment=TA_JUSTIFY, spaceAfter=6,
+        'cuerpo', parent=base['Normal'], fontSize=10, leading=13.6,
+        alignment=TA_JUSTIFY, spaceAfter=5,
     )
     e['vineta'] = ParagraphStyle(
-        'vineta', parent=e['cuerpo'], spaceAfter=2.5,
+        'vineta', parent=e['cuerpo'], spaceAfter=2,
     )
     e['codigo'] = ParagraphStyle(
         'codigo', parent=base['Code'], fontSize=8, leading=10.5,
@@ -321,7 +321,21 @@ def convertir(markdown, estilos):
 
         if limpia == '':
             cerrar_parrafo()
-            cerrar_lista()
+            # Una linea en blanco entre elementos no interrumpe la lista: en
+            # Markdown separa items del mismo listado. Solo se cierra si lo que
+            # sigue ya no es un elemento del mismo tipo; de lo contrario cada
+            # item formaria su propia lista y la numeracion reiniciaria en 1.
+            if lista:
+                j = i + 1
+                while j < len(lineas) and lineas[j].strip() == '':
+                    j += 1
+                siguiente = lineas[j].strip() if j < len(lineas) else ''
+                if lista_numerada:
+                    continua = bool(re.match(r'^\d+\.\s', siguiente))
+                else:
+                    continua = siguiente.startswith('- ')
+                if not continua:
+                    cerrar_lista()
             i += 1
             continue
 
