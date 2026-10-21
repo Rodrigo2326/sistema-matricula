@@ -324,3 +324,59 @@ form > button[type="reset"] {
 #tablaMatriculas td:last-child {
   white-space: nowrap;
 }
+
+/* ===== Catálogo de cursos ===== */
+
+/* Texto de ayuda debajo del selector de curso. */
+.ayuda {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #777;
+}
+
+/* La barra del catálogo solo lleva el contador, sin botones que empujar. */
+#seccionCursos .barra-herramientas { margin-top: 22px; }
+
+/* Etiqueta de disponibilidad de vacantes. */
+.estado {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.estado.disponible {
+  background: #dff3e6;
+  color: #1a7a42;
+}
+
+.estado.lleno {
+  background: #fde3e0;
+  color: #c0392b;
+}
+
+/* Acciones del catálogo, con el mismo lenguaje visual que las del listado. */
+.btn-editar-curso,
+.btn-eliminar-curso {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 5px;
+  transition: background 0.15s;
+  line-height: 1;
+}
+
+.btn-editar-curso { color: #2e4a9e; }
+.btn-editar-curso:hover { background: #dce6ff; }
+
+.btn-eliminar-curso { color: #cc3333; }
+.btn-eliminar-curso:hover { background: #ffe5e5; }
+
+#tablaCursos td:last-child { white-space: nowrap; }
+
+/* Un curso sin vacantes se muestra atenuado en el selector de matrícula. */
+#curso option:disabled { color: #aaa; }
