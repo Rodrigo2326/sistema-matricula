@@ -240,9 +240,77 @@ function manejarClicCursos(evento) {
 
 cuerpoTablaCursos.addEventListener('click', manejarClicCursos);
 
-/** Vuelve a dibujar el catálogo de cursos. */
+/* ===== Selector de curso en el formulario de matrícula ===== */
+
+const selectorCurso = document.getElementById('curso');
+
+/**
+ * Llena el selector de cursos del formulario de matrícula.
+ * Solo ofrece los cursos de la carrera y el ciclo elegidos, y deshabilita los
+ * que ya no tienen vacantes. Conserva la selección previa si sigue siendo válida.
+ */
+function actualizarSelectorCursos() {
+  const carrera = document.getElementById('carrera').value;
+  const ciclo = document.getElementById('ciclo').value;
+  const seleccionPrevia = selectorCurso.value;
+
+  const disponibles = cursos.filter(curso => curso.carrera === carrera && curso.ciclo === ciclo);
+
+  selectorCurso.innerHTML = '';
+
+  if (disponibles.length === 0) {
+    const vacio = document.createElement('option');
+    vacio.value = '';
+    vacio.textContent = 'No hay cursos registrados para esa carrera y ciclo';
+    selectorCurso.appendChild(vacio);
+    return;
+  }
+
+  const inicial = document.createElement('option');
+  inicial.value = '';
+  inicial.textContent = 'Seleccione un curso...';
+  selectorCurso.appendChild(inicial);
+
+  disponibles.forEach(curso => {
+    const libres = vacantesLibres(curso);
+    const opcion = document.createElement('option');
+    opcion.value = curso.codigo;
+    opcion.textContent = `${curso.codigo} — ${curso.nombre} (${libres} vacante(s))`;
+    opcion.disabled = libres === 0 && curso.codigo !== seleccionPrevia;
+    selectorCurso.appendChild(opcion);
+  });
+
+  if (disponibles.some(curso => curso.codigo === seleccionPrevia)) {
+    selectorCurso.value = seleccionPrevia;
+  }
+}
+
+document.getElementById('carrera').addEventListener('change', actualizarSelectorCursos);
+document.getElementById('ciclo').addEventListener('change', actualizarSelectorCursos);
+
+/** Vuelve a dibujar todo lo que depende del catálogo. */
 function refrescarCursos() {
   renderizarCursos();
+  actualizarSelectorCursos();
 }
 
 refrescarCursos();
+
+/* ===== Control de vacantes ===== */
+
+/**
+ * Indica si todavía queda cupo en el curso indicado.
+ *
+ * idMatriculaExcluida es la matrícula que se está editando: si ya ocupaba una
+ * plaza en ese mismo curso no debe contarse como una plaza nueva, de lo
+ * contrario sería imposible corregir los datos de un curso lleno.
+ */
+function hayVacanteDisponible(codigoCurso, idMatriculaExcluida = null) {
+  const curso = buscarCurso(codigoCurso);
+  if (!curso) return false;
+
+  const yaOcupabaPlaza = matriculas.some(matricula =>
+    matricula.id === idMatriculaExcluida && matricula.cursoCodigo === codigoCurso);
+
+  return yaOcupabaPlaza || vacantesLibres(curso) > 0;
+}
