@@ -131,6 +131,13 @@ function crearFila(matricula) {
 
   const celdaAccion = document.createElement('td');
 
+  const botonConstancia = document.createElement('button');
+  botonConstancia.className = 'btn-constancia';
+  botonConstancia.title = 'Ver constancia';
+  botonConstancia.textContent = 'Constancia';
+  botonConstancia.dataset.id = matricula.id;
+  celdaAccion.appendChild(botonConstancia);
+
   const botonEditar = document.createElement('button');
   botonEditar.className = 'btn-editar';
   botonEditar.title = 'Editar';
