@@ -1,0 +1,28 @@
+EVIDENCIA 1 - DETECCION DEL CONFLICTO DE INTEGRACION
+====================================================
+
+Proyecto : Sistema de Matricula - APF2
+Fecha    : 23/10/2026 23:51
+Operacion: integrar main en feature/ocupacion antes del Pull Request #14
+
+Contexto
+--------
+La rama feature/ocupacion (Arnold Diaz) salio de feature/catalogo-cursos,
+por lo que no contiene js/constancia.js. Mientras tanto main ya habia
+integrado el PR #13 (constancia de matricula, Giancarlo Ccahuana), que
+agrego su propia etiqueta <script> en el mismo bloque de index.html donde
+Arnold agrego la suya. Git no puede decidir por si solo el orden de las
+cuatro etiquetas y detiene la fusion.
+
+$ git merge --no-ff main
+Auto-merging css/estilos.css
+CONFLICT (content): Merge conflict in css/estilos.css
+Auto-merging index.html
+Automatic merge failed; fix conflicts and then commit the result.
+
+$ git status --short
+UU css/estilos.css
+M  index.html
+M  js/app.js
+A  js/constancia.js
+?? docs/evidencias-apf2/

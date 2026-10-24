@@ -380,6 +380,100 @@ form > button[type="reset"] {
 
 /* Un curso sin vacantes se muestra atenuado en el selector de matrícula. */
 #curso option:disabled { color: #aaa; }
+
+/* ===== Constancia de matrícula ===== */
+.btn-constancia {
+  background: #eef1f7;
+  border: 1px solid #c9d4ee;
+  color: #1a2a52;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 5px;
+  margin-right: 4px;
+}
+
+.btn-constancia:hover { background: #dce6ff; }
+
+.constancia {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 25, 50, 0.55);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 16px;
+  overflow-y: auto;
+  z-index: 50;
+}
+
+.constancia.oculto { display: none; }
+
+.constancia-hoja {
+  background: white;
+  width: 100%;
+  max-width: 640px;
+  padding: 36px 40px;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.constancia-encabezado {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 2px solid #1a2a52;
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.constancia-encabezado .icono { font-size: 34px; }
+.constancia-encabezado h2 { margin: 0; color: #1a2a52; font-size: 20px; }
+.constancia-encabezado p { margin: 3px 0 0; color: #666; font-size: 13px; }
+
+.constancia-datos {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 10px 16px;
+  margin: 20px 0;
+}
+
+.constancia-datos dt { font-weight: 600; color: #1a2a52; }
+.constancia-datos dd { margin: 0; }
+
+.constancia-emision { color: #666; font-size: 13px; margin-top: 28px; }
+
+.constancia-acciones {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+body.con-constancia { overflow: hidden; }
+
+@media print {
+  header,
+  main,
+  footer,
+  #aviso,
+  .constancia-acciones { display: none !important; }
+
+  body { background: white; }
+
+  .constancia {
+    position: static;
+    background: none;
+    padding: 0;
+  }
+
+  .constancia-hoja {
+    box-shadow: none;
+    max-width: none;
+    padding: 0;
+  }
+}
+
 /* ===== Panel de ocupación por curso ===== */
 .ocupacion-aviso {
   margin: 0 0 14px;
