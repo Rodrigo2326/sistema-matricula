@@ -1,0 +1,44 @@
+EVIDENCIA 2 - MARCADORES DEL CONFLICTO
+======================================
+
+Archivo en conflicto: css/estilos.css
+Lineas afectadas: 383-522
+
+Git no puede decidir cual de los dos bloques va primero, porque ambas
+ramas agregaron reglas nuevas al final del mismo archivo, inmediatamente
+despues de la ultima regla del catalogo de cursos.
+
+Bloque tal como lo dejo Git (recortado en el medio por extension):
+----------------------------------------------------------------------
+<<<<<<< HEAD
+/* ===== Panel de ocupación por curso ===== */
+.ocupacion-aviso {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a2a52;
+}
+
+.ocupacion-fila {
+  display: grid;
+  grid-template-columns: 1fr 160px 120px;
+  align-items: center;
+  gap: 12px;
+   [... 110 lineas de reglas .ocupacion-* ...]
+  .constancia-acciones { display: none !important; }
+
+  body { background: white; }
+
+  .constancia {
+    position: static;
+    background: none;
+    padding: 0;
+  }
+
+  .constancia-hoja {
+    box-shadow: none;
+    max-width: none;
+    padding: 0;
+  }
+>>>>>>> main
+----------------------------------------------------------------------

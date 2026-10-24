@@ -473,3 +473,50 @@ body.con-constancia { overflow: hidden; }
     padding: 0;
   }
 }
+
+/* ===== Panel de ocupación por curso ===== */
+.ocupacion-aviso {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a2a52;
+}
+
+.ocupacion-fila {
+  display: grid;
+  grid-template-columns: 1fr 160px 120px;
+  align-items: center;
+  gap: 12px;
+  padding: 5px 0;
+  font-size: 13px;
+}
+
+.ocupacion-titulo { color: #333; }
+
+.ocupacion-canal {
+  background: #e4e9f5;
+  border-radius: 6px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.ocupacion-barra {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s;
+}
+
+.ocupacion-barra.normal { background: #1a7a42; }
+.ocupacion-barra.alto   { background: #c99000; }
+.ocupacion-barra.lleno  { background: #c0392b; }
+
+.ocupacion-cifra {
+  text-align: right;
+  color: #555;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 600px) {
+  .ocupacion-fila { grid-template-columns: 1fr; gap: 4px; }
+  .ocupacion-cifra { text-align: left; }
+}

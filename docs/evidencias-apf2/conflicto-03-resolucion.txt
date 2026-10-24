@@ -1,0 +1,66 @@
+EVIDENCIA 3 - RESOLUCION DEL CONFLICTO
+======================================
+
+Archivo      : css/estilos.css
+Ramas        : feature/ocupacion  <-  main
+Pull Request : #14
+Resuelto por : Aparcana Mamani Rodrigo Alonso
+
+POR QUE SE PRODUJO
+------------------
+Las tres funcionalidades del avance se desarrollaron en paralelo y dos de ellas
+agregaron reglas nuevas al final de css/estilos.css, en el mismo punto del
+archivo:
+
+  - main              : bloque "Constancia de matricula" (PR #13, G. Ccahuana)
+  - feature/ocupacion : bloque "Panel de ocupacion por curso" (PR #14, A. Diaz)
+
+Ambos bloques empiezan justo despues de la ultima regla del catalogo de cursos.
+Git no tiene forma de saber cual debe ir primero, por lo que marca el conflicto
+y detiene la fusion.
+
+CRITERIO DE RESOLUCION
+----------------------
+Los dos bloques son necesarios y no se superponen: uno da estilo a la
+constancia imprimible y el otro a las barras de ocupacion. No hay nada que
+elegir ni descartar, solo que ordenar. Se conservaron ambos, dejando primero el
+de la constancia (que ya estaba en main) y despues el de ocupacion, de modo que
+el archivo mantiene el mismo orden en que las funcionalidades se integraron.
+
+PASOS
+-----
+1. Se tomo css/estilos.css de main como base, por tener ya integrados el
+   catalogo y la constancia.
+2. Se extrajo de feature/ocupacion unicamente el bloque
+   "/* ===== Panel de ocupacion por curso ===== */" y se anexo al final.
+3. Se verifico que el numero de llaves de apertura y de cierre coincidiera
+   (96 y 96) y que el bloque anexado no quedara anidado dentro de la regla
+   @media print de la constancia.
+
+   Este paso no fue decorativo: en un primer intento de resolucion se perdio la
+   llave de cierre de @media print, lo que dejo todas las reglas de ocupacion
+   dentro del bloque de impresion. El efecto era que las barras perdian el
+   color en pantalla y solo se habrian visto al imprimir. El error se detecto
+   al volver a probar la aplicacion en el navegador, no al leer el codigo.
+
+4. Se corrigio ademas el orden de las etiquetas <script> de index.html. La rama
+   de ocupacion cargaba js/ocupacion.js antes que js/cursos.js, del que depende.
+   Funcionaba por casualidad -en la carga no referencia nada de ese archivo-,
+   pero el orden correcto es por dependencia:
+
+       app.js  ->  cursos.js  ->  constancia.js  ->  ocupacion.js
+
+VERIFICACION POSTERIOR
+----------------------
+Probado en navegador sobre python -m http.server, sin errores de consola:
+
+  Catalogo intacto tras registrar matriculas ....... 4 cursos
+  Curso con cupo agotado .......................... "Sin vacantes"
+  Panel de ocupacion, curso lleno ................. 2 / 2 (100%)
+  Color de la barra al 100% ....................... rgb(192, 57, 43) rojo
+  Aviso de cursos sin vacantes .................... "1 curso(s) sin vacantes."
+  Resumen por carrera (APF1) ...................... operativo
+  Constancia: estudiante / curso / codigo ......... correctos
+  Constancia al imprimir: oculta la aplicacion .... si
+  Busqueda del listado (APF1) ..................... operativa
+  Errores de consola .............................. 0
