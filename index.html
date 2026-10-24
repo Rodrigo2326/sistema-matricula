@@ -192,8 +192,37 @@
 
   <div id="aviso" role="status" aria-live="polite"></div>
 
+  <section id="vistaConstancia" class="constancia oculto" aria-label="Constancia de matrícula">
+    <div class="constancia-hoja">
+      <div class="constancia-encabezado">
+        <div class="icono">🎓</div>
+        <div>
+          <h2>Constancia de Matrícula</h2>
+          <p>Sistema de Matrícula &middot; Proyecto Integrador 2026-II</p>
+        </div>
+      </div>
+      <p class="constancia-texto">Se deja constancia de que el estudiante indicado se encuentra matriculado en el siguiente curso:</p>
+      <dl class="constancia-datos">
+        <dt>Estudiante</dt><dd data-campo="nombre"></dd>
+        <dt>Código de estudiante</dt><dd data-campo="codigo"></dd>
+        <dt>DNI</dt><dd data-campo="dni"></dd>
+        <dt>Carrera</dt><dd data-campo="carrera"></dd>
+        <dt>Ciclo</dt><dd data-campo="ciclo"></dd>
+        <dt>Curso</dt><dd data-campo="curso"></dd>
+        <dt>Código del curso</dt><dd data-campo="cursoCodigo"></dd>
+        <dt>Fecha de matrícula</dt><dd data-campo="fecha"></dd>
+      </dl>
+      <p class="constancia-emision">Emitida el <span data-campo="emision"></span></p>
+      <div class="constancia-acciones">
+        <button type="button" class="btn-primario" id="btnImprimirConstancia">Imprimir / Guardar PDF</button>
+        <button type="button" class="btn-secundario" id="btnCerrarConstancia">Cerrar</button>
+      </div>
+    </div>
+  </section>
+
   <script src="js/app.js"></script>
   <script src="js/cursos.js"></script>
+  <script src="js/constancia.js"></script>
 </body>
 
 </html>
