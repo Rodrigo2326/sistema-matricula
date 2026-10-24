@@ -19,6 +19,72 @@
   </header>
 
   <main>
+    <section class="tarjeta" id="seccionCursos">
+      <h2>Catálogo de cursos</h2>
+      <form id="formCurso">
+        <div>
+          <label for="codigoCurso">Código del curso</label>
+          <input type="text" id="codigoCurso" placeholder="Ej: SIS-101" maxlength="7" required>
+        </div>
+        <div>
+          <label for="nombreCurso">Nombre del curso</label>
+          <input type="text" id="nombreCurso" placeholder="Ej: Algoritmos y Estructuras de Datos" required>
+        </div>
+        <div>
+          <label for="carreraCurso">Carrera</label>
+          <select id="carreraCurso">
+            <option>Ingeniería de Sistemas</option>
+            <option>Administración</option>
+            <option>Contabilidad</option>
+            <option>Derecho</option>
+            <option>Marketing</option>
+            <option>Psicología</option>
+            <option>Arquitectura</option>
+          </select>
+        </div>
+        <div>
+          <label for="cicloCurso">Ciclo</label>
+          <select id="cicloCurso">
+            <option>I</option>
+            <option>II</option>
+            <option>III</option>
+            <option>IV</option>
+            <option>V</option>
+            <option>VI</option>
+            <option>VII</option>
+            <option>VIII</option>
+            <option>IX</option>
+            <option>X</option>
+          </select>
+        </div>
+        <div class="ancho-completo">
+          <label for="vacantesCurso">Vacantes</label>
+          <input type="number" id="vacantesCurso" min="1" step="1" placeholder="Ej: 30" required>
+        </div>
+        <button type="submit" class="btn-primario" id="btnEnviarCurso">+ Registrar curso</button>
+        <button type="reset" class="btn-secundario">Limpiar</button>
+      </form>
+
+      <div class="barra-herramientas">
+        <span class="contador" id="contadorCursos">0</span> cursos en el catálogo
+      </div>
+      <table id="tablaCursos">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Curso</th>
+            <th>Carrera</th>
+            <th>Ciclo</th>
+            <th>Ocupación</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTablaCursos"></tbody>
+      </table>
+      <p class="sin-datos" id="mensajeSinCursos">Todavía no hay cursos registrados.</p>
+    </section>
+
     <section class="tarjeta" id="seccionRegistro">
       <h2>Nueva matrícula</h2>
       <form id="formMatricula">
@@ -67,7 +133,8 @@
         </div>
         <div class="ancho-completo">
           <label for="curso">Curso a matricular</label>
-          <input type="text" id="curso" placeholder="Ej: Algoritmos y Estructuras de Datos" required>
+          <select id="curso" required></select>
+          <p class="ayuda">Solo se listan los cursos de la carrera y el ciclo elegidos.</p>
         </div>
         <button type="submit" class="btn-primario" id="btnEnviar">+ Registrar matrícula</button>
         <button type="reset" class="btn-secundario">Limpiar</button>
@@ -126,6 +193,7 @@
   <div id="aviso" role="status" aria-live="polite"></div>
 
   <script src="js/app.js"></script>
+  <script src="js/cursos.js"></script>
 </body>
 
 </html>

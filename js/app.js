@@ -38,6 +38,9 @@ const formMatricula = document.getElementById('formMatricula');
 
 /** Toma los valores del formulario y arma el objeto de la matrícula. */
 function leerFormulario() {
+  const codigoCurso = document.getElementById('curso').value;
+  const curso = buscarCurso(codigoCurso);
+
   return {
     id: Date.now(),
     nombres: document.getElementById('nombres').value.trim(),
@@ -46,7 +49,8 @@ function leerFormulario() {
     dni: document.getElementById('dni').value.trim(),
     carrera: document.getElementById('carrera').value,
     ciclo: document.getElementById('ciclo').value,
-    curso: document.getElementById('curso').value.trim(),
+    cursoCodigo: codigoCurso,
+    curso: curso ? curso.nombre : '',
     fecha: new Date().toLocaleDateString('es-PE')
   };
 }
@@ -59,7 +63,11 @@ function cargarEnFormulario(matricula) {
   document.getElementById('dni').value = matricula.dni;
   document.getElementById('carrera').value = matricula.carrera;
   document.getElementById('ciclo').value = matricula.ciclo;
-  document.getElementById('curso').value = matricula.curso;
+
+  // El selector depende de la carrera y el ciclo, así que se rearma antes de
+  // marcar el curso de la matrícula que se está editando.
+  actualizarSelectorCursos();
+  document.getElementById('curso').value = matricula.cursoCodigo || '';
 
   idEnEdicion = matricula.id;
   document.getElementById('btnEnviar').textContent = 'Guardar cambios';
@@ -89,6 +97,7 @@ function registrarMatricula(evento) {
 
   guardarMatriculas();
   refrescarListado();
+  refrescarCursos();
   formMatricula.reset();
   idEnEdicion = null;
   document.getElementById('btnEnviar').textContent = '+ Registrar matrícula';
@@ -163,6 +172,7 @@ function manejarClicTabla(evento) {
     matriculas = matriculas.filter(matricula => matricula.id !== id);
     guardarMatriculas();
     refrescarListado();
+    refrescarCursos();
     mostrarAviso('Matrícula eliminada');
   }
 }
@@ -290,8 +300,11 @@ function validarMatricula(matricula, idExcluir = null) {
   if (!FORMATO_DNI.test(matricula.dni)) {
     return 'El DNI debe tener exactamente 8 dígitos.';
   }
-  if (matricula.curso === '') {
-    return 'Debe indicar el curso a matricular.';
+  if (matricula.cursoCodigo === '') {
+    return 'Debe seleccionar el curso del catálogo.';
+  }
+  if (!hayVacanteDisponible(matricula.cursoCodigo, idExcluir)) {
+    return `El curso ${matricula.curso} ya no tiene vacantes disponibles.`;
   }
   if (existeMatriculaDuplicada(matricula, idExcluir)) {
     return `El estudiante ${matricula.codigo} ya está matriculado en ese curso.`;
@@ -299,13 +312,21 @@ function validarMatricula(matricula, idExcluir = null) {
   return '';
 }
 
-/** Indica si el estudiante ya está matriculado en el mismo curso (ignorando idExcluir). */
+/**
+ * Indica si el estudiante ya está matriculado en el mismo curso (ignorando idExcluir).
+ *
+ * La comparación es por código de curso, no por nombre: dos carreras o dos
+ * ciclos pueden ofrecer cursos que se llaman igual, y compararlos por nombre
+ * bloquearía matrículas legítimas. Las matrículas anteriores al catálogo no
+ * guardaron el código, así que solo para esas se compara el nombre.
+ */
 function existeMatriculaDuplicada(nueva, idExcluir = null) {
-  return matriculas.some(matricula =>
-    matricula.id !== idExcluir &&
-    matricula.codigo === nueva.codigo &&
-    matricula.curso.toLowerCase() === nueva.curso.toLowerCase()
-  );
+  return matriculas.some(matricula => {
+    if (matricula.id === idExcluir) return false;
+    if (matricula.codigo !== nueva.codigo) return false;
+    if (matricula.cursoCodigo) return matricula.cursoCodigo === nueva.cursoCodigo;
+    return matricula.curso.toLowerCase() === nueva.curso.toLowerCase();
+  });
 }
 
 /* ===== Exportación a CSV ===== */
