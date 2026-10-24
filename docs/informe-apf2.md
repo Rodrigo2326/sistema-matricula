@@ -397,3 +397,72 @@ la entrega.
   integrar en `main`.
 - Desplegar una versión de prueba en una plataforma en la nube.
 - Equilibrar el reparto de commits entre los tres integrantes.
+
+---
+
+# Anexos
+
+Las figuras de esta sección no cuentan para la extensión del informe.
+
+## Anexo A. La aplicación en funcionamiento
+
+![Figura 1. Catálogo de cursos. Cada curso declara sus vacantes y el listado muestra la ocupación actual y el estado del cupo. SIS-101 aparece agotado y SIS-310 con tres vacantes libres.](evidencias-apf2/capturas/01-catalogo-cursos.png)
+
+![Figura 2. Formulario de matrícula. El campo Curso a matricular se alimenta del catálogo y se filtra por la carrera y el ciclo elegidos, mostrando las vacantes restantes de cada curso.](evidencias-apf2/capturas/02-selector-cursos.png)
+
+![Figura 3. Control de vacantes. Al intentar matricular en un curso con el cupo agotado, la validación rechaza la operación e informa el motivo.](evidencias-apf2/capturas/03-validacion-sin-vacantes.png)
+
+![Figura 4. Panel de ocupación por curso. El semáforo distingue los tres niveles: SIS-101 al 100 % en rojo, SIS-310 al 70 % en ámbar y ADM-110 al 3 % en verde.](evidencias-apf2/capturas/04-panel-ocupacion.png)
+
+![Figura 5. Constancia de matrícula, con los datos del estudiante, el curso y su código, la carrera, el ciclo y las fechas de matrícula y de emisión.](evidencias-apf2/capturas/05-constancia.png)
+
+![Figura 6. La misma constancia en vista de impresión. La regla @media print oculta el encabezado, los formularios, la barra de herramientas y los botones, dejando únicamente la hoja.](evidencias-apf2/capturas/06-constancia-impresion.png)
+
+![Figura 7. Listado de matrículas, con el botón de constancia incorporado en cada fila junto a los de edición y eliminación.](evidencias-apf2/capturas/07-listado-matriculas.png)
+
+## Anexo B. Evidencias del repositorio
+
+![Figura 8. Pull Requests del avance. Las tres funcionalidades y las correcciones entraron por Pull Request; ninguna se integró directamente sobre main.](evidencias-apf2/capturas/08-pull-requests.png)
+
+![Figura 9. Pull Request #2 integrado. Se observa el estado Merged, el revisor que lo aprobó, las etiquetas y el hito APF2 - Semana 11.](evidencias-apf2/capturas/09-pr2-integrado.png)
+
+![Figura 10. Release v2.0.0 publicada, con las notas de las tres funcionalidades, las correcciones derivadas de la revisión y el cambio incompatible.](evidencias-apf2/capturas/10-release-v2.png)
+
+![Figura 11. Tablero de actividades. Cada tarjeta tiene responsable, etiqueta de tipo e hito, y su estado refleja el avance real del trabajo.](evidencias-apf2/capturas/11-tablero-issues.png)
+
+![Figura 12. Gráfico de ramas del repositorio, con los puntos de integración de las tres funcionalidades sobre main.](evidencias-apf2/capturas/12-grafico-ramas.png)
+
+## Anexo C. Comentarios de la revisión del Pull Request #2
+
+Reproducción literal de los dos comentarios que Giancarlo Ccahuana dejó sobre
+líneas concretas del código, y que originaron el commit `5c61153`.
+
+**Sobre `js/cursos.js`, línea 153:**
+
+> Si se edita el nombre del curso, las matrículas siguen mostrando el nombre
+> anterior, porque solo se actualiza el código. Habría que actualizar también
+> `matricula.curso`.
+
+**Sobre `js/app.js`, línea 52:**
+
+> Ahora que cada matrícula guarda `cursoCodigo`, convendría que
+> `existeMatriculaDuplicada` compare por código y no por nombre de curso. Si dos
+> carreras tienen un curso con el mismo nombre (por ejemplo "Matemática I"), hoy
+> se bloquearía una matrícula válida.
+
+El texto completo del hilo, con las respuestas y la verificación de cada
+corrección, está en `docs/evidencias-apf2/revision-pr2.txt`.
+
+## Anexo D. Colaboración del equipo en Microsoft Teams
+
+Las capturas de esta sección deben tomarse desde la cuenta de Microsoft Teams
+del equipo y corresponden a la reunión de coordinación diaria de lunes a
+viernes, de 10:00 a 10:30 horas, descrita en la sección 5.
+
+[[PENDIENTE: Insertar aquí la captura del CALENDARIO DE TEAMS mostrando la reunión recurrente de lunes a viernes, de 10:00 a 10:30]]
+
+[[PENDIENTE: Insertar aquí la captura de la LISTA DE MIEMBROS del equipo en Teams, con los tres integrantes]]
+
+[[PENDIENTE: Insertar aquí la captura de la CONVERSACIÓN DEL CANAL del proyecto, donde se coordinó el reparto de ramas y el orden de integración]]
+
+[[PENDIENTE: Insertar aquí la captura de UNA REUNIÓN DE TRABAJO en curso o su registro de asistencia]]

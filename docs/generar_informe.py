@@ -6,7 +6,7 @@ El Markdown es la unica fuente de verdad: este script solo lo maqueta. Si el
 contenido del informe cambia, basta con volver a ejecutarlo.
 
 Uso:
-    python docs/generar_informe.py [apf1|apf2]
+    python docs/generar_informe.py [apf1|apf2] [carpeta-o-archivo-destino]
 
 Sin argumento genera el informe del APF2, que es el avance vigente.
 
@@ -27,6 +27,8 @@ from reportlab.platypus import (
     BaseDocTemplate, Frame, KeepTogether, ListFlowable, ListItem, PageBreak,
     PageTemplate, Paragraph, Preformatted, Spacer, Table, TableStyle,
 )
+from reportlab.platypus import Image as Imagen
+from reportlab.lib.utils import ImageReader
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 
@@ -94,6 +96,15 @@ def construir_estilos():
     e['cuerpo'] = ParagraphStyle(
         'cuerpo', parent=base['Normal'], fontSize=10, leading=13.6,
         alignment=TA_JUSTIFY, spaceAfter=5,
+    )
+    e['pie_figura'] = ParagraphStyle(
+        'pie_figura', parent=base['Normal'], fontSize=8.5, leading=12,
+        alignment=TA_CENTER, textColor=GRIS_TEXTO, fontName='Helvetica-Oblique',
+    )
+    e['pendiente'] = ParagraphStyle(
+        'pendiente', parent=base['Normal'], fontSize=9.5, leading=14,
+        alignment=TA_CENTER, textColor=colors.HexColor('#c0392b'),
+        fontName='Helvetica-Bold',
     )
     e['vineta'] = ParagraphStyle(
         'vineta', parent=e['cuerpo'], spaceAfter=2,
@@ -235,6 +246,39 @@ def bloque_tabla(filas, estilos):
     return [tabla, Spacer(1, 9)]
 
 
+def bloque_figura(pie, ruta, estilos):
+    """Imagen centrada con su pie, escalada al ancho util de la pagina."""
+    completa = os.path.normpath(os.path.join(AQUI, ruta))
+    if not os.path.exists(completa):
+        return [Paragraph('[No se encontro la imagen: %s]' % ruta, estilos['cuerpo'])]
+
+    ancho_px, alto_px = ImageReader(completa).getSize()
+    ancho = min(ANCHO_UTIL, 15.5 * cm)
+    alto = ancho * alto_px / float(ancho_px)
+
+    # Una figura muy alta se limita para que no desplace el pie a otra pagina.
+    tope = 17 * cm
+    if alto > tope:
+        alto = tope
+        ancho = alto * ancho_px / float(alto_px)
+
+    leyenda = Paragraph(pie, estilos['pie_figura'])
+    return [KeepTogether([Imagen(completa, width=ancho, height=alto), Spacer(1, 4), leyenda]),
+            Spacer(1, 12)]
+
+
+def bloque_pendiente(texto, estilos):
+    """Recuadro para las capturas que solo puede aportar el equipo."""
+    tabla = Table([[Paragraph(texto, estilos['pendiente'])]], colWidths=[ANCHO_UTIL])
+    tabla.setStyle(TableStyle([
+        ('BOX', (0, 0), (-1, -1), 1, colors.HexColor('#c0392b')),
+        ('BACKGROUND', (0, 0), (-1, -1), colors.HexColor('#fdf3f2')),
+        ('TOPPADDING', (0, 0), (-1, -1), 16),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 16),
+    ]))
+    return [tabla, Spacer(1, 12)]
+
+
 def bloque_lista(elementos, numerada, estilos):
     items = [
         ListItem(Paragraph(formato_linea(t), estilos['vineta']), leftIndent=12)
@@ -286,6 +330,22 @@ def convertir(markdown, estilos):
 
         # El encabezado del documento y los separadores se omiten: ya van en la portada.
         if limpia.startswith('# ') or limpia == '---':
+            i += 1
+            continue
+
+        figura_md = re.match(r'^!\[([^\]]*)\]\(([^)]+)\)$', limpia)
+        if figura_md:
+            cerrar_parrafo()
+            cerrar_lista()
+            historia.extend(bloque_figura(figura_md.group(1), figura_md.group(2), estilos))
+            i += 1
+            continue
+
+        pendiente = re.match(r'^\[\[PENDIENTE:\s*(.+?)\]\]$', limpia)
+        if pendiente:
+            cerrar_parrafo()
+            cerrar_lista()
+            historia.extend(bloque_pendiente(pendiente.group(1), estilos))
             i += 1
             continue
 
@@ -426,7 +486,16 @@ def main():
     avance = AVANCES[clave]
 
     origen = os.path.join(AQUI, avance['origen'])
-    destino = os.path.join(AQUI, avance['destino'])
+    # Un segundo argumento permite escribir en otra carpeta, util cuando el
+    # archivo del repositorio esta abierto en Word o se quiere una copia aparte.
+    if len(sys.argv) > 2:
+        salida = os.path.abspath(sys.argv[2])
+        if os.path.isdir(salida):
+            destino = os.path.join(salida, avance['destino'])
+        else:
+            destino = salida
+    else:
+        destino = os.path.join(AQUI, avance['destino'])
     if not os.path.exists(origen):
         sys.exit('No se encontro el informe en %s' % origen)
 
