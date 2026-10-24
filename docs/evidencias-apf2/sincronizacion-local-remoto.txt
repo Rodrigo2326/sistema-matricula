@@ -1,0 +1,18 @@
+SINCRONIZACION LOCAL / REMOTO
+=============================
+
+$ git status -sb
+## feature/documentacion-apf2
+?? docs/evidencias-apf2/commits-por-integrante.txt
+?? docs/evidencias-apf2/grafico-ramas.txt
+?? docs/evidencias-apf2/historial-commits.txt
+?? docs/evidencias-apf2/pull-requests.txt
+?? docs/evidencias-apf2/ramas.txt
+?? docs/evidencias-apf2/revision-pr2.txt
+?? docs/evidencias-apf2/sincronizacion-local-remoto.txt
+
+$ git log --oneline -1 main
+016ccf5 Fusionar feature/ocupacion en main (PR #14)
+
+$ git log --oneline -1 origin/main
+016ccf5 Fusionar feature/ocupacion en main (PR #14)

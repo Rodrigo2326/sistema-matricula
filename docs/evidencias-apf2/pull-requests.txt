@@ -1,0 +1,21 @@
+PULL REQUESTS DEL APF2
+======================
+
+PR #14 - Agregar panel de ocupacion por curso
+  Autor      : Rodrigo2326
+  Rama       : feature/ocupacion -> main
+  Integrado  : 2026-10-24T04:54:30Z
+  Revisiones : copilot-pull-request-reviewer [COMMENTED]
+
+PR #13 - Agregar constancia de matricula imprimible
+  Autor      : soulahrikermette-hub
+  Rama       : feature/constancia-matricula -> main
+  Integrado  : 2026-10-24T04:50:41Z
+  Revisiones : Rodrigo2326 [APPROVED]
+
+PR #2 - Agregar catalogo de cursos con control de vacantes
+  Autor      : Rodrigo2326
+  Rama       : feature/catalogo-cursos -> main
+  Integrado  : 2026-10-24T04:50:35Z
+  Revisiones : copilot-pull-request-reviewer [COMMENTED]; soulahrikermette-hub [APPROVED]; Rodrigo2326 [COMMENTED]; Rodrigo2326 [COMMENTED]
+

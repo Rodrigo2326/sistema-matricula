@@ -1,0 +1,45 @@
+TABLERO DE ACTIVIDADES DEL APF2
+===============================
+
+Hito: APF2 - Semana 11 (vence 14/11/2026)
+
+#3 [FINALIZADO] Catalogo de cursos con control de vacantes
+        Responsable(s): Rodrigo2326
+        Etiquetas     : apf2, funcionalidad
+
+#4 [FINALIZADO] Constancia de matricula imprimible
+        Responsable(s): soulahrikermette-hub
+        Etiquetas     : apf2, funcionalidad
+
+#5 [FINALIZADO] Panel de ocupacion por curso
+        Responsable(s): gamergggpro123-lgtm
+        Etiquetas     : apf2, funcionalidad
+
+#6 [EN PROCESO ] Revisar los Pull Requests del avance antes de integrarlos
+        Responsable(s): Rodrigo2326, soulahrikermette-hub, gamergggpro123-lgtm
+        Etiquetas     : apf2, revision
+
+#7 [EN PROCESO ] Publicar la release v2.0.0 del avance
+        Responsable(s): Rodrigo2326
+        Etiquetas     : apf2, gestion
+
+#8 [EN PROCESO ] Informe APF2, README y evidencias del avance
+        Responsable(s): Rodrigo2326
+        Etiquetas     : apf2, documentacion
+
+#9 [EN PROCESO ] Coordinar el equipo en Microsoft Teams y dejar evidencia
+        Responsable(s): Rodrigo2326, soulahrikermette-hub, gamergggpro123-lgtm
+        Etiquetas     : apf2, gestion
+
+#10 [FINALIZADO] Integrar las ramas del avance y resolver el conflicto de fusion
+        Responsable(s): Rodrigo2326
+        Etiquetas     : apf2, gestion
+
+#11 [EN PROCESO ] Probar las funcionalidades del avance y registrar los resultados
+        Responsable(s): gamergggpro123-lgtm
+        Etiquetas     : apf2, revision
+
+#12 [EN PROCESO ] Redactar la seccion de evolucion funcional del informe APF2
+        Responsable(s): soulahrikermette-hub
+        Etiquetas     : apf2, documentacion
+
