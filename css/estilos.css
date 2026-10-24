@@ -520,3 +520,22 @@ body.con-constancia { overflow: hidden; }
   .ocupacion-fila { grid-template-columns: 1fr; gap: 4px; }
   .ocupacion-cifra { text-align: left; }
 }
+
+/* ===== Barra de herramientas con cuatro botones ===== */
+
+/* Al sumarse "Ver ocupacion" la barra pasó a tener el buscador, dos filtros, el
+   contador y tres botones: 977 px de contenido dentro de una tarjeta de 796 px.
+   Como la barra era nowrap, el último botón quedaba fuera de la tarjeta en
+   cualquier ancho de pantalla. Se permite que la fila se parta. */
+.barra-herramientas {
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+/* El grupo de botones se mantiene junto y se empuja a la derecha mientras haya
+   sitio; al partirse la fila ocupa su propia línea sin descolgarse. */
+.barra-herramientas .btn-secundario:first-of-type { margin-left: auto; }
+
+@media (max-width: 760px) {
+  .barra-herramientas .btn-secundario:first-of-type { margin-left: 0; }
+}
