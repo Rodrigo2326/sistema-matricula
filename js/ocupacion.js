@@ -1,82 +1,72 @@
-/** 
- * Cuenta cuántos matriculados hay en un curso específico.
- * Reutiliza la lista global 'matriculas' definida en app.js.
- */
-function contarOcupacion(nombreCurso) {
-    if (!Array.isArray(matriculas)) return 0;
-    return matriculas.filter(m => m.curso.toLowerCase() === nombreCurso.toLowerCase()).length;
+/* Sistema de Matrícula - panel de ocupación por curso */
+
+const panelOcupacion = document.getElementById('panelOcupacion');
+
+/** Clasifica el llenado de un curso para darle color a la barra. */
+function nivelDeOcupacion(porcentaje) {
+  if (porcentaje >= 100) return 'lleno';
+  if (porcentaje >= 70) return 'alto';
+  return 'normal';
 }
 
-/** 
- * Calcula las vacantes libres basándose en un límite máximo por curso (ej. 30 vacantes).
- */
-function vacantesLibres(nombreCurso, maxVacantes = 30) {
-    const ocupados = contarOcupacion(nombreCurso);
-    return Math.max(0, maxVacantes - ocupados);
+/** Arma la barra de ocupación de un curso. */
+function crearBarraDeCurso(curso) {
+  const ocupados = contarOcupacion(curso);
+  const porcentaje = Math.round((ocupados / curso.vacantes) * 100);
+
+  const fila = document.createElement('div');
+  fila.className = 'ocupacion-fila';
+
+  const titulo = document.createElement('div');
+  titulo.className = 'ocupacion-titulo';
+  titulo.textContent = `${curso.codigo} — ${curso.nombre}`;
+  fila.appendChild(titulo);
+
+  const canal = document.createElement('div');
+  canal.className = 'ocupacion-canal';
+
+  const barra = document.createElement('div');
+  barra.className = `ocupacion-barra ${nivelDeOcupacion(porcentaje)}`;
+  barra.style.width = `${Math.min(porcentaje, 100)}%`;
+  canal.appendChild(barra);
+  fila.appendChild(canal);
+
+  const cifra = document.createElement('div');
+  cifra.className = 'ocupacion-cifra';
+  cifra.textContent = `${ocupados} / ${curso.vacantes} (${porcentaje}%)`;
+  fila.appendChild(cifra);
+
+  return fila;
 }
 
-/** 
- * Renderiza las barras de progreso de ocupación en el panel correspondiente.
- */
-function renderizarBarrasOcupacion() {
-    const contenedorOcupacion = document.getElementById('panel-ocupacion');
-    if (!contenedorOcupacion) return;
+/** Dibuja el panel completo. */
+function renderizarOcupacion() {
+  panelOcupacion.innerHTML = '';
 
-    contenedorOcupacion.innerHTML = '';
+  if (cursos.length === 0) {
+    const vacio = document.createElement('p');
+    vacio.className = 'sin-datos';
+    vacio.textContent = 'Todavía no hay cursos en el catálogo.';
+    panelOcupacion.appendChild(vacio);
+    return;
+  }
 
-    // Lista de cursos predefinidos del sistema
-    const listaCursos = [
-        "Matemática I",
-        "Algoritmos",
-        "Introducción a la Ingeniería",
-        "Física I",
-        "Comunicación"
-    ];
+  const llenos = cursos.filter(curso => vacantesLibres(curso) === 0).length;
 
-    const maxVacantesPorCurso = 30; // Límite estándar de vacantes
+  const aviso = document.createElement('p');
+  aviso.className = 'ocupacion-aviso';
+  aviso.textContent = llenos === 0
+    ? 'Todos los cursos tienen vacantes disponibles.'
+    : `${llenos} curso(s) sin vacantes.`;
+  panelOcupacion.appendChild(aviso);
 
-    listaCursos.forEach(nombreCurso => {
-        const ocupados = contarOcupacion(nombreCurso);
-        const total = maxVacantesPorCurso;
-        const porcentaje = Math.round((ocupados / total) * 100);
-
-        // Determinación del color según los rangos requeridos:
-        // Verde < 70%, Ámbar 70–99%, Rojo 100%
-        let claseColor = 'bg-success'; 
-        if (porcentaje >= 100) {
-            claseColor = 'bg-danger';  
-        } else if (porcentaje >= 70) {
-            claseColor = 'bg-warning'; 
-        }
-
-        const itemHTML = `
-            <div class="mb-3 p-2 border rounded">
-                <div class="d-flex justify-content-between mb-1">
-                    <strong>${nombreCurso}</strong>
-                    <span>${porcentaje}% (${ocupados}/${total} ocupados)</span>
-                </div>
-                <div class="progress" style="height: 20px; background-color: #e9ecef;">
-                    <div class="progress-bar ${claseColor}" role="progressbar" 
-                         style="width: ${porcentaje}%;" 
-                         aria-valuenow="${porcentaje}" aria-valuemin="0" aria-valuemax="100">
-                    </div>
-                </div>
-            </div>
-        `;
-        contenedorOcupacion.innerHTML += itemHTML;
-    });
+  cursos.forEach(curso => panelOcupacion.appendChild(crearBarraDeCurso(curso)));
 }
 
-/** Configura el evento del botón "Ver ocupación" */
-document.addEventListener('DOMContentLoaded', () => {
-    // CORRECCIÓN: Se cambió 'btn-ocupacion' por 'btn-ver-ocupacion' para hacer match con el HTML
-    const btnOcupacion = document.getElementById('btn-ver-ocupacion');
-    const panelOcupacion = document.getElementById('panel-ocupacion');
+/** Muestra u oculta el panel. */
+function alternarOcupacion() {
+  renderizarOcupacion();
+  panelOcupacion.classList.toggle('oculto');
+}
 
-    if (btnOcupacion && panelOcupacion) {
-        btnOcupacion.addEventListener('click', () => {
-            renderizarBarrasOcupacion();
-            panelOcupacion.classList.toggle('oculto');
-        });
-    }
-});
+document.getElementById('btnOcupacion').addEventListener('click', alternarOcupacion);
