@@ -22,10 +22,12 @@ gestionada íntegramente con las herramientas de control de versiones y
 colaboración trabajadas en el curso, de modo que la evolución del producto
 quede trazable en el repositorio.
 
-## Alcance de esta primera versión (APF1)
+## Alcance funcional
 
-Esta entrega cubre la base versionada del proyecto y el flujo fundamental de
-Git. Funcionalmente incluye:
+### Primera versión (APF1)
+
+La primera entrega cubrió la base versionada del proyecto y el flujo
+fundamental de Git. Funcionalmente incluyó:
 
 - Registro de matrículas mediante formulario.
 - Listado de las matrículas registradas con contador.
@@ -38,17 +40,33 @@ Git. Funcionalmente incluye:
 - Resumen de matrículas agrupado por carrera.
 - Eliminación de registros y persistencia en el navegador.
 
-Queda **fuera de alcance** en esta versión: autenticación de usuarios, base de
-datos en servidor, integración continua, contenedores y despliegue en nube.
-Esos puntos corresponden a los avances APF2, APF3 y al proyecto final.
+### Segunda versión (APF2) — `v2.0.0`
+
+El segundo avance incorporó tres funcionalidades nuevas, una por integrante:
+
+- **Catálogo de cursos con control de vacantes.** Alta, edición y baja de los
+  cursos que se ofrecen cada ciclo, con su número de vacantes. El curso a
+  matricular dejó de escribirse a mano: se elige de un selector filtrado por
+  carrera y ciclo que muestra las vacantes restantes, y el sistema rechaza la
+  matrícula cuando el cupo se agota.
+- **Constancia de matrícula imprimible.** Comprobante por estudiante con sus
+  datos, el curso, el código del curso y la fecha, listo para imprimir o
+  guardar como PDF desde el navegador.
+- **Panel de ocupación por curso.** Barra de progreso por curso con el
+  porcentaje ocupado — verde por debajo del 70 %, ámbar entre 70 % y 99 %, rojo
+  al 100 % — y aviso de cuántos cursos quedaron sin vacantes.
+
+Queda **fuera de alcance** por ahora: autenticación de usuarios, base de datos
+en servidor, integración continua, contenedores y despliegue en nube. Esos
+puntos corresponden al APF3 y al proyecto final.
 
 ## Integrantes
 
 | Integrante | Usuario de GitHub | Rol | Aporte principal |
 | --- | --- | --- | --- |
-| Aparcana Mamani Rodrigo Alonso | [@Rodrigo2326](https://github.com/Rodrigo2326) | Responsable de repositorio y documentación | Estructura base, registro, listado, búsqueda, validación, exportación CSV y resumen por carrera |
-| Ccahuana Huillca Giancarlo | [@soulahrikermette-hub](https://github.com/soulahrikermette-hub) | Responsable funcional | Edición de matrículas registradas y botón de limpieza del formulario |
-| Arnold Jhuncor Díaz Silva | [@gamergggpro123-lgtm](https://github.com/gamergggpro123-lgtm) | Responsable de calidad y automatización | Filtros por carrera y ciclo, y ordenamiento del listado por columnas |
+| Aparcana Mamani Rodrigo Alonso | [@Rodrigo2326](https://github.com/Rodrigo2326) | Responsable de repositorio y documentación | Estructura base, registro, listado, búsqueda, validación, exportación CSV, resumen por carrera y **catálogo de cursos con control de vacantes** |
+| Ccahuana Huillca Giancarlo | [@soulahrikermette-hub](https://github.com/soulahrikermette-hub) | Responsable funcional | Edición de matrículas, botón de limpieza del formulario y **constancia de matrícula imprimible** |
+| Arnold Jhuncor Díaz Silva | [@gamergggpro123-lgtm](https://github.com/gamergggpro123-lgtm) | Responsable de calidad y automatización | Filtros por carrera y ciclo, ordenamiento del listado y **panel de ocupación por curso** |
 
 Los tres integrantes tienen commits propios en el historial del repositorio.
 Cada funcionalidad se desarrolló en su propia rama y se integró a `main`
@@ -83,12 +101,19 @@ sistema-matricula/
 ├── css/
 │   └── estilos.css             Hoja de estilos
 ├── js/
-│   └── app.js                  Lógica de la aplicación
+│   ├── app.js                  Registro, listado, búsqueda y validación
+│   ├── cursos.js               Catálogo de cursos y control de vacantes
+│   ├── constancia.js           Constancia de matrícula imprimible
+│   └── ocupacion.js            Panel de ocupación por curso
 ├── docs/
 │   ├── informe-apf1.md         Informe del avance 1
 │   ├── Informe_APF1.pdf        Informe del avance 1 en PDF
-│   ├── generar_informe.py      Script que genera el PDF
-│   └── evidencias/             Salidas de Git que respaldan el avance
+│   ├── informe-apf2.md         Informe del avance 2
+│   ├── Informe_APF2.pdf        Informe del avance 2 en PDF
+│   ├── Informe_APF2.docx       Informe del avance 2 editable
+│   ├── generar_informe.py      Script que genera los PDF
+│   ├── evidencias/             Salidas de Git del APF1
+│   └── evidencias-apf2/        Salidas de Git del APF2
 ├── .gitignore
 ├── .mailmap
 └── README.md
@@ -96,9 +121,23 @@ sistema-matricula/
 
 ## Estado del proyecto
 
+**APF2 (Semana 11) — completado.** Versión `v2.0.0`. Tres funcionalidades nuevas
+integradas mediante Pull Request con revisión previa, conflicto de fusión
+resuelto y documentado, y gestión del trabajo en tablero. Ver
+`docs/evidencias-apf2/`.
+
 **APF1 (Semana 6) — completado.** Base versionada, ramas de trabajo, merges y
-resolución de conflicto documentados. Ver `docs/` para las evidencias del
-avance.
+resolución de conflicto documentados. Ver `docs/evidencias/`.
+
+### Herramientas utilizadas
+
+| Necesidad | Herramienta |
+| --- | --- |
+| Control de versiones | Git |
+| Repositorio remoto y revisión de código | GitHub (Pull Requests) |
+| Gestión de actividades | GitHub Issues con responsables, etiquetas e hitos |
+| Gestión del proyecto | Tablero de GitHub Projects + hito *APF2 - Semana 11* |
+| Colaboración del equipo | Microsoft Teams (reunión diaria de 10:00 a 10:30) |
 
 ## Flujo de trabajo con ramas
 
@@ -109,6 +148,16 @@ avance.
 
 Cada rama se integra a `main` mediante una fusión explícita (`git merge --no-ff`)
 para que el historial conserve el punto de integración.
+
+### Ramas utilizadas en el APF2
+
+| Rama | Propósito | Estado |
+| --- | --- | --- |
+| `main` | Versión principal estable | Activa |
+| `feature/catalogo-cursos` | Catálogo de cursos con control de vacantes | Fusionada (PR #2) |
+| `feature/constancia-matricula` | Constancia de matrícula imprimible | Fusionada (PR #13) |
+| `feature/ocupacion` | Panel de ocupación por curso | Fusionada (PR #14, con conflicto) |
+| `feature/documentacion-apf2` | Informe, README y evidencias del avance | Fusionada |
 
 ### Ramas utilizadas en el APF1
 
@@ -156,6 +205,25 @@ git checkout main
 git merge --no-ff feature/mi-funcionalidad
 git push origin main
 ```
+
+## Evidencias del APF2
+
+El detalle del avance está en [`docs/informe-apf2.md`](docs/informe-apf2.md) y en
+[`docs/Informe_APF2.pdf`](docs/Informe_APF2.pdf). Las salidas que lo respaldan
+están en `docs/evidencias-apf2/`:
+
+| Archivo | Contenido |
+| --- | --- |
+| `historial-commits.txt` | Commits del avance con autor y fecha |
+| `grafico-ramas.txt` | Gráfico del historial con las tres integraciones |
+| `commits-por-integrante.txt` | Reparto de commits del avance y acumulado |
+| `ramas.txt` | Ramas del avance y su estado |
+| `pull-requests.txt` | Los tres Pull Requests con sus revisiones |
+| `revision-pr2.txt` | Comentarios de revisión sobre líneas concretas del PR #2 |
+| `conflicto-01-deteccion.txt` | Salida de Git al detectar el conflicto |
+| `conflicto-02-marcadores.txt` | Marcadores de conflicto tal como los dejó Git |
+| `conflicto-03-resolucion.txt` | Criterio, pasos y verificación de la resolución |
+| `sincronizacion-local-remoto.txt` | Estado de sincronización local/remoto |
 
 ## Evidencias del APF1
 

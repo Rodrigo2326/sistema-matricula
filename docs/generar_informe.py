@@ -6,7 +6,9 @@ El Markdown es la unica fuente de verdad: este script solo lo maqueta. Si el
 contenido del informe cambia, basta con volver a ejecutarlo.
 
 Uso:
-    python docs/generar_informe.py
+    python docs/generar_informe.py [apf1|apf2]
+
+Sin argumento genera el informe del APF2, que es el avance vigente.
 
 Requiere: reportlab (pip install reportlab)
 """
@@ -27,8 +29,26 @@ from reportlab.platypus import (
 )
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
-ORIGEN = os.path.join(AQUI, 'informe-apf1.md')
-DESTINO = os.path.join(AQUI, 'Informe_APF1.pdf')
+
+# Cada avance declara su fuente, su destino y los datos de la portada.
+AVANCES = {
+    'apf1': {
+        'origen': 'informe-apf1.md',
+        'destino': 'Informe_APF1.pdf',
+        'titulo': 'Informe APF1 - Sistema de Matricula',
+        'portada': 'Avance de Proyecto Final 1',
+        'semana': '6',
+        'version': None,
+    },
+    'apf2': {
+        'origen': 'informe-apf2.md',
+        'destino': 'Informe_APF2.pdf',
+        'titulo': 'Informe APF2 - Sistema de Matricula',
+        'portada': 'Avance de Proyecto Final 2',
+        'semana': '11',
+        'version': 'v2.0.0',
+    },
+}
 
 AZUL = colors.HexColor('#1a2a52')
 AZUL_CLARO = colors.HexColor('#2e4a9e')
@@ -361,10 +381,10 @@ def convertir(markdown, estilos):
 # Portada y pie de pagina
 # --------------------------------------------------------------------------
 
-def portada(estilos, metadatos, integrantes):
+def portada(estilos, metadatos, integrantes, titulo_portada):
     elementos = [
         Spacer(1, 3.4 * cm),
-        Paragraph('Avance de Proyecto Final 1', estilos['titulo_portada']),
+        Paragraph(titulo_portada, estilos['titulo_portada']),
         Paragraph('Sistema de Matr&iacute;cula', estilos['subtitulo_portada']),
         Spacer(1, 1.5 * cm),
     ]
@@ -400,19 +420,28 @@ def pie_de_pagina(canvas, doc):
 # --------------------------------------------------------------------------
 
 def main():
-    if not os.path.exists(ORIGEN):
-        sys.exit('No se encontro el informe en %s' % ORIGEN)
+    clave = (sys.argv[1].lower() if len(sys.argv) > 1 else 'apf2')
+    if clave not in AVANCES:
+        sys.exit('Avance desconocido: %s (use apf1 o apf2)' % clave)
+    avance = AVANCES[clave]
 
-    markdown = io.open(ORIGEN, encoding='utf-8').read()
+    origen = os.path.join(AQUI, avance['origen'])
+    destino = os.path.join(AQUI, avance['destino'])
+    if not os.path.exists(origen):
+        sys.exit('No se encontro el informe en %s' % origen)
+
+    markdown = io.open(origen, encoding='utf-8').read()
     estilos = construir_estilos()
 
     metadatos = [
         ('Curso', 'Herramientas de Desarrollo (100000S66T)'),
         ('Periodo', '2026-II'),
-        ('Semana', '6'),
+        ('Semana', avance['semana']),
         ('Proyecto', 'Sistema de Matr&iacute;cula'),
         ('Repositorio', 'github.com/Rodrigo2326/sistema-matricula'),
     ]
+    if avance['version']:
+        metadatos.insert(3, ('Version', avance['version']))
 
     integrantes = [
         'Ccahuana Huillca Giancarlo',
@@ -421,10 +450,10 @@ def main():
     ]
 
     documento = BaseDocTemplate(
-        DESTINO, pagesize=A4,
+        destino, pagesize=A4,
         leftMargin=2.2 * cm, rightMargin=2.2 * cm,
         topMargin=2.0 * cm, bottomMargin=2.2 * cm,
-        title='Informe APF1 - Sistema de Matricula',
+        title=avance['titulo'],
         author='Rodrigo Aparcana',
     )
     marco = Frame(
@@ -435,10 +464,10 @@ def main():
         PageTemplate(id='principal', frames=[marco], onPage=pie_de_pagina)
     ])
 
-    historia = portada(estilos, metadatos, integrantes) + convertir(markdown, estilos)
+    historia = portada(estilos, metadatos, integrantes, avance['portada']) + convertir(markdown, estilos)
     documento.build(historia)
 
-    print('PDF generado: %s' % DESTINO)
+    print('PDF generado: %s' % destino)
     print('Paginas: %d (portada incluida)' % documento.page)
 
 

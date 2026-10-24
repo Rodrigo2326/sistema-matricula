@@ -1,0 +1,9 @@
+RAMAS DEL APF2
+==============
+
+Rama                            Proposito                              Estado
+-----------------------------------------------------------------------------
+main                            Version principal estable              Activa
+feature/catalogo-cursos         Catalogo de cursos con vacantes        Fusionada (PR #2)
+feature/constancia-matricula    Constancia de matricula imprimible     Fusionada (PR #13)
+feature/ocupacion               Panel de ocupacion por curso           Fusionada (PR #14)

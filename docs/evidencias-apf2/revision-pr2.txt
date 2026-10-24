@@ -1,0 +1,25 @@
+REVISION DE CODIGO DEL PR #2
+============================
+
+Comentarios sobre lineas concretas:
+
+[soulahrikermette-hub] js/cursos.js:153
+Si se edita el nombre del curso, las matrículas siguen mostrando el nombre anterior, porque solo se actualiza el código. Habría que actualizar también matricula.curso.
+
+[soulahrikermette-hub] js/app.js:52
+Ahora que cada matrícula guarda cursoCodigo, convendría que existeMatriculaDuplicada compare por código y no por nombre de curso. Si dos carreras tienen un curso con el mismo nombre (por ejemplo "Matemática I"), hoy se bloquearía una matrícula válida.
+
+[Rodrigo2326] js/cursos.js:153
+Confirmado, era un bug. Cada matrícula guarda una copia del nombre del curso (para que el listado y la constancia no dependan de que el curso siga existiendo en el catálogo), y yo solo estaba propagando el cambio de código.
+
+Corregido en 5c61153: `propagarCambioDeCodigo` pasó a ser `propagarCambiosDelCurso` y ahora actualiza `cursoCodigo` y `curso`, y refresca el listado.
+
+Probado: matriculé a un alumno en SIS-101, renombré el curso a "Algoritmos I" y la fila del listado y el localStorage quedaron con el nombre nuevo.
+
+[Rodrigo2326] js/app.js:52
+Tenés razón, y el caso se da incluso dentro de una misma carrera: "Práctica Preprofesional" en ciclo IX y en ciclo X son dos cursos distintos con el mismo nombre, y el alumno quedaba bloqueado al matricularse en el segundo.
+
+Corregido en 5c61153: `existeMatriculaDuplicada` ahora compara por `cursoCodigo`. La comparación por nombre quedó solo como respaldo para las matrículas anteriores al catálogo, que no tienen código.
+
+Probado: registré ADM-301 y ADM-302 con el mismo nombre en ciclos distintos, matriculé al mismo alumno en ambos (pasa), y verifiqué que el duplicado real (mismo alumno, mismo curso) se sigue bloqueando.
+

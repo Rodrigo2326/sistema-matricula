@@ -1,0 +1,28 @@
+HISTORIAL DE COMMITS DEL APF2
+=============================
+
+Generado: 23/10/2026 23:54
+Rango: desde el cierre del APF1 (83d4533) hasta main
+
+016ccf5  23/10/2026 23:54  Rodrigo Aparcana
+        Fusionar feature/ocupacion en main (PR #14)
+dbfe2bd  23/10/2026 23:54  Rodrigo Aparcana
+        Fusionar main en feature/ocupacion resolviendo el conflicto de estilos
+3e20683  23/10/2026 23:50  Rodrigo Aparcana
+        Fusionar feature/constancia-matricula en main (PR #13)
+30b2a4d  23/10/2026 23:50  Rodrigo Aparcana
+        Fusionar feature/catalogo-cursos en main (PR #2)
+d73c1c6  23/10/2026 23:34  Arnold
+        Usar el catalogo de cursos en el panel de ocupacion
+deba101  23/10/2026 22:50  Arnold
+        feat(ocupacion): implementa boton de ocupacion y barras de progreso
+5c61153  23/10/2026 22:34  Rodrigo Aparcana
+        Corregir el nombre del curso en las matriculas y el control de duplicados
+55ca323  23/10/2026 02:19  giancarlo ccahuana
+        Dar estilos a la constancia y ocultar la aplicacion al imprimir
+3c11fcd  23/10/2026 02:19  giancarlo ccahuana
+        Agregar la vista de constancia de matricula
+e1074f8  20/10/2026 23:58  Rodrigo Aparcana
+        Matricular seleccionando el curso del catalogo y controlar las vacantes
+35cdac0  20/10/2026 23:58  Rodrigo Aparcana
+        Agregar el catalogo de cursos con vacantes

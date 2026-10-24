@@ -1,0 +1,24 @@
+GRAFICO DE RAMAS E INTEGRACIONES DEL APF2
+=========================================
+
+*   016ccf5  (HEAD -> feature/documentacion-apf2, origin/main, origin/HEAD, main) Rodrigo Aparcana | Fusionar feature/ocupacion en main (PR #14)
+|\  
+| *   dbfe2bd  (origin/feature/ocupacion, feature/ocupacion) Rodrigo Aparcana | Fusionar main en feature/ocupacion resolviendo el conflicto de estilos
+| |\  
+| |/  
+|/|   
+* |   3e20683  Rodrigo Aparcana | Fusionar feature/constancia-matricula en main (PR #13)
+|\ \  
+| * | 55ca323  (origin/feature/constancia-matricula) giancarlo ccahuana | Dar estilos a la constancia y ocultar la aplicacion al imprimir
+| * | 3c11fcd  giancarlo ccahuana | Agregar la vista de constancia de matricula
+* | | 30b2a4d  Rodrigo Aparcana | Fusionar feature/catalogo-cursos en main (PR #2)
+| | *   d73c1c6  Arnold | Usar el catalogo de cursos en el panel de ocupacion
+| | |\  
+| |_|/  
+|/| |   
+* | | 5c61153  (origin/feature/catalogo-cursos, feature/catalogo-cursos) Rodrigo Aparcana | Corregir el nombre del curso en las matriculas y el control de duplicados
+|/ /  
+* | e1074f8  Rodrigo Aparcana | Matricular seleccionando el curso del catalogo y controlar las vacantes
+* | 35cdac0  Rodrigo Aparcana | Agregar el catalogo de cursos con vacantes
+ /  
+* deba101  Arnold | feat(ocupacion): implementa boton de ocupacion y barras de progreso
