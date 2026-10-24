@@ -1,0 +1,33 @@
+# Normalizacion de finales de linea.
+#
+# El repositorio tiene core.autocrlf=true, que convierte LF a CRLF al extraer
+# los archivos en Windows. Esa conversion es correcta para texto, pero corrompe
+# los archivos binarios: Git decide si un archivo es texto o binario mirando los
+# primeros bytes, y un PDF empieza con caracteres ASCII ("%PDF-1.4"), por lo que
+# lo clasificaba como texto y le reescribia los saltos de linea internos. El
+# informe en PDF llegaba danado a cualquiera que clonara el repositorio.
+#
+# Los .docx y los .png no estaban afectados porque contienen bytes nulos muy al
+# principio y Git los reconoce como binarios sin ayuda. Aun asi se declaran
+# explicitamente para no depender de esa heuristica.
+
+# Por defecto, normalizar el texto.
+* text=auto
+
+# Binarios: no tocar nunca su contenido.
+*.pdf  binary
+*.docx binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.zip  binary
+
+# Codigo y documentacion del proyecto: texto.
+*.html text
+*.css  text
+*.js   text
+*.md   text
+*.py   text
+*.txt  text
