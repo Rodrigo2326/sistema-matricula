@@ -100,8 +100,13 @@
         <span class="contador" id="contador">0</span> registros
         <button type="button" class="btn-secundario" id="btnExportar">Exportar CSV</button>
         <button type="button" class="btn-secundario" id="btnResumen">Ver resumen</button>
+        <!-- Botón para activar la ocupación -->
+        <button type="button" class="btn-secundario" id="btn-ver-ocupacion">Ver Ocupación</button>
       </div>
       <div class="resumen oculto" id="panelResumen"></div>
+      <!-- Contenedor donde se pintarán las barras de progreso -->
+<div id="panel-ocupacion" class="oculto"></div>
+
       <table id="tablaMatriculas">
       <thead>
           <tr>
@@ -126,6 +131,7 @@
   <div id="aviso" role="status" aria-live="polite"></div>
 
   <script src="js/app.js"></script>
+<script src="js/ocupacion.js"></script>
 </body>
 
 </html>
