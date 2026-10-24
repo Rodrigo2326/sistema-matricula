@@ -312,13 +312,21 @@ function validarMatricula(matricula, idExcluir = null) {
   return '';
 }
 
-/** Indica si el estudiante ya está matriculado en el mismo curso (ignorando idExcluir). */
+/**
+ * Indica si el estudiante ya está matriculado en el mismo curso (ignorando idExcluir).
+ *
+ * La comparación es por código de curso, no por nombre: dos carreras o dos
+ * ciclos pueden ofrecer cursos que se llaman igual, y compararlos por nombre
+ * bloquearía matrículas legítimas. Las matrículas anteriores al catálogo no
+ * guardaron el código, así que solo para esas se compara el nombre.
+ */
 function existeMatriculaDuplicada(nueva, idExcluir = null) {
-  return matriculas.some(matricula =>
-    matricula.id !== idExcluir &&
-    matricula.codigo === nueva.codigo &&
-    matricula.curso.toLowerCase() === nueva.curso.toLowerCase()
-  );
+  return matriculas.some(matricula => {
+    if (matricula.id === idExcluir) return false;
+    if (matricula.codigo !== nueva.codigo) return false;
+    if (matricula.cursoCodigo) return matricula.cursoCodigo === nueva.cursoCodigo;
+    return matricula.curso.toLowerCase() === nueva.curso.toLowerCase();
+  });
 }
 
 /* ===== Exportación a CSV ===== */

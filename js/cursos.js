@@ -136,7 +136,7 @@ function registrarCurso(evento) {
 
   if (codigoCursoEnEdicion !== null) {
     const indice = cursos.findIndex(curso => curso.codigo === codigoCursoEnEdicion);
-    propagarCambioDeCodigo(codigoCursoEnEdicion, datos.codigo);
+    propagarCambiosDelCurso(cursos[indice], datos);
     cursos[indice] = datos;
     mostrarAviso('Curso actualizado correctamente');
   } else {
@@ -149,13 +149,29 @@ function registrarCurso(evento) {
   refrescarCursos();
 }
 
-/** Mantiene apuntando a su curso las matrículas cuando cambia el código. */
-function propagarCambioDeCodigo(codigoAnterior, codigoNuevo) {
-  if (codigoAnterior === codigoNuevo) return;
-  matriculas
-    .filter(matricula => matricula.cursoCodigo === codigoAnterior)
-    .forEach(matricula => { matricula.cursoCodigo = codigoNuevo; });
+/**
+ * Mantiene al día las matrículas cuando se edita un curso.
+ *
+ * Cada matrícula guarda el nombre del curso además de su código, para que el
+ * listado, el CSV y la constancia no dependan de que el curso siga existiendo.
+ * Ese nombre es una copia, así que al renombrar el curso hay que actualizarlo;
+ * y al cambiarle el código hay que volver a apuntar las matrículas.
+ */
+function propagarCambiosDelCurso(cursoAnterior, cursoNuevo) {
+  const mismoCodigo = cursoAnterior.codigo === cursoNuevo.codigo;
+  const mismoNombre = cursoAnterior.nombre === cursoNuevo.nombre;
+  if (mismoCodigo && mismoNombre) return;
+
+  const afectadas = matriculas.filter(matricula => matricula.cursoCodigo === cursoAnterior.codigo);
+  if (afectadas.length === 0) return;
+
+  afectadas.forEach(matricula => {
+    matricula.cursoCodigo = cursoNuevo.codigo;
+    matricula.curso = cursoNuevo.nombre;
+  });
+
   guardarMatriculas();
+  refrescarListado();
 }
 
 formCurso.addEventListener('submit', registrarCurso);
