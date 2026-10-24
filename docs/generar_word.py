@@ -7,7 +7,7 @@ generar_informe.py hace con el PDF. La version en Word existe para poder
 insertar las capturas de pantalla y los ajustes finales antes de entregar.
 
 Uso:
-    python docs/generar_word.py [apf1|apf2]
+    python docs/generar_word.py [apf1|apf2] [carpeta-o-archivo-destino]
 
 Sin argumento genera el informe del APF2, que es el avance vigente.
 
@@ -164,6 +164,49 @@ def portada(documento, avance):
     documento.add_page_break()
 
 
+def figura(documento, pie, ruta):
+    """Inserta una imagen centrada con su pie numerado."""
+    completa = os.path.normpath(os.path.join(AQUI, ruta))
+    parrafo = documento.add_paragraph()
+    parrafo.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    parrafo.paragraph_format.space_before = Pt(10)
+    parrafo.paragraph_format.space_after = Pt(4)
+    if os.path.exists(completa):
+        parrafo.add_run().add_picture(completa, width=Cm(15.5))
+    else:
+        parrafo.add_run('[No se encontro la imagen: %s]' % ruta).italic = True
+
+    leyenda = documento.add_paragraph()
+    leyenda.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    leyenda.paragraph_format.space_after = Pt(14)
+    corrida = leyenda.add_run(pie)
+    corrida.italic = True
+    corrida.font.size = Pt(9)
+    corrida.font.color.rgb = GRIS
+
+
+def hueco_pendiente(documento, texto):
+    """
+    Deja un recuadro visible donde falta una captura que solo puede aportar el
+    equipo, por ejemplo las de Microsoft Teams.
+    """
+    tabla = documento.add_table(rows=1, cols=1)
+    tabla.style = 'Table Grid'
+    tabla.alignment = WD_TABLE_ALIGNMENT.CENTER
+    celda = tabla.rows[0].cells[0]
+    celda.text = ''
+    parrafo = celda.paragraphs[0]
+    parrafo.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    parrafo.paragraph_format.space_before = Pt(18)
+    parrafo.paragraph_format.space_after = Pt(18)
+    corrida = parrafo.add_run(texto)
+    corrida.bold = True
+    corrida.font.size = Pt(10)
+    corrida.font.color.rgb = RGBColor(0xC0, 0x39, 0x2B)
+    sombrear(celda, 'FDF3F2')
+    documento.add_paragraph().paragraph_format.space_after = Pt(10)
+
+
 def bloque_codigo(documento, lineas):
     parrafo = documento.add_paragraph()
     parrafo.paragraph_format.left_indent = Cm(0.6)
@@ -223,6 +266,18 @@ def convertir(documento, markdown):
         desnuda = linea.strip()
 
         if desnuda == '' or desnuda == '---':
+            i += 1
+            continue
+
+        figura_md = re.match(r'^!\[([^\]]*)\]\(([^)]+)\)$', desnuda)
+        if figura_md:
+            figura(documento, figura_md.group(1), figura_md.group(2))
+            i += 1
+            continue
+
+        pendiente = re.match(r'^\[\[PENDIENTE:\s*(.+?)\]\]$', desnuda)
+        if pendiente:
+            hueco_pendiente(documento, pendiente.group(1))
             i += 1
             continue
 
@@ -305,7 +360,16 @@ def main():
     avance = AVANCES[clave]
 
     origen = os.path.join(AQUI, avance['origen'])
-    destino = os.path.join(AQUI, avance['destino'])
+    # Un segundo argumento permite escribir en otra carpeta, util cuando el
+    # archivo del repositorio esta abierto en Word o se quiere una copia aparte.
+    if len(sys.argv) > 2:
+        salida = os.path.abspath(sys.argv[2])
+        if os.path.isdir(salida):
+            destino = os.path.join(salida, avance['destino'])
+        else:
+            destino = salida
+    else:
+        destino = os.path.join(AQUI, avance['destino'])
     if not os.path.exists(origen):
         sys.exit('No se encontro el informe en %s' % origen)
 
