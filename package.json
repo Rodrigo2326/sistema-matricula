@@ -1,0 +1,16 @@
+{
+  "name": "sistema-matricula",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Sistema de Matricula - Proyecto Integrador de Herramientas de Desarrollo 2026-II",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "verificar:js": "node --check js/app.js && node --check js/cursos.js && node --check js/constancia.js && node --check js/ocupacion.js",
+    "verificar:estructura": "node tests/herramientas/verificar-estructura.js",
+    "verificar": "npm run verificar:js && npm run verificar:estructura && npm test"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1"
+  },
+  "license": "UNLICENSED"
+}
