@@ -1,0 +1,68 @@
+# Entrega continua del Sistema de Matricula.
+#
+# Publica la aplicacion en GitHub Pages cada vez que main cambia, pero solo
+# despues de que la integracion continua haya terminado correctamente: el
+# disparador es la finalizacion del flujo de CI, no el push.
+name: Entrega continua
+
+on:
+  workflow_run:
+    workflows: ['Integracion continua']
+    branches: [main]
+    types: [completed]
+  workflow_dispatch:
+
+# Permisos minimos que necesita el despliegue a Pages.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Un despliegue a la vez; si llega uno nuevo mientras otro corre, se encola.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    name: Publicar en GitHub Pages
+    # Si la integracion continua fallo, no se publica nada.
+    if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar el sitio
+        # La aplicacion es estatica: se publica tal cual, sin node_modules ni
+        # documentacion interna.
+        run: |
+          mkdir -p sitio
+          cp index.html sitio/
+          cp -r css sitio/
+          cp -r js sitio/
+          echo "Publicado desde $GITHUB_SHA el $(date -u '+%d/%m/%Y %H:%M UTC')" > sitio/VERSION.txt
+
+      - name: Configurar Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empaquetar el sitio
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: sitio
+
+      - name: Desplegar
+        id: despliegue
+        uses: actions/deploy-pages@v4
+
+      - name: Resumen del despliegue
+        run: |
+          echo "### Despliegue correcto" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- URL: ${{ steps.despliegue.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Commit: \`$GITHUB_SHA\`" >> $GITHUB_STEP_SUMMARY

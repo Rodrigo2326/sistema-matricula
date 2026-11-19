@@ -1,0 +1,50 @@
+# Integracion continua del Sistema de Matricula.
+#
+# Se ejecuta en cada push y en cada Pull Request hacia main, de modo que
+# ninguna rama pueda integrarse sin haber pasado las validaciones.
+name: Integracion continua
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validar:
+    name: Validar el proyecto
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Verificar la sintaxis de los modulos JavaScript
+        run: npm run verificar:js
+
+      - name: Verificar la estructura del proyecto
+        run: npm run verificar:estructura
+
+      - name: Ejecutar las pruebas automatizadas
+        run: npm test
+
+      - name: Resumen de la ejecucion
+        if: always()
+        run: |
+          echo "### Validacion del Sistema de Matricula" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Validacion | Resultado |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Sintaxis de los modulos JavaScript | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Estructura del proyecto | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Pruebas automatizadas | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY

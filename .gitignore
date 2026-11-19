@@ -12,3 +12,9 @@ desktop.ini
 *.log
 *.tmp
 *~
+
+# Dependencias de las pruebas
+node_modules/
+
+# Carpeta temporal que arma el flujo de entrega continua
+sitio/
