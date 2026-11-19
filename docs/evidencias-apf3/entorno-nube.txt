@@ -1,0 +1,18 @@
+ENTORNO EN LA NUBE
+==================
+
+URL      : https://rodrigo2326.github.io/sistema-matricula/
+Origen   : workflow
+HTTPS    : true
+
+Verificacion de los recursos publicados:
+  /                        HTTP 200
+  /css/estilos.css         HTTP 200
+  /js/app.js               HTTP 200
+  /js/cursos.js            HTTP 200
+  /js/constancia.js        HTTP 200
+  /js/ocupacion.js         HTTP 200
+  /VERSION.txt             HTTP 200
+
+Contenido de VERSION.txt:
+  Publicado desde 1fe99bf4c826b1d23ca807a5bd1baab17f3c92d7 el 19/11/2026 04:44 UTC

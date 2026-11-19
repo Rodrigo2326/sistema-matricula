@@ -1,8 +1,13 @@
 # Sistema de Matrícula
 
+[![Integracion continua](https://github.com/Rodrigo2326/sistema-matricula/actions/workflows/ci.yml/badge.svg)](https://github.com/Rodrigo2326/sistema-matricula/actions/workflows/ci.yml)
+[![Entrega continua](https://github.com/Rodrigo2326/sistema-matricula/actions/workflows/cd.yml/badge.svg)](https://github.com/Rodrigo2326/sistema-matricula/actions/workflows/cd.yml)
+
 Aplicación web para registrar y consultar las matrículas de estudiantes por
 ciclo académico. Proyecto Integrador del curso **Herramientas de Desarrollo
 (100000S66T)** — periodo 2026-II.
+
+**Aplicación en funcionamiento:** https://rodrigo2326.github.io/sistema-matricula/
 
 ## Problema
 
@@ -56,9 +61,24 @@ El segundo avance incorporó tres funcionalidades nuevas, una por integrante:
   porcentaje ocupado — verde por debajo del 70 %, ámbar entre 70 % y 99 %, rojo
   al 100 % — y aviso de cuántos cursos quedaron sin vacantes.
 
+### Tercera versión (APF3) — `v3.0.0-rc.1`
+
+El tercer avance no agregó funcionalidades: incorporó la automatización del
+proceso de desarrollo y la publicación del proyecto en la nube.
+
+- **Pruebas automatizadas.** 26 pruebas sobre la lógica de la aplicación,
+  ejecutadas con el runner de Node y un DOM simulado.
+- **Verificación estática.** Diez comprobaciones sobre la estructura del
+  proyecto, el balance de la hoja de estilos y el orden de carga de los
+  módulos.
+- **Integración continua.** Se ejecuta en cada push y en cada Pull Request.
+- **Entrega continua.** Publica en GitHub Pages tras una integración correcta.
+- **Seguimiento de incidencias.** Los defectos se registran, se asignan y se
+  cierran con el cambio que los resolvió.
+
 Queda **fuera de alcance** por ahora: autenticación de usuarios, base de datos
-en servidor, integración continua, contenedores y despliegue en nube. Esos
-puntos corresponden al APF3 y al proyecto final.
+en servidor y empaquetado en contenedor. Esos puntos corresponden al proyecto
+final.
 
 ## Integrantes
 
@@ -74,8 +94,10 @@ mediante una fusión explícita.
 
 ## Requisitos
 
-Solo un navegador web moderno (Chrome, Edge o Firefox). No requiere instalación,
-servidor ni dependencias externas.
+Para **usar** la aplicación basta un navegador moderno: no requiere
+instalación, servidor ni dependencias.
+
+Para **ejecutar las validaciones** hace falta Node.js 20 o superior.
 
 ## Ejecución
 
@@ -93,6 +115,26 @@ python -m http.server 8000
 # abrir http://localhost:8000
 ```
 
+O úsala directamente en https://rodrigo2326.github.io/sistema-matricula/
+
+## Validaciones automatizadas
+
+```bash
+npm ci            # instala las dependencias de las pruebas
+npm run verificar # sintaxis + estructura + pruebas
+```
+
+Por separado:
+
+| Comando | Qué hace |
+| --- | --- |
+| `npm run verificar:js` | Comprueba la sintaxis de los cuatro módulos |
+| `npm run verificar:estructura` | Diez comprobaciones sobre la estructura del proyecto |
+| `npm test` | Las 26 pruebas automatizadas |
+
+Las mismas validaciones son las que ejecuta el flujo de integración continua,
+de modo que lo que pasa en local pasa en el pipeline.
+
 ## Estructura del proyecto
 
 ```
@@ -100,6 +142,17 @@ sistema-matricula/
 ├── index.html                  Interfaz de la aplicación
 ├── css/
 │   └── estilos.css             Hoja de estilos
+├── .github/
+│   └── workflows/
+│       ├── ci.yml              Integración continua
+│       └── cd.yml              Entrega continua a GitHub Pages
+├── tests/
+│   ├── entorno.js              Arranca la aplicación en un DOM simulado
+│   ├── matriculas.test.js      Registro, duplicados y vacantes
+│   ├── cursos.test.js          Catálogo y edición
+│   ├── exportacion.test.js     Exportación a CSV
+│   └── herramientas/
+│       └── verificar-estructura.js   Verificación estática
 ├── js/
 │   ├── app.js                  Registro, listado, búsqueda y validación
 │   ├── cursos.js               Catálogo de cursos y control de vacantes
@@ -121,6 +174,11 @@ sistema-matricula/
 
 ## Estado del proyecto
 
+**APF3 (Semana 15) — completado.** Versión candidata `v3.0.0-rc.1`, desplegada
+en https://rodrigo2326.github.io/sistema-matricula/. Pipeline de integración
+continua operativo, entrega continua a la nube y seguimiento de incidencias.
+Ver `docs/evidencias-apf3/`.
+
 **APF2 (Semana 11) — completado.** Versión `v2.0.0`. Tres funcionalidades nuevas
 integradas mediante Pull Request con revisión previa, conflicto de fusión
 resuelto y documentado, y gestión del trabajo en tablero. Ver
@@ -138,6 +196,10 @@ resolución de conflicto documentados. Ver `docs/evidencias/`.
 | Gestión de actividades | GitHub Issues con responsables, etiquetas e hitos |
 | Gestión del proyecto | Tablero de GitHub Projects + hito *APF2 - Semana 11* |
 | Colaboración del equipo | Microsoft Teams (reunión diaria de 10:00 a 10:30) |
+| Seguimiento de incidencias | GitHub Issues con etiqueta `incidencia` |
+| Pruebas automatizadas | Runner de Node (`node --test`) con jsdom |
+| Integración y entrega continuas | GitHub Actions |
+| Plataforma en la nube | GitHub Pages |
 
 ## Flujo de trabajo con ramas
 
@@ -148,6 +210,15 @@ resolución de conflicto documentados. Ver `docs/evidencias/`.
 
 Cada rama se integra a `main` mediante una fusión explícita (`git merge --no-ff`)
 para que el historial conserve el punto de integración.
+
+### Ramas utilizadas en el APF3
+
+| Rama | Propósito | Estado |
+| --- | --- | --- |
+| `feature/pruebas-automatizadas` | Pruebas, verificación estática y pipelines | Fusionada (PR #19) |
+| `fix/csv-ignora-filtros` | Incidencia #20: el CSV ignoraba los filtros | Fusionada (PR #28) |
+| `fix/favicon-404` | Incidencia #29: 404 de favicon en el sitio | Fusionada (PR #30) |
+| `feature/documentacion-apf3` | Informe, README y evidencias del avance | Fusionada |
 
 ### Ramas utilizadas en el APF2
 
@@ -205,6 +276,22 @@ git checkout main
 git merge --no-ff feature/mi-funcionalidad
 git push origin main
 ```
+
+## Evidencias del APF3
+
+El detalle está en [`docs/informe-apf3.md`](docs/informe-apf3.md) y en
+[`docs/Informe_APF3.pdf`](docs/Informe_APF3.pdf). Las salidas que lo respaldan
+están en `docs/evidencias-apf3/`:
+
+| Archivo | Contenido |
+| --- | --- |
+| `incidencias.txt` | Incidencias con estado, responsable y resultado |
+| `relacion-incidencia-cambio.txt` | Cada incidencia resuelta con su PR y sus commits |
+| `ejecuciones-pipeline.txt` | Historial de ejecuciones del pipeline |
+| `flujos-configurados.txt` | Flujos de trabajo configurados y su estado |
+| `entorno-nube.txt` | URL del despliegue y verificación de los recursos |
+| `validaciones.txt` | Salida de `npm run verificar` |
+| `capturas/` | Pipeline, incidencias, release y despliegues |
 
 ## Evidencias del APF2
 
