@@ -11,8 +11,15 @@ function nivelDeOcupacion(porcentaje) {
 
 /** Arma la barra de ocupación de un curso. */
 function crearBarraDeCurso(curso) {
-  const ocupados = contarOcupacion(curso);
-  const porcentaje = Math.round((ocupados / curso.vacantes) * 100);
+  const vacantesRaw = Number(curso?.vacantes);
+  const vacantes = Number.isFinite(vacantesRaw) && vacantesRaw > 0 ? vacantesRaw : 0;
+
+  const ocupadosRaw = Number(contarOcupacion(curso));
+  const ocupados = Number.isFinite(ocupadosRaw) && ocupadosRaw >= 0 ? ocupadosRaw : 0;
+
+  const porcentaje = vacantes > 0
+    ? Math.round((ocupados / vacantes) * 100)
+    : 0;
 
   const fila = document.createElement('div');
   fila.className = 'ocupacion-fila';
@@ -27,13 +34,13 @@ function crearBarraDeCurso(curso) {
 
   const barra = document.createElement('div');
   barra.className = `ocupacion-barra ${nivelDeOcupacion(porcentaje)}`;
-  barra.style.width = `${Math.min(porcentaje, 100)}%`;
+  barra.style.width = `${Math.min(Math.max(porcentaje, 0), 100)}%`;
   canal.appendChild(barra);
   fila.appendChild(canal);
 
   const cifra = document.createElement('div');
   cifra.className = 'ocupacion-cifra';
-  cifra.textContent = `${ocupados} / ${curso.vacantes} (${porcentaje}%)`;
+  cifra.textContent = `${ocupados} / ${vacantes} (${porcentaje}%)`;
   fila.appendChild(cifra);
 
   return fila;
