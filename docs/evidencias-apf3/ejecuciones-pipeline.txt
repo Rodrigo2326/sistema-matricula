@@ -1,15 +1,35 @@
 HISTORIAL DE EJECUCIONES DEL PIPELINE
 =====================================
 
-Generado: 18/11/2026 23:46
+Generado: 19/11/2026 15:46
 
-FECHA                  FLUJO                    RAMA                             RESULTADO  DURACION
-2026-11-19T04:44:45    Entrega continua         main                             success    workflow_run
-2026-11-19T04:44:26    Integracion continua     main                             success    push
-2026-11-19T04:43:41    Integracion continua     fix/favicon-404                  success    pull_request
-2026-11-19T04:40:17    Entrega continua         main                             success    workflow_run
-2026-11-19T04:39:55    Integracion continua     main                             success    push
-2026-11-19T04:39:11    Integracion continua     fix/csv-ignora-filtros           success    pull_request
-2026-11-19T04:37:08    Entrega continua         main                             failure    workflow_run
-2026-11-19T04:36:47    Integracion continua     main                             success    push
-2026-11-19T04:34:06    Integracion continua     feature/pruebas-automatizadas    success    pull_request
+Total: 21  |  Exitosas: 19  |  Fallidas: 2
+
+FECHA                FLUJO                  RAMA                             RESULTADO
+2026-11-19T20:45:09  Entrega continua       main                             success
+2026-11-19T20:44:47  Integracion continua   main                             success
+2026-11-19T20:43:57  Integracion continua   fix/despliegues-simultaneos      success
+2026-11-19T20:41:42  Entrega continua       main                             success
+2026-11-19T20:41:34  Entrega continua       main                             failure
+2026-11-19T20:41:20  Integracion continua   main                             success
+2026-11-19T20:41:11  Integracion continua   main                             success
+2026-11-19T20:40:04  Integracion continua   fix/guardar-sin-perder-datos     success
+2026-11-19T20:39:55  Integracion continua   fix/ocupacion-sin-vacantes       success
+2026-11-19T04:52:54  Entrega continua       main                             success
+2026-11-19T04:52:29  Integracion continua   main                             success
+2026-11-19T04:51:43  Integracion continua   feature/documentacion-apf3       success
+2026-11-19T04:44:45  Entrega continua       main                             success
+2026-11-19T04:44:26  Integracion continua   main                             success
+2026-11-19T04:43:41  Integracion continua   fix/favicon-404                  success
+2026-11-19T04:40:17  Entrega continua       main                             success
+2026-11-19T04:39:55  Integracion continua   main                             success
+2026-11-19T04:39:11  Integracion continua   fix/csv-ignora-filtros           success
+2026-11-19T04:37:08  Entrega continua       main                             failure
+2026-11-19T04:36:47  Integracion continua   main                             success
+2026-11-19T04:34:06  Integracion continua   feature/pruebas-automatizadas    success
+
+Las dos ejecuciones fallidas se conservan deliberadamente:
+  1. Primer despliegue: GitHub Pages todavia no estaba habilitado.
+  2. Despliegue duplicado: dos integraciones en ocho segundos (incidencia #34, resuelta en el PR #35).
+
+En ninguno de los dos casos llego a publicarse una version defectuosa.
