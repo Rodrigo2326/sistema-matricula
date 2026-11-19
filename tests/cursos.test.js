@@ -122,3 +122,39 @@ describe('Edicion de matriculas', () => {
     app.cerrar();
   });
 });
+describe('Panel de ocupacion con cero vacantes', () => {
+  test('no muestra NaN en texto ni en el ancho de la barra cuando un curso tiene 0 vacantes', () => {
+    // 1. Creamos una copia de CURSOS_DE_PRUEBA y le sumamos un curso con vacantes: 0
+    //    (simula lo que pasaría si llega un curso con 0 vacantes desde localStorage)
+    const cursosConCeroVacantes = [
+      ...CURSOS_DE_PRUEBA,
+      {
+        codigo: 'SIN-000',
+        nombre: 'Curso Sin Vacantes',
+        carrera: 'Ingeniería de Sistemas',
+        ciclo: 'I',
+        vacantes: 0,
+      },
+    ];
+
+    // 2. Levantamos la app pasando esa lista de cursos
+    const app = abrirAplicacion({ cursos: cursosConCeroVacantes });
+
+    // 3. Simulamos que el usuario hace clic en el botón para abrir el panel de ocupación
+    app.documento.getElementById('btnOcupacion').click();
+
+    // 4. Revisamos el texto dentro de #panelOcupacion: no debe tener "NaN" y sí "0 / 0 (0%)"
+    const panelTexto = app.documento.getElementById('panelOcupacion').textContent;
+    assert.doesNotMatch(panelTexto, /NaN/);
+    assert.match(panelTexto, /0 \/ 0 \(0%\)/);
+
+    // 5. Revisamos cada barra (.ocupacion-barra) para que su style.width tampoco tenga "NaN"
+    const barras = app.documento.querySelectorAll('.ocupacion-barra');
+    for (const barra of barras) {
+      assert.doesNotMatch(barra.style.width, /NaN/);
+    }
+
+    // 6. Cerramos la app como hacen todas las demás pruebas
+    app.cerrar();
+  });
+});
