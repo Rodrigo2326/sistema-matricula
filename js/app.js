@@ -361,15 +361,28 @@ function construirCsv(lista) {
   return [ENCABEZADOS_CSV.join(';'), ...filas].join('\n');
 }
 
-/** Descarga el listado actual como archivo CSV. */
+/**
+ * Descarga el listado actual como archivo CSV.
+ *
+ * Exporta lo que el usuario esta viendo, no todo el almacenamiento: si hay un
+ * filtro o una busqueda activa, el archivo contiene esas mismas filas y en el
+ * mismo orden. Antes se exportaba siempre la lista completa, de modo que
+ * filtrar por una carrera y exportar entregaba igualmente las matriculas de
+ * todas las carreras (incidencia #20).
+ */
 function exportarCsv() {
-  if (matriculas.length === 0) {
-    mostrarAviso('No hay matrículas para exportar.', 'error');
+  const visibles = ordenarMatriculas(filtrarMatriculas());
+
+  if (visibles.length === 0) {
+    const mensaje = matriculas.length === 0
+      ? 'No hay matrículas para exportar.'
+      : 'Ninguna matrícula coincide con los filtros activos.';
+    mostrarAviso(mensaje, 'error');
     return;
   }
 
   // El BOM inicial permite que Excel reconozca los acentos como UTF-8.
-  const contenido = new Blob(['\ufeff' + construirCsv(matriculas)], {
+  const contenido = new Blob(['\ufeff' + construirCsv(visibles)], {
     type: 'text/csv;charset=utf-8;'
   });
 
@@ -379,7 +392,7 @@ function exportarCsv() {
   enlace.click();
   URL.revokeObjectURL(enlace.href);
 
-  mostrarAviso('Listado exportado a CSV');
+  mostrarAviso(`Listado exportado a CSV (${visibles.length} matrícula(s))`);
 }
 
 document.getElementById('btnExportar').addEventListener('click', exportarCsv);

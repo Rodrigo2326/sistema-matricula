@@ -111,6 +111,37 @@ function registrarCurso(app, datos) {
   return documento.getElementById('aviso').textContent;
 }
 
+/**
+ * Ejecuta la exportacion a CSV interceptando la descarga, y devuelve el texto
+ * que la aplicacion habria entregado al usuario.
+ *
+ * Hace falta interceptar de verdad el contenido: comprobar por separado que
+ * filtrarMatriculas() devuelve lo correcto no prueba que exportarCsv() use esa
+ * lista, que era justamente el defecto de la incidencia #20.
+ */
+function exportarCsvCapturando(app) {
+  const { ventana } = app;
+  let capturado = null;
+
+  const BlobOriginal = ventana.Blob;
+  ventana.Blob = function (partes) {
+    capturado = partes.join('');
+    return new BlobOriginal(partes);
+  };
+  ventana.URL.createObjectURL = () => 'blob:prueba';
+  ventana.URL.revokeObjectURL = () => {};
+  ventana.HTMLAnchorElement.prototype.click = function () {};
+
+  try {
+    ventana.exportarCsv();
+  } finally {
+    ventana.Blob = BlobOriginal;
+  }
+
+  // Se descarta el BOM inicial que se antepone para Excel.
+  return capturado === null ? null : capturado.replace(/^﻿/, '');
+}
+
 /** Catalogo minimo y predecible para las pruebas. */
 const CURSOS_DE_PRUEBA = [
   { codigo: 'SIS-101', nombre: 'Algoritmos', carrera: 'Ingeniería de Sistemas', ciclo: 'III', vacantes: 2 },
@@ -119,4 +150,7 @@ const CURSOS_DE_PRUEBA = [
   { codigo: 'ADM-120', nombre: 'Practica Preprofesional', carrera: 'Administración', ciclo: 'X', vacantes: 5 },
 ];
 
-module.exports = { abrirAplicacion, leer, registrarMatricula, registrarCurso, CURSOS_DE_PRUEBA };
+module.exports = {
+  abrirAplicacion, leer, registrarMatricula, registrarCurso,
+  exportarCsvCapturando, CURSOS_DE_PRUEBA,
+};
