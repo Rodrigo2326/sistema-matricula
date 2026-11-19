@@ -18,9 +18,15 @@ function cargarMatriculas() {
   }
 }
 
-/** Persiste las matrículas en el navegador. */
+/** Persiste las matrículas en el navegador. Devuelve true si guardó y false si falló. */
 function guardarMatriculas() {
-  localStorage.setItem(CLAVE_ALMACEN, JSON.stringify(matriculas));
+  try {
+    localStorage.setItem(CLAVE_ALMACEN, JSON.stringify(matriculas));
+    return true;
+  } catch (error) {
+    console.error('No se pudieron guardar las matrículas:', error);
+    return false;
+  }
 }
 
 /** Muestra un aviso temporal en la esquina inferior derecha. */
@@ -86,21 +92,33 @@ function registrarMatricula(evento) {
     return;
   }
 
-  if (idEnEdicion !== null) {
+  const matriculasAnteriores = matriculas.map(m => ({ ...m }));
+  const esEdicion = idEnEdicion !== null;
+
+  if (esEdicion) {
     const indice = matriculas.findIndex(matricula => matricula.id === idEnEdicion);
     matriculas[indice] = { ...matriculas[indice], ...datos, id: idEnEdicion };
-    mostrarAviso('Matrícula actualizada correctamente');
   } else {
     matriculas.push(datos);
-    mostrarAviso('Matrícula registrada correctamente');
   }
 
-  guardarMatriculas();
+  if (!guardarMatriculas()) {
+    matriculas = matriculasAnteriores;
+    mostrarAviso('No se pudo guardar la matrícula en el almacenamiento.', 'error');
+    return;
+  }
+
   refrescarListado();
   refrescarCursos();
   formMatricula.reset();
   idEnEdicion = null;
   document.getElementById('btnEnviar').textContent = '+ Registrar matrícula';
+
+  mostrarAviso(
+    esEdicion
+      ? 'Matrícula actualizada correctamente'
+      : 'Matrícula registrada correctamente'
+  );
 }
 
 formMatricula.addEventListener('submit', registrarMatricula);

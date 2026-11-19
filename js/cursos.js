@@ -27,9 +27,15 @@ function cargarCursos() {
   return CURSOS_INICIALES.map(curso => ({ ...curso }));
 }
 
-/** Persiste el catálogo de cursos en el navegador. */
+/** Persiste el catálogo de cursos en el navegador. Devuelve true si guardó y false si falló. */
 function guardarCursos() {
-  localStorage.setItem(CLAVE_CURSOS, JSON.stringify(cursos));
+  try {
+    localStorage.setItem(CLAVE_CURSOS, JSON.stringify(cursos));
+    return true;
+  } catch (error) {
+    console.error('No se pudo guardar el catálogo de cursos:', error);
+    return false;
+  }
 }
 
 /** Devuelve el curso con el código indicado, o undefined si no existe. */
@@ -134,19 +140,30 @@ function registrarCurso(evento) {
     return;
   }
 
-  if (codigoCursoEnEdicion !== null) {
+  const cursosAnteriores = cursos.map(curso => ({ ...curso }));
+  const esEdicion = codigoCursoEnEdicion !== null;
+
+  if (esEdicion) {
     const indice = cursos.findIndex(curso => curso.codigo === codigoCursoEnEdicion);
     propagarCambiosDelCurso(cursos[indice], datos);
     cursos[indice] = datos;
-    mostrarAviso('Curso actualizado correctamente');
   } else {
     cursos.push(datos);
-    mostrarAviso('Curso registrado correctamente');
   }
 
-  guardarCursos();
+  if (!guardarCursos()) {
+    cursos = cursosAnteriores;
+    mostrarAviso('No se pudo guardar el catálogo de cursos en el almacenamiento.', 'error');
+    return;
+  }
+
   salirDeEdicionCurso();
   refrescarCursos();
+  mostrarAviso(
+    esEdicion
+      ? 'Curso actualizado correctamente'
+      : 'Curso registrado correctamente'
+  );
 }
 
 /**

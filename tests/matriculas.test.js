@@ -124,3 +124,25 @@ describe('Control de vacantes', () => {
     app.cerrar();
   });
 });
+describe('Persistencia y manejo de errores al guardar', () => {
+  test('no muestra aviso de exito ni guarda la matricula si falla localStorage', () => {
+    const app = abrirAplicacion({ cursos: CURSOS_DE_PRUEBA, matriculas: [] });
+
+    // Forzamos que localStorage.setItem falle al intentar guardar
+    app.ventana.localStorage.setItem = () => {
+      throw new app.ventana.Error('Error de escritura en almacenamiento');
+    };
+
+    const aviso = registrarMatricula(app, {
+      ...ALUMNO,
+      codigo: '2026-0009',
+      dni: '87654321',
+    });
+
+    assert.doesNotMatch(aviso, /registrada correctamente/i);
+    assert.match(aviso, /no se pudo guardar/i);
+    assert.strictEqual(leer(app, 'matriculas').length, 0);
+
+    app.cerrar();
+  });
+});
