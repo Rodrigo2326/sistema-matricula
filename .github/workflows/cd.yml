@@ -18,10 +18,14 @@ permissions:
   pages: write
   id-token: write
 
-# Un despliegue a la vez; si llega uno nuevo mientras otro corre, se encola.
+# Un despliegue a la vez. Si llega uno nuevo mientras otro corre, el anterior
+# se cancela en lugar de encolarse: publicar un commit ya superado no aporta
+# nada, y encolarlos hacia que las dos ejecuciones subieran un artefacto con el
+# mismo nombre, de modo que la que esperaba se quedaba sin el suyo y fallaba al
+# desplegar.
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   publicar:
