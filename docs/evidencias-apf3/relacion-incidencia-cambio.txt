@@ -1,17 +1,22 @@
 RELACION ENTRE INCIDENCIAS Y CAMBIOS
 ====================================
 
-Incidencia #20 - Exportar CSV ignora los filtros activos
-  Pull Request : #28
-  Rama         : fix/csv-ignora-filtros
-  Commits      :
-    1f4ca2f Exportar a CSV solo las matriculas visibles en el listado
-  Estado       : RESUELTA
+Generado: 19/11/2026 15:46
 
-Incidencia #29 - 404 de favicon.ico en el sitio desplegado
-  Pull Request : #30
-  Rama         : fix/favicon-404
-  Commits      :
-    1fe99bf Fusionar fix/favicon-404 en main (PR #30)
-    c8ef1b6 Declarar el icono de la pagina para evitar el 404 de favicon.ico
-  Estado       : RESUELTA
+INCID. RAMA                               PR     AUTOR DE LA CORRECCION
+--------------------------------------------------------------------------
+#20    fix/csv-ignora-filtros             #28    Aparcana Mamani Rodrigo Alonso
+#22    fix/ocupacion-sin-vacantes         #32    Arnold Jhuncor Diaz Silva
+#23    fix/guardar-sin-perder-datos       #33    Arnold Jhuncor Diaz Silva
+#29    fix/favicon-404                    #30    Aparcana Mamani Rodrigo Alonso
+#34    fix/despliegues-simultaneos        #35    Aparcana Mamani Rodrigo Alonso
+
+#21 queda abierta, asignada a Ccahuana Huillca Giancarlo.
+
+Commits de las correcciones:
+  bb9b53d Cancelar el despliegue superado en lugar de encolarlo
+  cd733d9 fix(almacenamiento): mostrar aviso solo tras guardar y manejar errores
+  d9a2352 fix(ocupacion): evitar NaN cuando un curso tiene cero vacantes
+  1fe99bf Fusionar fix/favicon-404 en main (PR #30)
+  c8ef1b6 Declarar el icono de la pagina para evitar el 404 de favicon.ico
+  1f4ca2f Exportar a CSV solo las matriculas visibles en el listado

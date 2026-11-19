@@ -44,18 +44,20 @@ Las incidencias de este avance no se inventaron para cumplir con el requisito:
 salieron de someter la aplicación a casos que nadie había probado a mano,
 usando el arnés de pruebas descrito en la sección 4.
 
-Se registraron cinco incidencias, cuatro de ellas encontradas por el arnés y
-una por la verificación del entorno desplegado.
+Se registraron seis incidencias: cuatro las encontró el arnés de pruebas, una
+la verificación del entorno desplegado y la última una revisión del propio
+historial de ejecuciones del pipeline.
 
 ### 3.2. Lista de incidencias
 
 | # | Incidencia | Tipo | Responsable | Estado |
 | --- | --- | --- | --- | --- |
 | 20 | Exportar CSV ignora los filtros activos del listado | Error funcional | Rodrigo Aparcana | Resuelta |
+| 22 | El panel de ocupación muestra `NaN%` con cero vacantes | Error | Arnold Díaz | Resuelta |
+| 23 | El aviso de éxito aparece antes de guardar | Robustez | Arnold Díaz | Resuelta |
 | 29 | El sitio desplegado registra un 404 de `favicon.ico` | Error menor | Rodrigo Aparcana | Resuelta |
+| 34 | Dos despliegues simultáneos compiten y uno falla | Error del pipeline | Rodrigo Aparcana | Resuelta |
 | 21 | Ordenar por fecha lanza una excepción si falta el dato | Error | Giancarlo Ccahuana | Abierta |
-| 22 | El panel de ocupación muestra `NaN%` con cero vacantes | Error | Arnold Díaz | Abierta |
-| 23 | El aviso de éxito aparece antes de guardar | Robustez | Arnold Díaz | Abierta |
 
 Cada incidencia incluye el comportamiento observado, los pasos para
 reproducirla, la causa identificada en el código y sus criterios de
@@ -91,48 +93,83 @@ Se declaró el icono en línea como SVG en un *data URI*, reutilizando el mismo
 birrete de la cabecera, de modo que no hizo falta sumar un archivo binario al
 repositorio.
 
-### 3.4. Detalle de las incidencias abiertas
+### 3.4. Las correcciones del responsable de calidad
 
-Las tres incidencias que quedan abiertas están asignadas, documentadas y con
-sus criterios de aceptación escritos. Ninguna bloquea el uso de la aplicación,
-pero las tres afectan su robustez.
+Las incidencias **#22** y **#23** las corrigió Arnold Díaz.
+
+En la **#22**, la corrección fue más allá de evitar la división por cero:
+normaliza las vacantes y la ocupación comprobando que sean finitas y no
+negativas, y acota el ancho de la barra entre 0 y 100. Eso cubre también
+valores no numéricos, que es por donde podrían llegar datos de otra
+procedencia desde el almacenamiento local.
+
+En la **#23**, además de mover el aviso al final, agregó el **retroceso del
+estado en memoria**: si el guardado falla, la lista vuelve a como estaba antes
+del intento. Sin eso la matrícula habría quedado en la lista y en la tabla
+aunque no se hubiera persistido, que es casi el mismo problema con otra cara.
+
+**Un error en la prueba, y uno propio en la incidencia.** La prueba que
+acompañaba a la #23 fallaba, pero no por culpa de la corrección: reemplazaba
+`localStorage.setItem` sobre la instancia, y en jsdom esa asignación falla en
+silencio. El almacenamiento seguía funcionando, la matrícula se guardaba y el
+aviso de éxito aparecía con razón: la prueba comprobaba un escenario que nunca
+llegaba a producirse. Para interceptarlo hay que sustituir
+`Storage.prototype.setItem`.
+
+Conviene declarar que **la reproducción original de la incidencia #23 tenía ese
+mismo defecto**. El fallo era igualmente real —se ve leyendo el orden de las
+llamadas en el código, con el aviso antes del guardado y sin captura de
+errores— pero la evidencia adjunta no lo demostraba. Se corrigió al integrar, y
+la prueba definitiva se verificó revirtiendo la corrección: dos de sus tres
+casos fallan sin ella.
+
+### 3.5. Una incidencia del propio pipeline
+
+La incidencia **#34** no afectaba a la aplicación sino a la automatización. Al
+integrar dos Pull Requests con ocho segundos de diferencia se dispararon dos
+ejecuciones del flujo de entrega continua sobre el mismo commit. La segunda
+publicó correctamente; la primera falló:
+
+```
+Found 0 artifact(s)
+Error: No artifacts named "github-pages" were found for this workflow run.
+```
+
+El flujo declaraba `cancel-in-progress: false`, de modo que la segunda
+ejecución esperaba en lugar de reemplazar a la primera. Las dos suben su propio
+artefacto con el mismo nombre, y la que quedaba en espera se encontraba sin el
+suyo al llegar al despliegue.
+
+Se corrigió cancelando la ejecución superada en lugar de encolarla: publicar un
+commit ya reemplazado no aporta nada, y una cancelación no ensucia el historial
+como lo hace un fallo. El sitio nunca quedó mal publicado, pero el historial de
+ejecuciones es una de las evidencias del avance.
+
+### 3.6. La incidencia que queda abierta
 
 **Incidencia #21 — Ordenar por fecha lanza una excepción si falta el dato.**
 Al pulsar el encabezado *Fecha*, `convertirFecha()` hace `fechaStr.split('/')`
 sin comprobar que el valor exista. Si una matrícula del almacenamiento no tiene
-el campo —algo posible en datos importados o guardados por una versión
-anterior— la excepción interrumpe el redibujado y **el listado deja de
-responder**. La corrección debe además decidir dónde quedan las matrículas sin
-fecha en el orden, en lugar de dejarlo al azar.
+el campo, la excepción interrumpe el redibujado y **el listado deja de
+responder**. Queda asignada a Giancarlo Ccahuana con sus criterios de
+aceptación escritos, incluido el de decidir dónde quedan las matrículas sin
+fecha en el orden en lugar de dejarlo al azar.
 
-**Incidencia #22 — El panel de ocupación muestra `NaN%` con cero vacantes.**
-`crearBarraDeCurso()` calcula `ocupados / curso.vacantes`; con cero vacantes la
-división da `NaN`, que llega tal cual al texto y al ancho de la barra. El
-formulario exige un entero mayor que cero, pero el catálogo también se lee del
-almacenamiento local, que puede traer datos de otra procedencia.
-
-**Incidencia #23 — El aviso de éxito aparece antes de guardar.** En
-`registrarMatricula()` el mensaje se muestra antes de llamar a
-`guardarMatriculas()`. Si el navegador rechaza la escritura —modo privado,
-cuota agotada, permisos—, el usuario lee «Matrícula registrada correctamente» y
-al recargar la matrícula no está. Es el más grave de los tres: los otros dos
-fallan de forma visible, este **pierde datos en silencio**. Además
-`guardarMatriculas()` no captura errores mientras que `cargarMatriculas()` sí
-lo hace, de modo que la protección es asimétrica.
-
-### 3.5. Relación entre una incidencia y el cambio que la resolvió
+### 3.7. Relación entre una incidencia y el cambio que la resolvió
 
 La cadena es trazable en los dos sentidos:
 
-| Incidencia | Rama | Commits | Pull Request | Cierre |
-| --- | --- | --- | --- | --- |
-| #20 | `fix/csv-ignora-filtros` | `76b5e00` | #28 | Automático al integrar |
-| #29 | `fix/favicon-404` | `1fe99bf` | #30 | Automático al integrar |
+| Incidencia | Rama | Pull Request | Autor de la corrección |
+| --- | --- | --- | --- |
+| #20 | `fix/csv-ignora-filtros` | #28 | Rodrigo Aparcana |
+| #22 | `fix/ocupacion-sin-vacantes` | #32 | Arnold Díaz |
+| #23 | `fix/guardar-sin-perder-datos` | #33 | Arnold Díaz |
+| #29 | `fix/favicon-404` | #30 | Rodrigo Aparcana |
+| #34 | `fix/despliegues-simultaneos` | #35 | Rodrigo Aparcana |
 
-Ambos Pull Requests llevan `Closes #20` y `Closes #29` en su cuerpo, de modo
-que GitHub cerró la incidencia al integrar y dejó el enlace en ambas
-direcciones. Las incidencias abiertas quedan asignadas a sus responsables con
-los criterios de aceptación ya escritos.
+Cada Pull Request lleva `Closes #N` en su cuerpo, de modo que GitHub cerró la
+incidencia al integrar y dejó el enlace en ambas direcciones. La incidencia que
+queda abierta está asignada con sus criterios de aceptación escritos.
 
 ## 4. Pruebas automatizadas
 
@@ -166,12 +203,12 @@ leerlas.
 
 ### 4.3. Qué cubren
 
-Veintiséis pruebas repartidas en tres archivos:
+Treinta pruebas repartidas en tres archivos:
 
 | Archivo | Pruebas | Qué cubre |
 | --- | --- | --- |
-| `matriculas.test.js` | 12 | Registro, validaciones, duplicados y control de vacantes |
-| `cursos.test.js` | 9 | Catálogo, edición de cursos y propagación a las matrículas |
+| `matriculas.test.js` | 15 | Registro, validaciones, duplicados, vacantes y persistencia |
+| `cursos.test.js` | 10 | Catálogo, edición de cursos y panel de ocupación |
 | `exportacion.test.js` | 7 | Exportación a CSV, filtros, orden y escapado |
 
 Entre ellas, las que cubren los dos defectos que la revisión del APF2 detectó:
@@ -221,7 +258,7 @@ GitHub Actions en cada push y en cada Pull Request hacia `main`.
 | Instalar dependencias | `npm ci` sobre el archivo de bloqueo |
 | Sintaxis de los módulos | `node --check` sobre los cuatro archivos |
 | Estructura del proyecto | Las diez comprobaciones estáticas |
-| Pruebas automatizadas | Las 26 pruebas |
+| Pruebas automatizadas | Las 30 pruebas |
 
 La configuración, resumida:
 
@@ -255,8 +292,19 @@ en la nube sería difícil de reproducir.
 ### 5.2. Resultado
 
 El pipeline se ejecuta en unos 15 a 20 segundos. Al cierre de este avance
-acumula nueve ejecuciones, con el historial completo disponible en la pestaña
-de *Actions* del repositorio.
+acumula veinte ejecuciones entre los dos flujos, con el historial completo
+disponible en la pestaña *Actions* del repositorio.
+
+Dos de ellas aparecen en rojo y conviene explicarlas, porque ambas son reales y
+se conservaron deliberadamente en lugar de borrarlas:
+
+| Ejecución | Motivo | Desenlace |
+| --- | --- | --- |
+| Primer despliegue | GitHub Pages todavía no estaba habilitado | Corregido al habilitarlo |
+| Despliegue duplicado | Dos integraciones en ocho segundos (incidencia #34) | Corregido en el PR #35 |
+
+En ninguno de los dos casos llegó a publicarse una versión defectuosa, que es
+justamente lo que el encadenamiento entre los dos flujos pretende evitar.
 
 ## 6. Entrega continua y plataforma en la nube
 
@@ -331,9 +379,9 @@ una ejecución en rojo significara siempre que algo está roto.
 
 | Integrante | Rol | Aporte en el APF3 |
 | --- | --- | --- |
-| Aparcana Mamani Rodrigo Alonso | Responsable de repositorio y documentación | Arnés de pruebas, verificación estática, pipelines de CI y CD, despliegue en la nube, incidencias #20 y #29, versión candidata e informe |
-| Ccahuana Huillca Giancarlo | Responsable funcional | Incidencia #21 y su prueba de regresión |
-| Arnold Jhuncor Díaz Silva | Responsable de calidad y automatización | Incidencias #22 y #23, y ampliación de la batería de pruebas |
+| Aparcana Mamani Rodrigo Alonso | Responsable de repositorio y documentación | Arnés de pruebas, verificación estática, pipelines de CI y CD, despliegue en la nube, incidencias #20, #29 y #34, versión candidata e informe |
+| Ccahuana Huillca Giancarlo | Responsable funcional | Incidencia #21, pendiente al cierre de este informe |
+| Arnold Jhuncor Díaz Silva | Responsable de calidad y automatización | Incidencias #22 y #23 resueltas, con sus pruebas de regresión |
 
 El reparto de este avance es deliberadamente desigual: la infraestructura de
 automatización es una pieza única que no se puede partir en tres sin que las
@@ -368,7 +416,20 @@ de entrega continua falló porque GitHub Pages todavía no estaba habilitado. Al
 estar encadenado a la integración continua y no al push, ese fallo no dejó el
 sitio en un estado intermedio: simplemente no publicó.
 
-## 11. Conclusiones
+## 11. Estado al cierre del avance
+
+| Indicador | Valor |
+| --- | --- |
+| Incidencias registradas | 6 |
+| Incidencias resueltas | 5 |
+| Incidencias abiertas | 1 (#21, asignada) |
+| Pruebas automatizadas | 30, todas en verde |
+| Verificaciones estáticas | 10 |
+| Ejecuciones del pipeline | 20 |
+| Versión candidata | `v3.0.0-rc.1` |
+| Entorno en la nube | Operativo |
+
+## 12. Conclusiones
 
 El avance cumplió su objetivo. El proyecto pasó de depender de que alguien
 recordara probar la aplicación, a validarse solo en cada cambio y publicarse
@@ -379,9 +440,9 @@ montarlo: cuatro defectos reales que llevaban semanas en el código sin que
 nadie los notara, incluidos dos en funcionalidades que el equipo había dado por
 terminadas y revisadas.
 
-## 12. Próximos pasos (Proyecto Final)
+## 13. Próximos pasos (Proyecto Final)
 
-- Cerrar las tres incidencias abiertas con sus pruebas de regresión.
+- Cerrar la incidencia #21 con su prueba de regresión.
 - Empaquetar la aplicación en un contenedor e incluir su configuración en el
   repositorio.
 - Desplegar la aplicación mediante una plataforma de ejecución de contenedores.
@@ -397,7 +458,7 @@ Las figuras de esta sección no cuentan para la extensión del informe.
 
 ## Anexo A. Automatización
 
-![Figura 1. Historial de ejecuciones del pipeline. Cada Pull Request y cada integración en main dispara la validación; la entrega continua se encadena a su resultado.](evidencias-apf3/capturas/01-historial-pipeline.png)
+![Figura 1. Historial de ejecuciones del pipeline. Cada Pull Request y cada integración en main dispara la validación; la entrega continua se encadena a su resultado. Las dos ejecuciones en rojo se conservan y están explicadas en la sección 5.2.](evidencias-apf3/capturas/01-historial-pipeline.png)
 
 ![Figura 2. Flujo de integración continua, con sus ejecuciones por rama y evento.](evidencias-apf3/capturas/02-integracion-continua.png)
 
@@ -405,17 +466,19 @@ Las figuras de esta sección no cuentan para la extensión del informe.
 
 ## Anexo B. Seguimiento de incidencias
 
-![Figura 4. Incidencias registradas, con responsable asignado, etiqueta e hito. Dos resueltas y tres abiertas.](evidencias-apf3/capturas/04-incidencias.png)
+![Figura 4. Incidencias registradas, con responsable asignado, etiqueta e hito. Cinco resueltas y una abierta.](evidencias-apf3/capturas/04-incidencias.png)
 
 ![Figura 5. Incidencia #20, con el comportamiento observado, los pasos para reproducirla, la causa y los criterios de aceptación.](evidencias-apf3/capturas/05-incidencia-20.png)
 
 ![Figura 6. Pull Request #28, que resuelve la incidencia #20. El cuerpo lleva «Closes #20», de modo que la incidencia se cerró al integrar.](evidencias-apf3/capturas/06-pr-que-resuelve-20.png)
 
+![Figura 7. Pull Requests del avance. Cada corrección entró por Pull Request validado por el pipeline, incluidas las dos del responsable de calidad.](evidencias-apf3/capturas/09-pull-requests-apf3.png)
+
 ## Anexo C. Versión candidata y despliegue
 
-![Figura 7. Release v3.0.0-rc.1 publicada como prelanzamiento, con la URL del entorno en la nube y el detalle de las incidencias resueltas y abiertas.](evidencias-apf3/capturas/07-version-candidata.png)
+![Figura 8. Release v3.0.0-rc.1 publicada como prelanzamiento, con la URL del entorno en la nube y el detalle de las incidencias resueltas y abiertas.](evidencias-apf3/capturas/07-version-candidata.png)
 
-![Figura 8. Historial de despliegues del entorno github-pages.](evidencias-apf3/capturas/08-despliegues.png)
+![Figura 9. Historial de despliegues del entorno github-pages.](evidencias-apf3/capturas/08-despliegues.png)
 
 ## Anexo D. Salida de las validaciones
 
@@ -434,8 +497,8 @@ Verificacion de estructura: 10 comprobaciones correctas
   - Existe el archivo js/constancia.js
   - Existe el archivo js/ocupacion.js
 
-tests 26
-pass 26
+tests 30
+pass 30
 fail 0
 ```
 
