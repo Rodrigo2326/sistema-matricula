@@ -1,0 +1,11 @@
+FLUJOS DE TRABAJO CONFIGURADOS
+==============================
+
+Nombre : Entrega continua
+Archivo: .github/workflows/cd.yml
+Estado : active
+
+Nombre : Integracion continua
+Archivo: .github/workflows/ci.yml
+Estado : active
+

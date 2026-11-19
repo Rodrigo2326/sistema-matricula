@@ -1,0 +1,26 @@
+INCIDENCIAS DEL APF3
+====================
+
+Generado: 18/11/2026 23:46
+Hito: APF3 - Semana 15 (vence 12/12/2026)
+
+#20 [RESUELTA ] Exportar CSV ignora los filtros activos del listado
+        Responsable: Rodrigo2326
+        Etiquetas  : apf3, incidencia
+
+#21 [ABIERTA  ] Ordenar por fecha lanza una excepcion si una matricula no tiene fecha
+        Responsable: soulahrikermette-hub
+        Etiquetas  : apf3, incidencia
+
+#22 [ABIERTA  ] El panel de ocupacion muestra NaN% cuando un curso tiene cero vacantes
+        Responsable: gamergggpro123-lgtm
+        Etiquetas  : apf3, incidencia
+
+#23 [ABIERTA  ] El aviso de exito aparece antes de guardar, y oculta un fallo de almacenamiento
+        Responsable: gamergggpro123-lgtm
+        Etiquetas  : apf3, incidencia
+
+#29 [RESUELTA ] El sitio desplegado registra un 404 de favicon.ico en la consola
+        Responsable: Rodrigo2326
+        Etiquetas  : apf3, incidencia
+

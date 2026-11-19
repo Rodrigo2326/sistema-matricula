@@ -1,0 +1,123 @@
+RESULTADO DE LAS VALIDACIONES
+=============================
+
+Generado: 18/11/2026 23:46
+
+$ npm run verificar
+
+> sistema-matricula@2.0.0 verificar
+> npm run verificar:js && npm run verificar:estructura && npm test
+
+
+> sistema-matricula@2.0.0 verificar:js
+> node --check js/app.js && node --check js/cursos.js && node --check js/constancia.js && node --check js/ocupacion.js
+
+
+> sistema-matricula@2.0.0 verificar:estructura
+> node tests/herramientas/verificar-estructura.js
+
+Verificacion de estructura: 10 comprobaciones correctas
+  - Las llaves de css/estilos.css estan balanceadas
+  - El bloque "Panel de ocupación por curso" esta en el nivel superior
+  - El bloque "Constancia de matrícula" esta en el nivel superior
+  - index.html carga los cuatro modulos
+  - Los scripts se cargan en orden de dependencia
+  - Existe el archivo css/estilos.css
+  - Existe el archivo js/app.js
+  - Existe el archivo js/cursos.js
+  - Existe el archivo js/constancia.js
+  - Existe el archivo js/ocupacion.js
+
+> sistema-matricula@2.0.0 test
+> node --test tests/*.test.js
+
+Error: Uncaught [RangeError: Maximum call stack size exceeded]
+    at reportException (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\runtime-script-errors.js:66:24)
+    at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:353:9)
+    at invokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+    at HTMLFormElementImpl._dispatch (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:233:9)
+    at fireAnEvent (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\events.js:18:36)
+    at HTMLFormElementImpl.reset (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\nodes\HTMLFormElement-impl.js:134:10)
+    at HTMLFormElement.reset (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\HTMLFormElement.js:141:36)
+    at HTMLFormElement.salirDeEdicionCurso (http://localhost/:121:13)
+    at HTMLFormElement.callTheUserObjectsOperation (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
+    at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25) RangeError: Maximum call stack size exceeded
+    at writeOrBuffer (node:internal/streams/writable:567:21)
+    at _write (node:internal/streams/writable:499:10)
+    at Writable.write (node:internal/streams/writable:508:10)
+    at console.value (node:internal/console/constructor:313:16)
+    at console.error (node:internal/console/constructor:444:26)
+    at VirtualConsole.<anonymous> (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\virtual-console.js:29:45)
+    at VirtualConsole.emit (node:events:508:28)
+    at reportException (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\runtime-script-errors.js:70:28)
+    at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:353:9)
+    at invokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+Error: Uncaught [RangeError: Maximum call stack size exceeded]
+    at reportException (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\runtime-script-errors.js:66:24)
+    at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:353:9)
+    at invokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+    at HTMLFormElementImpl._dispatch (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:233:9)
+    at fireAnEvent (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\events.js:18:36)
+    at HTMLFormElementImpl.reset (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\nodes\HTMLFormElement-impl.js:134:10)
+    at HTMLFormElement.reset (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\HTMLFormElement.js:141:36)
+    at HTMLFormElement.salirDeEdicionCurso (http://localhost/:121:13)
+    at HTMLFormElement.callTheUserObjectsOperation (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
+    at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25) RangeError: Maximum call stack size exceeded
+    at writeOrBuffer (node:internal/streams/writable:567:21)
+    at _write (node:internal/streams/writable:499:10)
+    at Writable.write (node:internal/streams/writable:508:10)
+    at console.value (node:internal/console/constructor:313:16)
+    at console.error (node:internal/console/constructor:444:26)
+    at VirtualConsole.<anonymous> (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\virtual-console.js:29:45)
+    at VirtualConsole.emit (node:events:508:28)
+    at reportException (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\runtime-script-errors.js:70:28)
+    at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:353:9)
+    at invokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+▶ Catalogo de cursos
+  ✔ siembra el catalogo inicial la primera vez (104.9946ms)
+  ✔ registra un curso nuevo (151.6809ms)
+  ✔ rechaza un codigo de curso con formato invalido (31.4134ms)
+  ✔ rechaza vacantes que no sean un entero positivo (26.9338ms)
+  ✔ rechaza un codigo de curso repetido (23.6838ms)
+✔ Catalogo de cursos (339.7738ms)
+▶ Edicion de cursos
+  ✔ al renombrar un curso actualiza las matriculas (128.8481ms)
+  ✔ al cambiar el codigo vuelve a apuntar las matriculas (130.0436ms)
+  ✔ no deja reducir las vacantes por debajo de la ocupacion (25.1455ms)
+✔ Edicion de cursos (284.3263ms)
+▶ Edicion de matriculas
+  ✔ se puede corregir una matricula aunque su curso este lleno (26.9908ms)
+✔ Edicion de matriculas (27.1135ms)
+▶ Exportacion a CSV
+  ✔ exporta todas las matriculas cuando no hay filtros (141.094ms)
+  ✔ exporta solo lo visible cuando hay un filtro de carrera activo (47.8947ms)
+  ✔ exporta solo lo visible cuando hay una busqueda activa (34.742ms)
+  ✔ respeta el orden del listado al exportar (40.4579ms)
+  ✔ avisa y no descarga nada si ningun registro coincide con los filtros (32.8872ms)
+  ✔ avisa de otro modo cuando no hay ninguna matricula registrada (24.666ms)
+  ✔ el CSV escapa las comillas de los valores (23.1153ms)
+✔ Exportacion a CSV (346.224ms)
+▶ Registro de matriculas
+  ✔ registra una matricula valida (143.9785ms)
+  ✔ guarda el nombre del curso ademas del codigo (42.5895ms)
+  ✔ rechaza un codigo de estudiante con formato invalido (30.7306ms)
+  ✔ rechaza un DNI que no tenga ocho digitos (25.7193ms)
+  ✔ rechaza la matricula sin curso seleccionado (26.573ms)
+✔ Registro de matriculas (270.5932ms)
+▶ Control de duplicados
+  ✔ rechaza al mismo estudiante en el mismo curso (33.6932ms)
+  ✔ permite dos cursos homonimos en ciclos distintos (30.6018ms)
+✔ Control de duplicados (64.5471ms)
+▶ Control de vacantes
+  ✔ rechaza la matricula cuando el curso esta lleno (29.9521ms)
+  ✔ cuenta las matriculas anteriores al catalogo, que no guardan codigo (23.5422ms)
+  ✔ vacantesLibres nunca devuelve un numero negativo (25.8144ms)
+✔ Control de vacantes (79.5895ms)
+ℹ tests 26
+ℹ suites 7
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1715.0073

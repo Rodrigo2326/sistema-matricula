@@ -6,9 +6,9 @@ El Markdown es la unica fuente de verdad: este script solo lo maqueta. Si el
 contenido del informe cambia, basta con volver a ejecutarlo.
 
 Uso:
-    python docs/generar_informe.py [apf1|apf2] [carpeta-o-archivo-destino]
+    python docs/generar_informe.py [apf1|apf2|apf3] [carpeta-o-archivo-destino]
 
-Sin argumento genera el informe del APF2, que es el avance vigente.
+Sin argumento genera el informe del APF3, que es el avance vigente.
 
 Requiere: reportlab (pip install reportlab)
 """
@@ -50,8 +50,15 @@ AVANCES = {
         'semana': '11',
         'version': 'v2.0.0',
     },
+    'apf3': {
+        'origen': 'informe-apf3.md',
+        'destino': 'Informe_APF3.pdf',
+        'titulo': 'Informe APF3 - Sistema de Matricula',
+        'portada': 'Avance de Proyecto Final 3',
+        'semana': '15',
+        'version': 'v3.0.0-rc.1',
+    },
 }
-
 AZUL = colors.HexColor('#1a2a52')
 AZUL_CLARO = colors.HexColor('#2e4a9e')
 GRIS_BORDE = colors.HexColor('#c8d0e4')
@@ -480,9 +487,9 @@ def pie_de_pagina(canvas, doc):
 # --------------------------------------------------------------------------
 
 def main():
-    clave = (sys.argv[1].lower() if len(sys.argv) > 1 else 'apf2')
+    clave = (sys.argv[1].lower() if len(sys.argv) > 1 else 'apf3')
     if clave not in AVANCES:
-        sys.exit('Avance desconocido: %s (use apf1 o apf2)' % clave)
+        sys.exit('Avance desconocido: %s (use apf1, apf2 o apf3)' % clave)
     avance = AVANCES[clave]
 
     origen = os.path.join(AQUI, avance['origen'])

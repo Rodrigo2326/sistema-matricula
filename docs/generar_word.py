@@ -7,9 +7,9 @@ generar_informe.py hace con el PDF. La version en Word existe para poder
 insertar las capturas de pantalla y los ajustes finales antes de entregar.
 
 Uso:
-    python docs/generar_word.py [apf1|apf2] [carpeta-o-archivo-destino]
+    python docs/generar_word.py [apf1|apf2|apf3] [carpeta-o-archivo-destino]
 
-Sin argumento genera el informe del APF2, que es el avance vigente.
+Sin argumento genera el informe del APF3, que es el avance vigente.
 
 Requiere: python-docx (pip install python-docx)
 """
@@ -46,8 +46,14 @@ AVANCES = {
         'semana': '11',
         'version': 'v2.0.0',
     },
+    'apf3': {
+        'origen': 'informe-apf3.md',
+        'destino': 'Informe_APF3.docx',
+        'portada': 'Avance de Proyecto Final 3',
+        'semana': '15',
+        'version': 'v3.0.0-rc.1',
+    },
 }
-
 INTEGRANTES = [
     'Ccahuana Huillca Giancarlo',
     'Aparcana Mamani Rodrigo Alonso',
@@ -354,9 +360,9 @@ def convertir(documento, markdown):
 
 
 def main():
-    clave = (sys.argv[1].lower() if len(sys.argv) > 1 else 'apf2')
+    clave = (sys.argv[1].lower() if len(sys.argv) > 1 else 'apf3')
     if clave not in AVANCES:
-        sys.exit('Avance desconocido: %s (use apf1 o apf2)' % clave)
+        sys.exit('Avance desconocido: %s (use apf1, apf2 o apf3)' % clave)
     avance = AVANCES[clave]
 
     origen = os.path.join(AQUI, avance['origen'])
