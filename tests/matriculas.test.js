@@ -1,6 +1,8 @@
 const { test, describe } = require('node:test');
 const assert = require('node:assert');
-const { abrirAplicacion, leer, registrarMatricula, CURSOS_DE_PRUEBA } = require('./entorno');
+const {
+  abrirAplicacion, leer, registrarMatricula, conAlmacenamientoRoto, CURSOS_DE_PRUEBA,
+} = require('./entorno');
 
 const ALUMNO = {
   nombres: 'Juan', apellidos: 'Perez', codigo: '2026-0001', dni: '12345678',
@@ -125,24 +127,39 @@ describe('Control de vacantes', () => {
   });
 });
 describe('Persistencia y manejo de errores al guardar', () => {
-  test('no muestra aviso de exito ni guarda la matricula si falla localStorage', () => {
+  test('no avisa de exito ni conserva la matricula si falla el almacenamiento', () => {
     const app = abrirAplicacion({ cursos: CURSOS_DE_PRUEBA, matriculas: [] });
 
-    // Forzamos que localStorage.setItem falle al intentar guardar
-    app.ventana.localStorage.setItem = () => {
-      throw new app.ventana.Error('Error de escritura en almacenamiento');
-    };
-
-    const aviso = registrarMatricula(app, {
-      ...ALUMNO,
-      codigo: '2026-0009',
-      dni: '87654321',
-    });
+    const aviso = conAlmacenamientoRoto(app, () =>
+      registrarMatricula(app, { ...ALUMNO, codigo: '2026-0009', dni: '87654321' }));
 
     assert.doesNotMatch(aviso, /registrada correctamente/i);
     assert.match(aviso, /no se pudo guardar/i);
-    assert.strictEqual(leer(app, 'matriculas').length, 0);
+    assert.strictEqual(leer(app, 'matriculas').length, 0,
+      'la matricula no debe quedar en memoria si no se pudo persistir');
+    app.cerrar();
+  });
 
+  test('la tabla no muestra una matricula que no se pudo guardar', () => {
+    const app = abrirAplicacion({ cursos: CURSOS_DE_PRUEBA, matriculas: [] });
+
+    conAlmacenamientoRoto(app, () =>
+      registrarMatricula(app, { ...ALUMNO, codigo: '2026-0009', dni: '87654321' }));
+
+    assert.strictEqual(app.documento.querySelectorAll('#cuerpoTabla tr').length, 0);
+    app.cerrar();
+  });
+
+  test('vuelve a guardar con normalidad cuando el almacenamiento se recupera', () => {
+    const app = abrirAplicacion({ cursos: CURSOS_DE_PRUEBA, matriculas: [] });
+
+    conAlmacenamientoRoto(app, () =>
+      registrarMatricula(app, { ...ALUMNO, codigo: '2026-0009', dni: '87654321' }));
+
+    const aviso = registrarMatricula(app, { ...ALUMNO, codigo: '2026-0009', dni: '87654321' });
+
+    assert.match(aviso, /registrada correctamente/i);
+    assert.strictEqual(leer(app, 'matriculas').length, 1);
     app.cerrar();
   });
 });

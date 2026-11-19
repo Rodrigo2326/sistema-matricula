@@ -142,6 +142,29 @@ function exportarCsvCapturando(app) {
   return capturado === null ? null : capturado.replace(/^﻿/, '');
 }
 
+/**
+ * Ejecuta una funcion con el almacenamiento del navegador averiado, para
+ * simular cuota agotada, modo privado o permisos denegados.
+ *
+ * Hay que interceptar Storage.prototype y no la instancia: en jsdom el objeto
+ * localStorage no admite que se le reemplacen los metodos -la asignacion falla
+ * en silencio y el codigo sigue guardando con normalidad-, de modo que una
+ * prueba escrita asi comprueba un escenario que nunca llega a producirse.
+ */
+function conAlmacenamientoRoto(app, fn) {
+  const original = app.ventana.Storage.prototype.setItem;
+  app.ventana.Storage.prototype.setItem = function () {
+    const error = new Error('No queda espacio en el almacenamiento');
+    error.name = 'QuotaExceededError';
+    throw error;
+  };
+  try {
+    return fn();
+  } finally {
+    app.ventana.Storage.prototype.setItem = original;
+  }
+}
+
 /** Catalogo minimo y predecible para las pruebas. */
 const CURSOS_DE_PRUEBA = [
   { codigo: 'SIS-101', nombre: 'Algoritmos', carrera: 'Ingeniería de Sistemas', ciclo: 'III', vacantes: 2 },
@@ -152,5 +175,5 @@ const CURSOS_DE_PRUEBA = [
 
 module.exports = {
   abrirAplicacion, leer, registrarMatricula, registrarCurso,
-  exportarCsvCapturando, CURSOS_DE_PRUEBA,
+  exportarCsvCapturando, conAlmacenamientoRoto, CURSOS_DE_PRUEBA,
 };
