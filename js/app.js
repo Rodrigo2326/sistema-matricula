@@ -244,15 +244,28 @@ function ordenarMatriculas(lista) {
 
     // EL DETALLE TÉCNICO: Conversión de fechas DD/MM/YYYY a milisegundos para comparar
     if (columnaOrden === 'fecha') {
+      // Devuelve null si la fecha falta o no tiene el formato DD/MM/YYYY,
+      // en lugar de dejar que split falle con un valor indefinido.
       const convertirFecha = (fechaStr) => {
-        const [dia, mes, anio] = fechaStr.split('/');
+        if (typeof fechaStr !== 'string') return null;
+        const partes = fechaStr.split('/');
+        if (partes.length !== 3) return null;
+        const [dia, mes, anio] = partes;
         // Formato ISO YYYY-MM-DD funciona de forma nativa en new Date()
-        return new Date(`${anio}-${mes}-${dia}`).getTime();
+        const tiempo = new Date(`${anio}-${mes}-${dia}`).getTime();
+        return Number.isNaN(tiempo) ? null : tiempo;
       };
-      
+
       valorA = convertirFecha(a.fecha);
       valorB = convertirFecha(b.fecha);
-      
+
+      // Las matriculas sin fecha valida van siempre al final, tanto en orden
+      // ascendente como descendente, para que su posicion sea predecible.
+      if (valorA === null || valorB === null) {
+        if (valorA === valorB) return 0;
+        return valorA === null ? 1 : -1;
+      }
+
     } else if (columnaOrden === 'nombres') {
       valorA = `${a.nombres} ${a.apellidos}`.toLowerCase();
       valorB = `${b.nombres} ${b.apellidos}`.toLowerCase();
