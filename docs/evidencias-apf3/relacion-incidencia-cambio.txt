@@ -1,19 +1,21 @@
 RELACION ENTRE INCIDENCIAS Y CAMBIOS
 ====================================
 
-Generado: 19/11/2026 15:46
+Generado: 20/11/2026 20:24
 
 INCID. RAMA                               PR     AUTOR DE LA CORRECCION
 --------------------------------------------------------------------------
 #20    fix/csv-ignora-filtros             #28    Aparcana Mamani Rodrigo Alonso
+#21    fix/orden-fecha-sin-dato           #37    Ccahuana Huillca Giancarlo
 #22    fix/ocupacion-sin-vacantes         #32    Arnold Jhuncor Diaz Silva
 #23    fix/guardar-sin-perder-datos       #33    Arnold Jhuncor Diaz Silva
 #29    fix/favicon-404                    #30    Aparcana Mamani Rodrigo Alonso
 #34    fix/despliegues-simultaneos        #35    Aparcana Mamani Rodrigo Alonso
 
-#21 queda abierta, asignada a Ccahuana Huillca Giancarlo.
+Las seis incidencias del avance quedaron resueltas.
 
 Commits de las correcciones:
+  63a65ad Ordenar por fecha sin fallar cuando la matricula no tiene fecha
   bb9b53d Cancelar el despliegue superado en lugar de encolarlo
   cd733d9 fix(almacenamiento): mostrar aviso solo tras guardar y manejar errores
   d9a2352 fix(ocupacion): evitar NaN cuando un curso tiene cero vacantes

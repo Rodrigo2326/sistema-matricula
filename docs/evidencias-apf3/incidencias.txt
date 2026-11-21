@@ -1,24 +1,25 @@
 INCIDENCIAS DEL APF3
 ====================
 
-Generado: 19/11/2026 15:46
-Hito: APF3 - Semana 15 (vence 12/12/2026)
+Generado: 20/11/2026 20:24
+Hito: APF3 - Semana 15
+Resultado: 6 registradas, 6 resueltas, 0 abiertas.
 
-#20 [RESUELTA ] Exportar CSV ignora los filtros activos del listado
+#20 [RESUELTA] Exportar CSV ignora los filtros activos del listado
         Responsable: Rodrigo2326
 
-#21 [ABIERTA  ] Ordenar por fecha lanza una excepcion si una matricula no tiene fecha
+#21 [RESUELTA] Ordenar por fecha lanza una excepcion si una matricula no tiene fecha
         Responsable: soulahrikermette-hub
 
-#22 [RESUELTA ] El panel de ocupacion muestra NaN% cuando un curso tiene cero vacantes
+#22 [RESUELTA] El panel de ocupacion muestra NaN% cuando un curso tiene cero vacantes
         Responsable: gamergggpro123-lgtm
 
-#23 [RESUELTA ] El aviso de exito aparece antes de guardar, y oculta un fallo de almacenamiento
+#23 [RESUELTA] El aviso de exito aparece antes de guardar, y oculta un fallo de almacenamiento
         Responsable: gamergggpro123-lgtm
 
-#29 [RESUELTA ] El sitio desplegado registra un 404 de favicon.ico en la consola
+#29 [RESUELTA] El sitio desplegado registra un 404 de favicon.ico en la consola
         Responsable: Rodrigo2326
 
-#34 [RESUELTA ] Dos despliegues simultaneos compiten y uno falla
+#34 [RESUELTA] Dos despliegues simultaneos compiten y uno falla
         Responsable: Rodrigo2326
 

@@ -57,7 +57,7 @@ historial de ejecuciones del pipeline.
 | 23 | El aviso de éxito aparece antes de guardar | Robustez | Arnold Díaz | Resuelta |
 | 29 | El sitio desplegado registra un 404 de `favicon.ico` | Error menor | Rodrigo Aparcana | Resuelta |
 | 34 | Dos despliegues simultáneos compiten y uno falla | Error del pipeline | Rodrigo Aparcana | Resuelta |
-| 21 | Ordenar por fecha lanza una excepción si falta el dato | Error | Giancarlo Ccahuana | Abierta |
+| 21 | Ordenar por fecha lanza una excepción si falta el dato | Error | Giancarlo Ccahuana | Resuelta |
 
 Cada incidencia incluye el comportamiento observado, los pasos para
 reproducirla, la causa identificada en el código y sus criterios de
@@ -145,15 +145,31 @@ commit ya reemplazado no aporta nada, y una cancelación no ensucia el historial
 como lo hace un fallo. El sitio nunca quedó mal publicado, pero el historial de
 ejecuciones es una de las evidencias del avance.
 
-### 3.6. La incidencia que queda abierta
+### 3.6. La corrección del responsable funcional
 
-**Incidencia #21 — Ordenar por fecha lanza una excepción si falta el dato.**
-Al pulsar el encabezado *Fecha*, `convertirFecha()` hace `fechaStr.split('/')`
-sin comprobar que el valor exista. Si una matrícula del almacenamiento no tiene
-el campo, la excepción interrumpe el redibujado y **el listado deja de
-responder**. Queda asignada a Giancarlo Ccahuana con sus criterios de
-aceptación escritos, incluido el de decidir dónde quedan las matrículas sin
-fecha en el orden en lugar de dejarlo al azar.
+La incidencia **#21** la corrigió Giancarlo Ccahuana.
+
+El fallo era que `convertirFecha()` hacía `fechaStr.split('/')` sin comprobar
+que el valor existiera: una matrícula sin fecha interrumpía el redibujado y el
+listado dejaba de responder.
+
+La corrección hace dos cosas. Primero, `convertirFecha()` devuelve `null` en
+los tres modos de fallo posibles, no solo en el que aparecía en la incidencia:
+valor ausente, formato con un número de partes distinto de tres, y fecha
+sintácticamente correcta pero inválida. Segundo, y más importante, **decide**
+dónde quedan esas matrículas: siempre al final, tanto en orden ascendente como
+descendente, de modo que su posición sea predecible en lugar de depender del
+algoritmo de ordenación.
+
+Es la tercera incidencia del avance que se corrige yendo más allá del síntoma
+descrito, lo que sugiere que escribir las incidencias con causa y criterios de
+aceptación —en vez de solo con el error— cambió cómo se abordaron.
+
+**Verificó que su prueba falla sin la corrección antes de abrir el Pull
+Request**, y lo dejó escrito en el cuerpo: tres de sus cuatro casos fallan sin
+ella. Fue el primero del equipo en hacerlo, después de que en este mismo avance
+aparecieran dos pruebas —una de cada uno de los otros dos integrantes— que
+pasaban igual con el defecto presente.
 
 ### 3.7. Relación entre una incidencia y el cambio que la resolvió
 
@@ -162,14 +178,15 @@ La cadena es trazable en los dos sentidos:
 | Incidencia | Rama | Pull Request | Autor de la corrección |
 | --- | --- | --- | --- |
 | #20 | `fix/csv-ignora-filtros` | #28 | Rodrigo Aparcana |
+| #21 | `fix/orden-fecha-sin-dato` | #37 | Giancarlo Ccahuana |
 | #22 | `fix/ocupacion-sin-vacantes` | #32 | Arnold Díaz |
 | #23 | `fix/guardar-sin-perder-datos` | #33 | Arnold Díaz |
 | #29 | `fix/favicon-404` | #30 | Rodrigo Aparcana |
 | #34 | `fix/despliegues-simultaneos` | #35 | Rodrigo Aparcana |
 
 Cada Pull Request lleva `Closes #N` en su cuerpo, de modo que GitHub cerró la
-incidencia al integrar y dejó el enlace en ambas direcciones. La incidencia que
-queda abierta está asignada con sus criterios de aceptación escritos.
+incidencia al integrar y dejó el enlace en ambas direcciones. **Las seis
+incidencias registradas en el avance quedaron resueltas.**
 
 ## 4. Pruebas automatizadas
 
@@ -203,13 +220,14 @@ leerlas.
 
 ### 4.3. Qué cubren
 
-Treinta pruebas repartidas en tres archivos:
+Treinta y cuatro pruebas repartidas en cuatro archivos:
 
 | Archivo | Pruebas | Qué cubre |
 | --- | --- | --- |
 | `matriculas.test.js` | 15 | Registro, validaciones, duplicados, vacantes y persistencia |
 | `cursos.test.js` | 10 | Catálogo, edición de cursos y panel de ocupación |
 | `exportacion.test.js` | 7 | Exportación a CSV, filtros, orden y escapado |
+| `ordenamiento.test.js` | 4 | Ordenamiento por fecha con datos incompletos |
 
 Entre ellas, las que cubren los dos defectos que la revisión del APF2 detectó:
 que al renombrar un curso se actualicen las matrículas, y que dos cursos
@@ -258,7 +276,7 @@ GitHub Actions en cada push y en cada Pull Request hacia `main`.
 | Instalar dependencias | `npm ci` sobre el archivo de bloqueo |
 | Sintaxis de los módulos | `node --check` sobre los cuatro archivos |
 | Estructura del proyecto | Las diez comprobaciones estáticas |
-| Pruebas automatizadas | Las 30 pruebas |
+| Pruebas automatizadas | Las 34 pruebas |
 
 La configuración, resumida:
 
@@ -292,7 +310,7 @@ en la nube sería difícil de reproducir.
 ### 5.2. Resultado
 
 El pipeline se ejecuta en unos 15 a 20 segundos. Al cierre de este avance
-acumula veinte ejecuciones entre los dos flujos, con el historial completo
+acumula veintisiete ejecuciones entre los dos flujos, con el historial completo
 disponible en la pestaña *Actions* del repositorio.
 
 Dos de ellas aparecen en rojo y conviene explicarlas, porque ambas son reales y
@@ -380,7 +398,7 @@ una ejecución en rojo significara siempre que algo está roto.
 | Integrante | Rol | Aporte en el APF3 |
 | --- | --- | --- |
 | Aparcana Mamani Rodrigo Alonso | Responsable de repositorio y documentación | Arnés de pruebas, verificación estática, pipelines de CI y CD, despliegue en la nube, incidencias #20, #29 y #34, versión candidata e informe |
-| Ccahuana Huillca Giancarlo | Responsable funcional | Incidencia #21, pendiente al cierre de este informe |
+| Ccahuana Huillca Giancarlo | Responsable funcional | Incidencia #21 resuelta, con su prueba de regresión verificada |
 | Arnold Jhuncor Díaz Silva | Responsable de calidad y automatización | Incidencias #22 y #23 resueltas, con sus pruebas de regresión |
 
 El reparto de este avance es deliberadamente desigual: la infraestructura de
@@ -421,11 +439,11 @@ sitio en un estado intermedio: simplemente no publicó.
 | Indicador | Valor |
 | --- | --- |
 | Incidencias registradas | 6 |
-| Incidencias resueltas | 5 |
-| Incidencias abiertas | 1 (#21, asignada) |
-| Pruebas automatizadas | 30, todas en verde |
+| Incidencias resueltas | **6** |
+| Incidencias abiertas | 0 |
+| Pruebas automatizadas | 34, todas en verde |
 | Verificaciones estáticas | 10 |
-| Ejecuciones del pipeline | 20 |
+| Ejecuciones del pipeline | 27, con 25 correctas |
 | Versión candidata | `v3.0.0-rc.1` |
 | Entorno en la nube | Operativo |
 
@@ -442,7 +460,6 @@ terminadas y revisadas.
 
 ## 13. Próximos pasos (Proyecto Final)
 
-- Cerrar la incidencia #21 con su prueba de regresión.
 - Empaquetar la aplicación en un contenedor e incluir su configuración en el
   repositorio.
 - Desplegar la aplicación mediante una plataforma de ejecución de contenedores.
@@ -466,7 +483,7 @@ Las figuras de esta sección no cuentan para la extensión del informe.
 
 ## Anexo B. Seguimiento de incidencias
 
-![Figura 4. Incidencias registradas, con responsable asignado, etiqueta e hito. Cinco resueltas y una abierta.](evidencias-apf3/capturas/04-incidencias.png)
+![Figura 4. Incidencias registradas, con responsable asignado, etiqueta e hito. Las seis quedaron resueltas, cada una con su responsable y su Pull Request.](evidencias-apf3/capturas/04-incidencias.png)
 
 ![Figura 5. Incidencia #20, con el comportamiento observado, los pasos para reproducirla, la causa y los criterios de aceptación.](evidencias-apf3/capturas/05-incidencia-20.png)
 
@@ -497,8 +514,8 @@ Verificacion de estructura: 10 comprobaciones correctas
   - Existe el archivo js/constancia.js
   - Existe el archivo js/ocupacion.js
 
-tests 30
-pass 30
+tests 34
+pass 34
 fail 0
 ```
 
