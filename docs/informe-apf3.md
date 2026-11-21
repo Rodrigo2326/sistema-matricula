@@ -401,6 +401,14 @@ una ejecución en rojo significara siempre que algo está roto.
 | Ccahuana Huillca Giancarlo | Responsable funcional | Incidencia #21 resuelta, con su prueba de regresión verificada |
 | Arnold Jhuncor Díaz Silva | Responsable de calidad y automatización | Incidencias #22 y #23 resueltas, con sus pruebas de regresión |
 
+Hacia el final del avance, Arnold Díaz comunicó que no podría completar sus
+tareas pendientes. Su aporte técnico ya integrado se mantiene —las incidencias
+#22 y #23— y las tareas que quedaban a su nombre se reasignaron de forma
+explícita: la verificación funcional pasó a Rodrigo Aparcana y la revisión de
+los últimos Pull Requests a Giancarlo Ccahuana. El cambio de responsable quedó
+registrado en las propias tarjetas, de modo que el historial del repositorio y
+este informe digan lo mismo.
+
 El reparto de este avance es deliberadamente desigual: la infraestructura de
 automatización es una pieza única que no se puede partir en tres sin que las
 partes se estorben. A cambio, las incidencias quedaron repartidas, y el
@@ -458,7 +466,38 @@ de entrega continua falló porque GitHub Pages todavía no estaba habilitado. Al
 estar encadenado a la integración continua y no al push, ese fallo no dejó el
 sitio en un estado intermedio: simplemente no publicó.
 
-## 12. Estado al cierre del avance
+## 12. Verificación funcional sobre el entorno desplegado
+
+Además de las pruebas automatizadas, se ejecutó una verificación manual de los
+ocho casos definidos en la tarjeta #11, **sobre el entorno desplegado en la
+nube** y no sobre una copia local, de modo que lo comprobado es exactamente lo
+que recibe un usuario.
+
+| # | Caso | Resultado |
+| --- | --- | --- |
+| 1 | Matricular hasta llenar el curso bloquea la plaza siguiente | Correcto |
+| 2 | Editar una matrícula cuyo curso está lleno | Correcto |
+| 3 | La constancia coincide con los datos de la fila | Correcto |
+| 4 | Al imprimir la constancia no salen formularios ni botones | Correcto |
+| 5 | El panel de ocupación coincide con el catálogo | Correcto |
+| 6 | Eliminar una matrícula actualiza la ocupación y el panel | Correcto |
+| 7 | Exportar CSV entrega solo las filas visibles | Correcto |
+| 8 | Los datos persisten al recargar la página | Correcto |
+
+Ocho de ocho, sin errores de consola ni peticiones fallidas. El caso 7 cubre
+además la incidencia #20 sobre el entorno real.
+
+Conviene precisar el alcance de este resultado: una verificación funcional
+comprueba los casos previstos, no descubre los imprevistos. Los cuatro defectos
+registrados como incidencias en este avance **no habrían aparecido en una
+verificación como esta**: salieron de someter la aplicación a situaciones que
+nadie prueba a mano, como un curso con cero vacantes o un almacenamiento que
+rechaza la escritura. Las dos formas de comprobación son complementarias, y
+presentar una como sustituto de la otra daría una confianza que no corresponde.
+
+El detalle completo está en `docs/evidencias-apf2/verificacion-funcional.txt`.
+
+## 13. Estado al cierre del avance
 
 | Indicador | Valor |
 | --- | --- |
@@ -471,7 +510,7 @@ sitio en un estado intermedio: simplemente no publicó.
 | Versión candidata | `v3.0.0-rc.1` |
 | Entorno en la nube | Operativo |
 
-## 13. Conclusiones
+## 14. Conclusiones
 
 El avance cumplió su objetivo. El proyecto pasó de depender de que alguien
 recordara probar la aplicación, a validarse solo en cada cambio y publicarse
@@ -482,7 +521,7 @@ montarlo: cuatro defectos reales que llevaban semanas en el código sin que
 nadie los notara, incluidos dos en funcionalidades que el equipo había dado por
 terminadas y revisadas.
 
-## 14. Próximos pasos (Proyecto Final)
+## 15. Próximos pasos (Proyecto Final)
 
 - Resolver la deuda técnica del nombre del artefacto en el flujo de entrega
   continua, señalada en la revisión del PR #35.
