@@ -220,12 +220,12 @@ leerlas.
 
 ### 4.3. Qué cubren
 
-Treinta y cuatro pruebas repartidas en cuatro archivos:
+Treinta y seis pruebas repartidas en cuatro archivos:
 
 | Archivo | Pruebas | Qué cubre |
 | --- | --- | --- |
 | `matriculas.test.js` | 15 | Registro, validaciones, duplicados, vacantes y persistencia |
-| `cursos.test.js` | 10 | Catálogo, edición de cursos y panel de ocupación |
+| `cursos.test.js` | 12 | Catálogo, edición de cursos y panel de ocupación |
 | `exportacion.test.js` | 7 | Exportación a CSV, filtros, orden y escapado |
 | `ordenamiento.test.js` | 4 | Ordenamiento por fecha con datos incompletos |
 
@@ -276,7 +276,7 @@ GitHub Actions en cada push y en cada Pull Request hacia `main`.
 | Instalar dependencias | `npm ci` sobre el archivo de bloqueo |
 | Sintaxis de los módulos | `node --check` sobre los cuatro archivos |
 | Estructura del proyecto | Las diez comprobaciones estáticas |
-| Pruebas automatizadas | Las 34 pruebas |
+| Pruebas automatizadas | Las 36 pruebas |
 
 La configuración, resumida:
 
@@ -410,7 +410,31 @@ tarea que más crece de cara al proyecto final.
 El equipo mantuvo la **reunión de coordinación diaria en Microsoft Teams, de
 lunes a viernes de 10:00 a 10:30 horas**, establecida en el avance anterior.
 
-## 10. Reflexión sobre la dinámica de trabajo
+## 10. Revisión de código entre integrantes
+
+Los nueve Pull Requests del avance recibieron revisión. La del PR #2 en el
+avance anterior ya había demostrado su utilidad; en este, cuatro observaciones
+sobre líneas concretas apuntaron a defectos que seguían vivos:
+
+| Pull Request | Observación | Desenlace |
+| --- | --- | --- |
+| #19 | El resumen del flujo de CI repetía `job.status` en las tres filas, de modo que un fallo en las pruebas marcaba también la sintaxis y la estructura | Corregido en el PR #39 |
+| #28 | Al reutilizar `ordenarMatriculas()`, la exportación heredaba el fallo de la incidencia #21 | Cubierto al integrar el PR #37 |
+| #32 | Un curso sin vacantes pero con matriculados está sobrepasado, y se mostraba como `3 / 0 (0%)` con la barra en verde | Corregido en el PR #39 |
+| #35 | Cancelar un despliegue a Pages en curso puede cortarlo; la causa de fondo era el nombre repetido del artefacto | Anotado como deuda técnica |
+
+La tercera es la más reveladora: la corrección de la incidencia #22 resolvió el
+`NaN`, pero al devolver 0 % dejó **el caso más grave pintado como el más
+tranquilo**. Un defecto introducido al corregir otro, que ni las pruebas ni la
+verificación estática podían detectar, porque ambas comprueban que el código
+hace lo que dice y no que lo que dice sea lo correcto.
+
+La cuarta observación cuestionaba una decisión propia del pipeline y tenía
+razón en los dos puntos. Se documenta como deuda técnica en lugar de
+corregirse, porque hacer único el nombre del artefacto obligaría a sustituir
+las dos acciones de Pages por llamadas manuales a la API.
+
+## 11. Reflexión sobre la dinámica de trabajo
 
 **La automatización cambió qué se discute en las reuniones.** Antes, buena
 parte de la coordinación diaria se iba en confirmar que lo que cada uno había
@@ -434,20 +458,20 @@ de entrega continua falló porque GitHub Pages todavía no estaba habilitado. Al
 estar encadenado a la integración continua y no al push, ese fallo no dejó el
 sitio en un estado intermedio: simplemente no publicó.
 
-## 11. Estado al cierre del avance
+## 12. Estado al cierre del avance
 
 | Indicador | Valor |
 | --- | --- |
 | Incidencias registradas | 6 |
 | Incidencias resueltas | **6** |
 | Incidencias abiertas | 0 |
-| Pruebas automatizadas | 34, todas en verde |
+| Pruebas automatizadas | 36, todas en verde |
 | Verificaciones estáticas | 10 |
 | Ejecuciones del pipeline | 27, con 25 correctas |
 | Versión candidata | `v3.0.0-rc.1` |
 | Entorno en la nube | Operativo |
 
-## 12. Conclusiones
+## 13. Conclusiones
 
 El avance cumplió su objetivo. El proyecto pasó de depender de que alguien
 recordara probar la aplicación, a validarse solo en cada cambio y publicarse
@@ -458,8 +482,10 @@ montarlo: cuatro defectos reales que llevaban semanas en el código sin que
 nadie los notara, incluidos dos en funcionalidades que el equipo había dado por
 terminadas y revisadas.
 
-## 13. Próximos pasos (Proyecto Final)
+## 14. Próximos pasos (Proyecto Final)
 
+- Resolver la deuda técnica del nombre del artefacto en el flujo de entrega
+  continua, señalada en la revisión del PR #35.
 - Empaquetar la aplicación en un contenedor e incluir su configuración en el
   repositorio.
 - Desplegar la aplicación mediante una plataforma de ejecución de contenedores.
@@ -514,8 +540,8 @@ Verificacion de estructura: 10 comprobaciones correctas
   - Existe el archivo js/constancia.js
   - Existe el archivo js/ocupacion.js
 
-tests 34
-pass 34
+tests 36
+pass 36
 fail 0
 ```
 

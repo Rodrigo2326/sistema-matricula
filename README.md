@@ -66,7 +66,7 @@ El segundo avance incorporó tres funcionalidades nuevas, una por integrante:
 El tercer avance no agregó funcionalidades: incorporó la automatización del
 proceso de desarrollo y la publicación del proyecto en la nube.
 
-- **Pruebas automatizadas.** 34 pruebas sobre la lógica de la aplicación,
+- **Pruebas automatizadas.** 36 pruebas sobre la lógica de la aplicación,
   ejecutadas con el runner de Node y un DOM simulado.
 - **Verificación estática.** Diez comprobaciones sobre la estructura del
   proyecto, el balance de la hoja de estilos y el orden de carga de los
@@ -130,7 +130,7 @@ Por separado:
 | --- | --- |
 | `npm run verificar:js` | Comprueba la sintaxis de los cuatro módulos |
 | `npm run verificar:estructura` | Diez comprobaciones sobre la estructura del proyecto |
-| `npm test` | Las 34 pruebas automatizadas |
+| `npm test` | Las 36 pruebas automatizadas |
 
 Las mismas validaciones son las que ejecuta el flujo de integración continua,
 de modo que lo que pasa en local pasa en el pipeline.
@@ -296,7 +296,8 @@ están en `docs/evidencias-apf3/`:
 | `flujos-configurados.txt` | Flujos de trabajo configurados y su estado |
 | `entorno-nube.txt` | URL del despliegue y verificación de los recursos |
 | `validaciones.txt` | Salida de `npm run verificar` |
-| `participacion.txt` | Commits y correcciones por integrante |
+| `participacion.txt` | Commits, correcciones y revisiones por integrante |
+| `revision-de-codigo.txt` | Revisores y observaciones de cada Pull Request |
 | `capturas/` | Pipeline, incidencias, release y despliegues |
 
 ## Evidencias del APF2
