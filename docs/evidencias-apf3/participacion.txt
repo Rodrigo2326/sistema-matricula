@@ -2,11 +2,15 @@ PARTICIPACION DEL EQUIPO EN EL APF3
 ===================================
 
 Commits desde la release v2.0.0:
-      25	Aparcana Mamani Rodrigo Alonso
+      29	Aparcana Mamani Rodrigo Alonso
        2	Arnold Jhuncor Díaz Silva
        2	Ccahuana Huillca Giancarlo
 
-Correcciones de incidencias por integrante:
+Correcciones de incidencias:
   Aparcana Mamani Rodrigo Alonso : #20, #29, #34
   Arnold Jhuncor Diaz Silva      : #22, #23
   Ccahuana Huillca Giancarlo     : #21
+
+Revision de codigo:
+  Ccahuana Huillca Giancarlo     : 9 Pull Requests revisados, 4 observaciones sobre lineas
+  Aparcana Mamani Rodrigo Alonso : 2 Pull Requests revisados
