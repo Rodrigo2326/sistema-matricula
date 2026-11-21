@@ -1,9 +1,8 @@
 INCIDENCIAS DEL APF3
 ====================
 
-Generado: 20/11/2026 20:24
-Hito: APF3 - Semana 15
-Resultado: 6 registradas, 6 resueltas, 0 abiertas.
+Generado: 21/11/2026 11:07
+Resultado: 7 registradas, 7 resueltas, 0 abiertas.
 
 #20 [RESUELTA] Exportar CSV ignora los filtros activos del listado
         Responsable: Rodrigo2326
@@ -21,5 +20,8 @@ Resultado: 6 registradas, 6 resueltas, 0 abiertas.
         Responsable: Rodrigo2326
 
 #34 [RESUELTA] Dos despliegues simultaneos compiten y uno falla
+        Responsable: Rodrigo2326
+
+#48 [RESUELTA] El despliegue falla de forma intermitente al no encontrar su artefacto
         Responsable: Rodrigo2326
 

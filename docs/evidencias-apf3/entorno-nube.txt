@@ -5,7 +5,7 @@ URL    : https://rodrigo2326.github.io/sistema-matricula/
 Origen : workflow
 HTTPS  : true
 
-Verificacion de los recursos publicados:
+Recursos publicados:
   /                        HTTP 200
   /css/estilos.css         HTTP 200
   /js/app.js               HTTP 200
@@ -14,4 +14,4 @@ Verificacion de los recursos publicados:
   /js/ocupacion.js         HTTP 200
   /VERSION.txt             HTTP 200
 
-VERSION.txt: Publicado desde 49d9b24658c5fb5636eebed23df1d40f765c02c6 el 19/11/2026 20:45 UTC
+VERSION.txt: Publicado desde 00d64cc0f7399296f628f2d54028342dc5aacdcc el 21/11/2026 16:05 UTC

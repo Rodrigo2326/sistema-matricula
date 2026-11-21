@@ -1,11 +1,44 @@
 HISTORIAL DE EJECUCIONES DEL PIPELINE
 =====================================
 
-Generado: 20/11/2026 20:24
+Generado: 21/11/2026 11:07
 
-Total: 27  |  Exitosas: 25  |  Fallidas: 2
+Total: 50  |  Exitosas: 45  |  Fallidas: 5
 
 FECHA                FLUJO                  RAMA                             RESULTADO
+2026-11-21T16:05:38  Entrega continua       main                             success
+2026-11-21T16:05:38  Integracion continua   main                             success
+2026-11-21T16:04:59  Integracion continua   fix/despliegue-sin-workflow-run  success
+2026-11-21T16:00:51  Entrega continua       main                             failure
+2026-11-21T16:00:33  Integracion continua   main                             success
+2026-11-21T15:59:58  Integracion continua   feature/capturas-aplicacion-apf3 success
+2026-11-21T15:54:18  Entrega continua       main                             failure
+2026-11-21T15:53:57  Integracion continua   main                             success
+2026-11-21T15:53:22  Integracion continua   fix/encabezados-falsos           success
+2026-11-21T15:49:42  Entrega continua       main                             failure
+2026-11-21T15:49:20  Integracion continua   main                             success
+2026-11-21T15:48:48  Integracion continua   fix/cerrar-anexo-teams           success
+2026-11-21T15:48:20  Entrega continua       main                             success
+2026-11-21T15:48:03  Integracion continua   main                             success
+2026-11-21T15:47:08  Integracion continua   fix/propagacion-antes-de-guardar success
+2026-11-21T15:39:53  Entrega continua       main                             failure
+2026-11-21T15:39:33  Integracion continua   main                             success
+2026-11-21T15:39:00  Integracion continua   fix/precisar-coordinacion-teams  success
+2026-11-21T15:31:19  Entrega continua       main                             success
+2026-11-21T15:30:58  Integracion continua   main                             success
+2026-11-21T15:30:21  Integracion continua   feature/capturas-teams           success
+2026-11-21T15:11:43  Entrega continua       main                             success
+2026-11-21T15:11:24  Integracion continua   main                             success
+2026-11-21T15:11:08  Integracion continua   feature/verificacion-funcional   success
+2026-11-21T01:34:04  Entrega continua       main                             success
+2026-11-21T01:33:42  Integracion continua   main                             success
+2026-11-21T01:33:02  Integracion continua   feature/revision-de-codigo-apf3  success
+2026-11-21T01:31:14  Entrega continua       main                             success
+2026-11-21T01:30:54  Integracion continua   main                             success
+2026-11-21T01:29:28  Integracion continua   fix/observaciones-de-revision    success
+2026-11-21T01:27:01  Entrega continua       main                             success
+2026-11-21T01:26:38  Integracion continua   main                             success
+2026-11-21T01:25:48  Integracion continua   feature/cierre-apf3              success
 2026-11-21T01:22:14  Entrega continua       main                             success
 2026-11-21T01:21:50  Integracion continua   main                             success
 2026-11-20T19:15:41  Integracion continua   fix/orden-fecha-sin-dato         success
@@ -23,19 +56,11 @@ FECHA                FLUJO                  RAMA                             RES
 2026-11-19T20:39:55  Integracion continua   fix/ocupacion-sin-vacantes       success
 2026-11-19T04:52:54  Entrega continua       main                             success
 2026-11-19T04:52:29  Integracion continua   main                             success
-2026-11-19T04:51:43  Integracion continua   feature/documentacion-apf3       success
-2026-11-19T04:44:45  Entrega continua       main                             success
-2026-11-19T04:44:26  Integracion continua   main                             success
-2026-11-19T04:43:41  Integracion continua   fix/favicon-404                  success
-2026-11-19T04:40:17  Entrega continua       main                             success
-2026-11-19T04:39:55  Integracion continua   main                             success
-2026-11-19T04:39:11  Integracion continua   fix/csv-ignora-filtros           success
-2026-11-19T04:37:08  Entrega continua       main                             failure
-2026-11-19T04:36:47  Integracion continua   main                             success
-2026-11-19T04:34:06  Integracion continua   feature/pruebas-automatizadas    success
 
-Las dos ejecuciones fallidas se conservan deliberadamente:
+Las ejecuciones fallidas se conservan deliberadamente. Corresponden a tres
+problemas reales del pipeline, los tres ya resueltos:
   1. Primer despliegue: GitHub Pages todavia no estaba habilitado.
-  2. Despliegue duplicado: dos integraciones en ocho segundos (incidencia #34, resuelta en el PR #35).
+  2. Despliegues duplicados por dos integraciones seguidas (incidencia #34).
+  3. El disparador workflow_run no localizaba el artefacto (incidencia #48).
 
-En ninguno de los dos casos llego a publicarse una version defectuosa.
+En ningun caso llego a publicarse una version defectuosa.
