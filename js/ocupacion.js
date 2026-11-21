@@ -17,9 +17,11 @@ function crearBarraDeCurso(curso) {
   const ocupadosRaw = Number(contarOcupacion(curso));
   const ocupados = Number.isFinite(ocupadosRaw) && ocupadosRaw >= 0 ? ocupadosRaw : 0;
 
+  // Un curso sin vacantes definidas pero con matriculados esta sobrepasado, no
+  // vacio: mostrarlo al 0 % lo pintaba de verde cuando es el caso mas grave.
   const porcentaje = vacantes > 0
     ? Math.round((ocupados / vacantes) * 100)
-    : 0;
+    : (ocupados > 0 ? 100 : 0);
 
   const fila = document.createElement('div');
   fila.className = 'ocupacion-fila';

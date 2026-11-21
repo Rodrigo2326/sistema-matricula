@@ -30,12 +30,15 @@ jobs:
         run: npm ci
 
       - name: Verificar la sintaxis de los modulos JavaScript
+        id: sintaxis
         run: npm run verificar:js
 
       - name: Verificar la estructura del proyecto
+        id: estructura
         run: npm run verificar:estructura
 
       - name: Ejecutar las pruebas automatizadas
+        id: pruebas
         run: npm test
 
       - name: Resumen de la ejecucion
@@ -45,6 +48,6 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "| Validacion | Resultado |" >> $GITHUB_STEP_SUMMARY
           echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
-          echo "| Sintaxis de los modulos JavaScript | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Estructura del proyecto | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
-          echo "| Pruebas automatizadas | ${{ job.status }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Sintaxis de los modulos JavaScript | ${{ steps.sintaxis.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Estructura del proyecto | ${{ steps.estructura.outcome }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Pruebas automatizadas | ${{ steps.pruebas.outcome }} |" >> $GITHUB_STEP_SUMMARY
