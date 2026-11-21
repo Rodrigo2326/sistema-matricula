@@ -142,10 +142,11 @@ function registrarCurso(evento) {
 
   const cursosAnteriores = cursos.map(curso => ({ ...curso }));
   const esEdicion = codigoCursoEnEdicion !== null;
+  let cursoAnterior = null;
 
   if (esEdicion) {
     const indice = cursos.findIndex(curso => curso.codigo === codigoCursoEnEdicion);
-    propagarCambiosDelCurso(cursos[indice], datos);
+    cursoAnterior = cursos[indice];
     cursos[indice] = datos;
   } else {
     cursos.push(datos);
@@ -156,6 +157,12 @@ function registrarCurso(evento) {
     mostrarAviso('No se pudo guardar el catálogo de cursos en el almacenamiento.', 'error');
     return;
   }
+
+  // Las matrículas se actualizan solo una vez que el catálogo quedó guardado.
+  // Propagarlas antes dejaba un estado incoherente: si fallaba el guardado del
+  // catálogo, los cursos volvían atrás pero las matrículas se quedaban
+  // apuntando a un código de curso que nunca llegó a existir.
+  if (esEdicion) propagarCambiosDelCurso(cursoAnterior, datos);
 
   salirDeEdicionCurso();
   refrescarCursos();

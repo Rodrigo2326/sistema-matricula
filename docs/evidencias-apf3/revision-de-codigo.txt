@@ -1,47 +1,43 @@
 REVISION DE CODIGO DEL APF3
 ===========================
 
-Generado: 20/11/2026 20:32
+Generado: 21/11/2026 10:45
+
+Pull Requests del avance: 13
 
 Revisores por Pull Request:
 
-  PR #19  revisado por Rodrigo2326, soulahrikermette-hub comentarios en lineas: 2
-  PR #28  revisado por Rodrigo2326, soulahrikermette-hub comentarios en lineas: 2
-  PR #30  revisado por soulahrikermette-hub       comentarios en lineas: 1
-  PR #31  revisado por soulahrikermette-hub       comentarios en lineas: 1
-  PR #32  revisado por Rodrigo2326, soulahrikermette-hub comentarios en lineas: 2
-  PR #33  revisado por soulahrikermette-hub       comentarios en lineas: 1
-  PR #35  revisado por Rodrigo2326, soulahrikermette-hub comentarios en lineas: 2
-  PR #36  revisado por soulahrikermette-hub       comentarios en lineas: 1
-  PR #37  revisado por Rodrigo2326                comentarios en lineas: 0
-  PR #38  revisado por nadie                      comentarios en lineas: 0
-  PR #39  revisado por nadie                      comentarios en lineas: 0
+  PR #19  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 2
+  PR #28  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 2
+  PR #30  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 1
+  PR #31  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 1
+  PR #32  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 2
+  PR #33  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 1
+  PR #35  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 2
+  PR #36  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 1
+  PR #37  autor soulahrikermette-hub     revisado por Rodrigo2326                comentarios: 0
+  PR #38  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 1
+  PR #39  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 1
+  PR #40  autor Rodrigo2326              revisado por soulahrikermette-hub       comentarios: 1
+  PR #41  autor Rodrigo2326              revisado por nadie                      comentarios: 0
 
 Observaciones sobre lineas concretas:
 
   [PR #19] soulahrikermette-hub en .github/workflows/ci.yml:50
     Las tres filas del resumen usan job.status, así que siempre muestran el mismo resultado: si fallan solo las pruebas, la sintaxis y la estructura también aparecen como failure. Para que la tabla diga qué falló, convendría darle un id a cada paso y usar steps.<id>.outcome.
 
-  [PR #19] Rodrigo2326 en .github/workflows/ci.yml:50
-    Confirmado y corregido en el PR #39. Cada paso recibe un `id` y el resumen usa `steps.<id>.outcome`, de modo que la tabla dice cuál de las tres validaciones falló. Buena observación: tal como estaba, el resumen desorientaba más de lo que ayudaba.
-
   [PR #28] soulahrikermette-hub en js/app.js:374
     Como ahora la exportación reutiliza ordenarMatriculas, también hereda el fallo de la #21: con el listado ordenado por Fecha y una matrícula sin fecha, exportar lanza la misma excepción. Queda cubierto con el PR #37.
-
-  [PR #28] Rodrigo2326 en js/app.js:374
-    Exacto, y la dependencia es real: al reutilizar `ordenarMatriculas` la exportación heredó el fallo. Quedó cubierto al integrar el PR #37. Vale la pena señalar que lo viste antes de que existiera la corrección.
 
   [PR #32] soulahrikermette-hub en js/ocupacion.js:22
     El NaN queda resuelto, pero si un curso tiene 0 vacantes y aun así tiene matriculados (datos antiguos), el panel muestra "3 / 0 (0%)" con la barra en nivel normal, cuando en realidad está sobrepasado. Convendría tratar ese caso como lleno.
 
-  [PR #32] Rodrigo2326 en js/ocupacion.js:22
-    Confirmado y corregido en el PR #39. Reproducido: con 3 matriculados y 0 vacantes mostraba `3 / 0 (0%)` con la barra en verde. La corrección de la #22 resolvió el NaN pero dejó el caso más grave pintado como el más tranquilo. Ahora un curso sin vacantes se trata como lleno cuando tiene ocupación, y hay dos pruebas que cubren ambas ramas del caso.
+  [PR #33] soulahrikermette-hub en js/cursos.js:148
+    El rollback está incompleto: propagarCambiosDelCurso ya cambió y guardó las matrículas antes de llamar a guardarCursos. Si después falla el guardado del catálogo, los cursos vuelven atrás pero las matrículas se quedan apuntando al código nuevo, que ya no existe. Habría que propagar recién después de guardar los cursos, o restaurar también las matrículas.
 
   [PR #35] soulahrikermette-hub en .github/workflows/cd.yml:28
     Resuelve el choque de artefactos, pero cancelar un despliegue a Pages en curso puede cortarlo a la mitad; GitHub recomienda cancel-in-progress: false para Pages. El problema de fondo era el nombre repetido del artefacto, que se podría hacer único por ejecución. Igual, para el ritmo de commits del proyecto funciona.
 
-  [PR #35] Rodrigo2326 en .github/workflows/cd.yml:28
-    Tienes razón en los dos puntos: esa es la recomendación de GitHub para Pages, y la causa de fondo era el nombre repetido del artefacto, no la concurrencia.
-
-No lo cambio por ahora porque `upload-pages-artifact` fija el nombre `github-pages` y `deploy-pages` lo busca por él, así que hacerlo único obligaría a sustituir ambas acciones por llamadas manuales a la API. Para el ritmo de integraciones del proyecto, cancelar el despliegue superado es el menor de los dos males. Lo dejo anotado como deuda técnica para el proyecto final, cuando entre el despliegue con contenedores.
+  [PR #40] soulahrikermette-hub en docs/informe-apf3.md:415
+    Dos cosas no coinciden con lo que pasó. Primero, al escribir esto el #38 y el #39 no tenían revisión (el propio revision-de-codigo.txt los marca como "revisado por nadie"); ahora sí la tienen, pero con el #40 el avance suma doce PR, no nueve. Segundo, la tabla deja fuera la observación del #33: propagarCambiosDelCurso guarda las matrículas antes de guardarCursos, así que si falla el guardado del catálogo quedan apuntando a un código que ya no existe. Sigue igual en main (cursos.js:148), y convendría listarla como corregida o como deuda técnica, igual que la del #35.
 

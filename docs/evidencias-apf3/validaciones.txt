@@ -1,7 +1,7 @@
 RESULTADO DE LAS VALIDACIONES
 =============================
 
-Generado: 20/11/2026 20:32
+Generado: 21/11/2026 10:46
 
 $ npm run verificar
 
@@ -42,16 +42,47 @@ Error: Uncaught [RangeError: Maximum call stack size exceeded]
     at HTMLFormElement.salirDeEdicionCurso (http://localhost/:127:13)
     at HTMLFormElement.callTheUserObjectsOperation (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
     at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25) RangeError: Maximum call stack size exceeded
-    at improveStack (node:internal/util/inspect:1564:41)
-    at formatError (node:internal/util/inspect:1722:11)
-    at formatRaw (node:internal/util/inspect:1090:14)
-    at formatValue (node:internal/util/inspect:932:10)
-    at inspect (node:internal/util/inspect:409:10)
-    at formatWithOptionsInternal (node:internal/util/inspect:2645:40)
-    at formatWithOptions (node:internal/util/inspect:2507:10)
-    at console.value (node:internal/console/constructor:377:14)
-    at console.error (node:internal/console/constructor:444:61)
+    at writeOrBuffer (node:internal/streams/writable:567:21)
+    at _write (node:internal/streams/writable:499:10)
+    at Writable.write (node:internal/streams/writable:508:10)
+    at console.value (node:internal/console/constructor:313:16)
+    at console.error (node:internal/console/constructor:444:26)
     at VirtualConsole.<anonymous> (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\virtual-console.js:29:45)
+    at VirtualConsole.emit (node:events:508:28)
+    at reportException (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\runtime-script-errors.js:70:28)
+    at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:353:9)
+    at invokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
+▶ Catalogo de cursos
+  ✔ siembra el catalogo inicial la primera vez (120.2739ms)
+  ✔ registra un curso nuevo (207.9476ms)
+  ✔ rechaza un codigo de curso con formato invalido (34.3047ms)
+  ✔ rechaza vacantes que no sean un entero positivo (30.0621ms)
+  ✔ rechaza un codigo de curso repetido (27.7914ms)
+✔ Catalogo de cursos (421.5219ms)
+▶ Edicion de cursos
+  ✔ al renombrar un curso actualiza las matriculas (124.8518ms)
+  ✔ al cambiar el codigo vuelve a apuntar las matriculas (132.5945ms)
+  ✔ no deja reducir las vacantes por debajo de la ocupacion (20.2513ms)
+✔ Edicion de cursos (277.9748ms)
+▶ Edicion de matriculas
+  ✔ se puede corregir una matricula aunque su curso este lleno (23.3963ms)
+✔ Edicion de matriculas (23.5194ms)
+▶ Panel de ocupacion con cero vacantes
+  ✔ no muestra NaN en texto ni en el ancho de la barra cuando un curso tiene 0 vacantes (21.6604ms)
+✔ Panel de ocupacion con cero vacantes (21.7879ms)
+▶ Panel de ocupacion con datos incoherentes
+  ✔ un curso sin vacantes pero con matriculados se marca como lleno (23.336ms)
+  ✔ un curso sin vacantes y sin matriculados no se marca como lleno (18.1249ms)
+✔ Panel de ocupacion con datos incoherentes (41.6023ms)
+▶ Exportacion a CSV
+  ✔ exporta todas las matriculas cuando no hay filtros (152.6278ms)
+  ✔ exporta solo lo visible cuando hay un filtro de carrera activo (64.7189ms)
+  ✔ exporta solo lo visible cuando hay una busqueda activa (42.9112ms)
+  ✔ respeta el orden del listado al exportar (52.7257ms)
+  ✔ avisa y no descarga nada si ningun registro coincide con los filtros (42.7514ms)
+  ✔ avisa de otro modo cuando no hay ninguna matricula registrada (23.7617ms)
+  ✔ el CSV escapa las comillas de los valores (20.2026ms)
+✔ Exportacion a CSV (401.0657ms)
 Error: Uncaught [RangeError: Maximum call stack size exceeded]
     at reportException (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\runtime-script-errors.js:66:24)
     at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:353:9)
@@ -63,47 +94,21 @@ Error: Uncaught [RangeError: Maximum call stack size exceeded]
     at HTMLFormElement.salirDeEdicionCurso (http://localhost/:127:13)
     at HTMLFormElement.callTheUserObjectsOperation (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
     at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25) RangeError: Maximum call stack size exceeded
-    at reportException (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\runtime-script-errors.js:56:78)
+    at writeOrBuffer (node:internal/streams/writable:567:21)
+    at _write (node:internal/streams/writable:499:10)
+    at Writable.write (node:internal/streams/writable:508:10)
+    at console.value (node:internal/console/constructor:313:16)
+    at console.error (node:internal/console/constructor:444:26)
+    at VirtualConsole.<anonymous> (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\virtual-console.js:29:45)
+    at VirtualConsole.emit (node:events:508:28)
+    at reportException (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\runtime-script-errors.js:70:28)
     at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:353:9)
     at invokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
-    at HTMLFormElementImpl._dispatch (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:233:9)
-    at fireAnEvent (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\helpers\events.js:18:36)
-    at HTMLFormElementImpl.reset (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\nodes\HTMLFormElement-impl.js:134:10)
-    at HTMLFormElement.reset (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\HTMLFormElement.js:141:36)
-    at HTMLFormElement.salirDeEdicionCurso (http://localhost/:127:13)
-    at HTMLFormElement.callTheUserObjectsOperation (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
-    at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:350:25)
-▶ Catalogo de cursos
-  ✔ siembra el catalogo inicial la primera vez (132.7025ms)
-  ✔ registra un curso nuevo (214.263ms)
-  ✔ rechaza un codigo de curso con formato invalido (39.4345ms)
-  ✔ rechaza vacantes que no sean un entero positivo (35.4294ms)
-  ✔ rechaza un codigo de curso repetido (28.3585ms)
-✔ Catalogo de cursos (451.5592ms)
-▶ Edicion de cursos
-  ✔ al renombrar un curso actualiza las matriculas (147.5151ms)
-  ✔ al cambiar el codigo vuelve a apuntar las matriculas (156.8791ms)
-  ✔ no deja reducir las vacantes por debajo de la ocupacion (25.3266ms)
-✔ Edicion de cursos (330.0923ms)
-▶ Edicion de matriculas
-  ✔ se puede corregir una matricula aunque su curso este lleno (31.9098ms)
-✔ Edicion de matriculas (32.154ms)
-▶ Panel de ocupacion con cero vacantes
-  ✔ no muestra NaN en texto ni en el ancho de la barra cuando un curso tiene 0 vacantes (28.5371ms)
-✔ Panel de ocupacion con cero vacantes (28.6774ms)
-▶ Panel de ocupacion con datos incoherentes
-  ✔ un curso sin vacantes pero con matriculados se marca como lleno (24.0587ms)
-  ✔ un curso sin vacantes y sin matriculados no se marca como lleno (18.7176ms)
-✔ Panel de ocupacion con datos incoherentes (42.9221ms)
-▶ Exportacion a CSV
-  ✔ exporta todas las matriculas cuando no hay filtros (178.9576ms)
-  ✔ exporta solo lo visible cuando hay un filtro de carrera activo (57.8044ms)
-  ✔ exporta solo lo visible cuando hay una busqueda activa (52.5172ms)
-  ✔ respeta el orden del listado al exportar (50.5112ms)
-  ✔ avisa y no descarga nada si ningun registro coincide con los filtros (35.6559ms)
-  ✔ avisa de otro modo cuando no hay ninguna matricula registrada (33.7537ms)
-  ✔ el CSV escapa las comillas de los valores (23.2535ms)
-✔ Exportacion a CSV (434.0942ms)
+▶ Integridad entre el catalogo y las matriculas
+  ✔ si falla el guardado del catalogo, las matriculas no quedan huerfanas (159.8743ms)
+  ✔ si falla el guardado del catalogo, la ocupacion sigue siendo correcta (45.4787ms)
+  ✔ cuando el guardado funciona, el cambio de codigo si se propaga (188.2218ms)
+✔ Integridad entre el catalogo y las matriculas (394.5796ms)
 No se pudieron guardar las matrículas: Error [QuotaExceededError]: No queda espacio en el almacenamiento
     at app.ventana.Storage.setItem (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\tests\entorno.js:157:19)
     at guardarMatriculas (http://localhost/:24:18)
@@ -138,37 +143,37 @@ No se pudieron guardar las matrículas: Error [QuotaExceededError]: No queda esp
     at HTMLFormElement.dispatchEvent (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:241:34)
     at registrarMatricula (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\tests\entorno.js:94:6)
 ▶ Registro de matriculas
-  ✔ registra una matricula valida (185.8542ms)
-  ✔ guarda el nombre del curso ademas del codigo (55.063ms)
-  ✔ rechaza un codigo de estudiante con formato invalido (40.2344ms)
-  ✔ rechaza un DNI que no tenga ocho digitos (32.6352ms)
-  ✔ rechaza la matricula sin curso seleccionado (36.8537ms)
-✔ Registro de matriculas (352.1116ms)
+  ✔ registra una matricula valida (146.4058ms)
+  ✔ guarda el nombre del curso ademas del codigo (57.4762ms)
+  ✔ rechaza un codigo de estudiante con formato invalido (37.5894ms)
+  ✔ rechaza un DNI que no tenga ocho digitos (29.3199ms)
+  ✔ rechaza la matricula sin curso seleccionado (31.507ms)
+✔ Registro de matriculas (303.6696ms)
 ▶ Control de duplicados
-  ✔ rechaza al mismo estudiante en el mismo curso (42.838ms)
-  ✔ permite dos cursos homonimos en ciclos distintos (35.4959ms)
-✔ Control de duplicados (78.592ms)
+  ✔ rechaza al mismo estudiante en el mismo curso (38.6535ms)
+  ✔ permite dos cursos homonimos en ciclos distintos (35.4579ms)
+✔ Control de duplicados (74.5661ms)
 ▶ Control de vacantes
-  ✔ rechaza la matricula cuando el curso esta lleno (31.1445ms)
-  ✔ cuenta las matriculas anteriores al catalogo, que no guardan codigo (27.441ms)
-  ✔ vacantesLibres nunca devuelve un numero negativo (28.6112ms)
-✔ Control de vacantes (87.5312ms)
+  ✔ rechaza la matricula cuando el curso esta lleno (35.5188ms)
+  ✔ cuenta las matriculas anteriores al catalogo, que no guardan codigo (26.0575ms)
+  ✔ vacantesLibres nunca devuelve un numero negativo (24.8532ms)
+✔ Control de vacantes (86.8495ms)
 ▶ Persistencia y manejo de errores al guardar
-  ✔ no avisa de exito ni conserva la matricula si falla el almacenamiento (21.8233ms)
-  ✔ la tabla no muestra una matricula que no se pudo guardar (21.8605ms)
-  ✔ vuelve a guardar con normalidad cuando el almacenamiento se recupera (24.3249ms)
-✔ Persistencia y manejo de errores al guardar (68.1856ms)
+  ✔ no avisa de exito ni conserva la matricula si falla el almacenamiento (17.5513ms)
+  ✔ la tabla no muestra una matricula que no se pudo guardar (16.8985ms)
+  ✔ vuelve a guardar con normalidad cuando el almacenamiento se recupera (19.2178ms)
+✔ Persistencia y manejo de errores al guardar (53.8379ms)
 ▶ Ordenamiento por fecha con datos incompletos (#21)
-  ✔ no lanza excepcion si una matricula no tiene fecha (159.7304ms)
-  ✔ en orden ascendente deja las fechas faltantes al final (54.9887ms)
-  ✔ en orden descendente tambien deja las fechas faltantes al final (53.9799ms)
-  ✔ con todas las fechas completas el orden no cambia (41.8333ms)
-✔ Ordenamiento por fecha con datos incompletos (#21) (312.0187ms)
-ℹ tests 36
-ℹ suites 11
-ℹ pass 36
+  ✔ no lanza excepcion si una matricula no tiene fecha (136.028ms)
+  ✔ en orden ascendente deja las fechas faltantes al final (44.0887ms)
+  ✔ en orden descendente tambien deja las fechas faltantes al final (53.6717ms)
+  ✔ con todas las fechas completas el orden no cambia (36.2695ms)
+✔ Ordenamiento por fecha con datos incompletos (#21) (271.7139ms)
+ℹ tests 39
+ℹ suites 12
+ℹ pass 39
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1709.7659
+ℹ duration_ms 1562.7764
