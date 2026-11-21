@@ -1,0 +1,105 @@
+VERIFICACION FUNCIONAL DEL PROYECTO
+===================================
+
+Tarjeta       : #11
+Responsable   : Aparcana Mamani Rodrigo Alonso
+Fecha         : 20/11/2026
+Entorno       : https://rodrigo2326.github.io/sistema-matricula/
+Version       : v3.0.0-rc.1
+Navegador     : Chromium 1248, modo automatizado
+
+NOTA SOBRE LA RESPONSABILIDAD
+-----------------------------
+Esta verificacion estaba asignada originalmente a Arnold Jhuncor Diaz Silva,
+responsable de calidad. Al comunicar que no podria completar sus tareas
+pendientes, la tarjeta se reasigno de forma explicita a Aparcana Mamani Rodrigo
+Alonso, y el cambio quedo registrado como comentario en la propia tarjeta #11
+del repositorio.
+
+ALCANCE
+-------
+Los ocho casos definidos en la tarjeta #11, ejecutados sobre el entorno
+desplegado en la nube y no sobre una copia local, de modo que lo verificado es
+exactamente lo que recibe un usuario.
+
+Se cubren las funcionalidades del APF1 (busqueda, filtros, ordenamiento,
+exportacion y persistencia), las tres del APF2 (catalogo de cursos con control
+de vacantes, constancia imprimible y panel de ocupacion) y las correcciones
+integradas durante el APF3.
+
+RESULTADOS
+----------
+
+Caso 1 - Matricular hasta llenar el curso bloquea la plaza siguiente
+  Procedimiento : SIS-101 ajustado a 2 vacantes; se registran dos matriculas.
+  Esperado      : el curso pasa a estado "Sin vacantes".
+  Obtenido      : "Sin vacantes".
+  Resultado     : CORRECTO
+
+Caso 2 - Editar una matricula cuyo curso esta lleno
+  Procedimiento : con SIS-101 agotado, se edita la primera matricula.
+  Esperado      : se guarda sin error y el selector conserva su curso.
+  Obtenido      : selector = SIS-101; aviso "Matricula actualizada correctamente".
+  Resultado     : CORRECTO
+
+Caso 3 - La constancia coincide con los datos de la fila
+  Procedimiento : se emite la constancia de la matricula editada.
+  Esperado      : "Uno Corregido Prueba / Algoritmos y Estructuras de Datos".
+  Obtenido      : "Uno Corregido Prueba / Algoritmos y Estructuras de Datos",
+                  codigo de curso SIS-101.
+  Resultado     : CORRECTO
+
+Caso 4 - Al imprimir la constancia no salen formularios ni botones
+  Procedimiento : se emula el medio de impresion con la constancia abierta.
+  Esperado      : solo la hoja visible.
+  Obtenido      : encabezado oculto, cuerpo oculto, botones de la constancia
+                  ocultos, hoja visible.
+  Resultado     : CORRECTO
+
+Caso 5 - El panel de ocupacion coincide con la columna del catalogo
+  Procedimiento : SIS-310 con 10 vacantes y 7 matriculados.
+  Esperado      : catalogo 7 / 10, panel 70 % en ambar.
+  Obtenido      : "SIS-310 - Base de Datos II  7 / 10 (70%)", barra en nivel
+                  alto (ambar).
+  Resultado     : CORRECTO
+
+Caso 6 - Eliminar una matricula actualiza la ocupacion y el panel
+  Procedimiento : se elimina la matricula 2026-0210 de SIS-310.
+  Esperado      : catalogo 6 / 10 y panel 60 %.
+  Obtenido      : catalogo "6 / 10"; panel "6 / 10 (60%)".
+  Resultado     : CORRECTO
+
+Caso 7 - Exportar CSV entrega solo las filas visibles
+  Procedimiento : se filtra el listado por "Uno Corregido" y se exporta.
+  Esperado      : una sola fila en el archivo.
+  Obtenido      : "Listado exportado a CSV (1 matricula(s))".
+  Resultado     : CORRECTO
+  Observacion   : este caso cubre la incidencia #20, en la que el archivo
+                  traia todas las matriculas aunque la tabla estuviera
+                  filtrada.
+
+Caso 8 - Los datos persisten al recargar la pagina
+  Procedimiento : se recarga el navegador con 8 matriculas y 5 cursos.
+  Esperado      : el mismo contenido tras la recarga.
+  Obtenido      : 8 matriculas y 5 cursos.
+  Resultado     : CORRECTO
+
+RESUMEN
+-------
+  Casos ejecutados  : 8
+  Correctos         : 8
+  Fallidos          : 0
+  Errores de consola: 0
+  Peticiones fallidas: 0
+
+CONCLUSION
+----------
+Las funcionalidades de los tres avances conviven sin interferencias sobre el
+entorno desplegado. No se encontraron defectos nuevos durante esta ejecucion.
+
+Conviene precisar el alcance de esta afirmacion: una verificacion funcional
+comprueba los casos previstos, no descubre los imprevistos. Los cuatro defectos
+registrados como incidencias en el APF3 no aparecieron en pruebas manuales como
+estas, sino al someter la aplicacion a situaciones que nadie habria probado a
+mano -un curso con cero vacantes, una matricula sin fecha, un almacenamiento
+que rechaza la escritura-. Las dos formas de comprobacion son complementarias.
