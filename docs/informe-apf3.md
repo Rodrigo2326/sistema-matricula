@@ -486,19 +486,9 @@ ocho casos definidos en la tarjeta #11, **sobre el entorno desplegado en la
 nube** y no sobre una copia local, de modo que lo comprobado es exactamente lo
 que recibe un usuario.
 
-| # | Caso | Resultado |
-| --- | --- | --- |
-| 1 | Matricular hasta llenar el curso bloquea la plaza siguiente | Correcto |
-| 2 | Editar una matrícula cuyo curso está lleno | Correcto |
-| 3 | La constancia coincide con los datos de la fila | Correcto |
-| 4 | Al imprimir la constancia no salen formularios ni botones | Correcto |
-| 5 | El panel de ocupación coincide con el catálogo | Correcto |
-| 6 | Eliminar una matrícula actualiza la ocupación y el panel | Correcto |
-| 7 | Exportar CSV entrega solo las filas visibles | Correcto |
-| 8 | Los datos persisten al recargar la página | Correcto |
-
-Ocho de ocho, sin errores de consola ni peticiones fallidas. El caso 7 cubre
-además la incidencia #20 sobre el entorno real.
+**Ocho de ocho correctos**, sin errores de consola ni peticiones fallidas. Uno
+de los casos cubre además la incidencia #20 sobre el entorno real. El detalle
+de cada caso está en el Anexo E.
 
 Conviene precisar el alcance de este resultado: una verificación funcional
 comprueba los casos previstos, no descubre los imprevistos. Los cuatro defectos
@@ -507,8 +497,6 @@ verificación como esta**: salieron de someter la aplicación a situaciones que
 nadie prueba a mano, como un curso con cero vacantes o un almacenamiento que
 rechaza la escritura. Las dos formas de comprobación son complementarias, y
 presentar una como sustituto de la otra daría una confianza que no corresponde.
-
-El detalle completo está en `docs/evidencias-apf2/verificacion-funcional.txt`.
 
 ## 13. Estado al cierre del avance
 
@@ -599,3 +587,22 @@ fail 0
 ```
 
 La salida completa está en `docs/evidencias-apf3/validaciones.txt`.
+
+## Anexo E. Verificación funcional, caso por caso
+
+Ejecutada sobre https://rodrigo2326.github.io/sistema-matricula/
+
+| # | Caso | Resultado |
+| --- | --- | --- |
+| 1 | Matricular hasta llenar el curso bloquea la plaza siguiente | Correcto |
+| 2 | Editar una matrícula cuyo curso está lleno | Correcto |
+| 3 | La constancia coincide con los datos de la fila | Correcto |
+| 4 | Al imprimir la constancia no salen formularios ni botones | Correcto |
+| 5 | El panel de ocupación coincide con el catálogo | Correcto |
+| 6 | Eliminar una matrícula actualiza la ocupación y el panel | Correcto |
+| 7 | Exportar CSV entrega solo las filas visibles | Correcto |
+| 8 | Los datos persisten al recargar la página | Correcto |
+
+Sin errores de consola ni peticiones fallidas. El acta completa, con el
+procedimiento y el valor obtenido en cada caso, está en
+`docs/evidencias-apf2/verificacion-funcional.txt`.

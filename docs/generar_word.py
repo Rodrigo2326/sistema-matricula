@@ -305,7 +305,10 @@ def convertir(documento, markdown):
             bloque_tabla(documento, filas)
             continue
 
-        if desnuda.startswith('#'):
+        # Se exige el espacio tras las almohadillas, como manda Markdown: sin
+        # eso, una linea que empieza citando una incidencia -"#22 y #23..."-
+        # se convertia en encabezado.
+        if re.match(r'^#{1,6}\s', desnuda):
             nivel = len(desnuda) - len(desnuda.lstrip('#'))
             escribir_con_marcas(
                 documento.add_heading('', min(nivel, 3)),
