@@ -158,3 +158,38 @@ describe('Panel de ocupacion con cero vacantes', () => {
     app.cerrar();
   });
 });
+describe('Panel de ocupacion con datos incoherentes', () => {
+  // Observacion de @soulahrikermette-hub en la revision del PR #32: un curso
+  // sin vacantes definidas pero con matriculados esta sobrepasado, y se
+  // mostraba en verde como si estuviera vacio.
+  test('un curso sin vacantes pero con matriculados se marca como lleno', () => {
+    const app = abrirAplicacion({
+      cursos: [{ codigo: 'SIS-900', nombre: 'Taller', carrera: 'Ingeniería de Sistemas', ciclo: 'I', vacantes: 0 }],
+      matriculas: [1, 2, 3].map(n => ({
+        id: n, nombres: 'A' + n, apellidos: 'B', codigo: `2026-000${n}`, dni: '1111111' + n,
+        carrera: 'Ingeniería de Sistemas', ciclo: 'I', cursoCodigo: 'SIS-900',
+        curso: 'Taller', fecha: '01/01/2026',
+      })),
+    });
+
+    app.ventana.renderizarOcupacion();
+    const barra = app.documento.querySelector('#panelOcupacion .ocupacion-barra');
+    const cifra = app.documento.querySelector('#panelOcupacion .ocupacion-cifra');
+
+    assert.match(barra.className, /lleno/, 'un curso sobrepasado no puede verse como disponible');
+    assert.doesNotMatch(cifra.textContent, /NaN/);
+    app.cerrar();
+  });
+
+  test('un curso sin vacantes y sin matriculados no se marca como lleno', () => {
+    const app = abrirAplicacion({
+      cursos: [{ codigo: 'SIS-901', nombre: 'Taller', carrera: 'Ingeniería de Sistemas', ciclo: 'I', vacantes: 0 }],
+    });
+
+    app.ventana.renderizarOcupacion();
+    const barra = app.documento.querySelector('#panelOcupacion .ocupacion-barra');
+
+    assert.doesNotMatch(barra.className, /lleno/);
+    app.cerrar();
+  });
+});
