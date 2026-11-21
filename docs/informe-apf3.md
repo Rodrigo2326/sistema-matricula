@@ -313,7 +313,7 @@ en la nube sería difícil de reproducir.
 ### 5.2. Resultado
 
 El pipeline se ejecuta en unos 15 a 20 segundos. Al cierre de este avance
-acumula veintisiete ejecuciones entre los dos flujos, con el historial completo
+acumula cincuenta ejecuciones entre los dos flujos, cuarenta y cinco correctas, con el historial completo
 disponible en la pestaña *Actions* del repositorio.
 
 Dos de ellas aparecen en rojo y conviene explicarlas, porque ambas son reales y
@@ -435,7 +435,7 @@ lunes a viernes de 10:00 a 10:30 horas**, establecida en el avance anterior.
 
 ## 10. Revisión de código entre integrantes
 
-El avance acumuló trece Pull Requests, **doce de ellos revisados por otro
+El avance acumuló dieciséis Pull Requests, **quince de ellos revisados por otro
 integrante**. La revisión del PR #2 en el avance anterior ya había demostrado
 su utilidad; en este, cinco observaciones sobre líneas concretas apuntaron a
 defectos que seguían vivos:
@@ -517,12 +517,12 @@ presentar una como sustituto de la otra daría una confianza que no corresponde.
 | Indicador | Valor |
 | --- | --- |
 | Incidencias registradas | 7 |
-| Pull Requests del avance | 13, doce con revisión de otro integrante |
+| Pull Requests del avance | 16, quince con revisión de otro integrante |
 | Incidencias resueltas | **7** |
 | Incidencias abiertas | 0 |
 | Pruebas automatizadas | 39, todas en verde |
 | Verificaciones estáticas | 10 |
-| Ejecuciones del pipeline | 27, con 25 correctas |
+| Ejecuciones del pipeline | 50, con 45 correctas |
 | Versión candidata | `v3.0.0-rc.1` |
 | Entorno en la nube | Operativo |
 
