@@ -540,31 +540,47 @@ terminadas y revisadas.
 
 Las figuras de esta sección no cuentan para la extensión del informe.
 
-## Anexo A. Automatización
+## Anexo A. La aplicación en el entorno desplegado
 
-![Figura 1. Historial de ejecuciones del pipeline. Cada Pull Request y cada integración en main dispara la validación; la entrega continua se encadena a su resultado. Las dos ejecuciones en rojo se conservan y están explicadas en la sección 5.2.](evidencias-apf3/capturas/01-historial-pipeline.png)
+Las capturas de esta sección se tomaron sobre
+https://rodrigo2326.github.io/sistema-matricula/, es decir sobre la versión
+publicada por el flujo de entrega continua y no sobre una copia local.
 
-![Figura 2. Flujo de integración continua, con sus ejecuciones por rama y evento.](evidencias-apf3/capturas/02-integracion-continua.png)
+![Figura 1. Catálogo de cursos en el entorno desplegado. Cada curso declara sus vacantes y el listado muestra la ocupación actual y el estado del cupo.](evidencias-apf3/capturas/10-app-catalogo.png)
 
-![Figura 3. Flujo de entrega continua. La primera ejecución falló porque GitHub Pages todavía no estaba habilitado; las siguientes publican correctamente.](evidencias-apf3/capturas/03-entrega-continua.png)
+![Figura 2. Formulario de matrícula. El campo Curso a matricular se alimenta del catálogo y se filtra por la carrera y el ciclo elegidos, mostrando las vacantes restantes.](evidencias-apf3/capturas/11-app-selector-cursos.png)
 
-## Anexo B. Seguimiento de incidencias
+![Figura 3. Panel de ocupación por curso, con los tres niveles del semáforo: rojo al 100 %, ámbar al 70 % y verde por debajo.](evidencias-apf3/capturas/12-app-panel-ocupacion.png)
 
-![Figura 4. Incidencias registradas, con responsable asignado, etiqueta e hito. Las seis quedaron resueltas, cada una con su responsable y su Pull Request.](evidencias-apf3/capturas/04-incidencias.png)
+![Figura 4. Constancia de matrícula emitida desde el entorno desplegado.](evidencias-apf3/capturas/13-app-constancia.png)
 
-![Figura 5. Incidencia #20, con el comportamiento observado, los pasos para reproducirla, la causa y los criterios de aceptación.](evidencias-apf3/capturas/05-incidencia-20.png)
+![Figura 5. Archivo VERSION.txt servido por el propio sitio. Identifica el commit publicado y la fecha del despliegue, de modo que puede comprobarse desde fuera qué versión está en línea.](evidencias-apf3/capturas/14-app-version-publicada.png)
 
-![Figura 6. Pull Request #28, que resuelve la incidencia #20. El cuerpo lleva «Closes #20», de modo que la incidencia se cerró al integrar.](evidencias-apf3/capturas/06-pr-que-resuelve-20.png)
+## Anexo B. Automatización
 
-![Figura 7. Pull Requests del avance. Cada corrección entró por Pull Request validado por el pipeline, incluidas las dos del responsable de calidad.](evidencias-apf3/capturas/09-pull-requests-apf3.png)
+![Figura 6. Historial de ejecuciones del pipeline. Cada Pull Request y cada integración en main dispara la validación; la entrega continua se encadena a su resultado. Las dos ejecuciones en rojo se conservan y están explicadas en la sección 5.2.](evidencias-apf3/capturas/01-historial-pipeline.png)
 
-## Anexo C. Versión candidata y despliegue
+![Figura 7. Flujo de integración continua, con sus ejecuciones por rama y evento.](evidencias-apf3/capturas/02-integracion-continua.png)
 
-![Figura 8. Release v3.0.0-rc.1 publicada como prelanzamiento, con la URL del entorno en la nube y el detalle de las incidencias resueltas y abiertas.](evidencias-apf3/capturas/07-version-candidata.png)
+![Figura 8. Flujo de entrega continua. La primera ejecución falló porque GitHub Pages todavía no estaba habilitado; las siguientes publican correctamente.](evidencias-apf3/capturas/03-entrega-continua.png)
 
-![Figura 9. Historial de despliegues del entorno github-pages.](evidencias-apf3/capturas/08-despliegues.png)
+## Anexo C. Seguimiento de incidencias
 
-## Anexo D. Salida de las validaciones
+![Figura 9. Incidencias registradas, con responsable asignado, etiqueta e hito. Las seis quedaron resueltas, cada una con su responsable y su Pull Request.](evidencias-apf3/capturas/04-incidencias.png)
+
+![Figura 10. Incidencia #20, con el comportamiento observado, los pasos para reproducirla, la causa y los criterios de aceptación.](evidencias-apf3/capturas/05-incidencia-20.png)
+
+![Figura 11. Pull Request #28, que resuelve la incidencia #20. El cuerpo lleva «Closes #20», de modo que la incidencia se cerró al integrar.](evidencias-apf3/capturas/06-pr-que-resuelve-20.png)
+
+![Figura 12. Pull Requests del avance. Cada corrección entró por Pull Request validado por el pipeline, incluidas las dos del responsable de calidad.](evidencias-apf3/capturas/09-pull-requests-apf3.png)
+
+## Anexo D. Versión candidata y despliegue
+
+![Figura 13. Release v3.0.0-rc.1 publicada como prelanzamiento, con la URL del entorno en la nube y el detalle de las incidencias resueltas y abiertas.](evidencias-apf3/capturas/07-version-candidata.png)
+
+![Figura 14. Historial de despliegues del entorno github-pages.](evidencias-apf3/capturas/08-despliegues.png)
+
+## Anexo E. Salida de las validaciones
 
 Resultado de `npm run verificar` sobre la versión candidata:
 
@@ -588,7 +604,7 @@ fail 0
 
 La salida completa está en `docs/evidencias-apf3/validaciones.txt`.
 
-## Anexo E. Verificación funcional, caso por caso
+## Anexo F. Verificación funcional, caso por caso
 
 Ejecutada sobre https://rodrigo2326.github.io/sistema-matricula/
 
@@ -606,3 +622,11 @@ Ejecutada sobre https://rodrigo2326.github.io/sistema-matricula/
 Sin errores de consola ni peticiones fallidas. El acta completa, con el
 procedimiento y el valor obtenido en cada caso, está en
 `docs/evidencias-apf2/verificacion-funcional.txt`.
+
+## Anexo G. Colaboración del equipo en Microsoft Teams
+
+Evidencia de la reunión de coordinación diaria descrita en la sección 9.
+
+![Figura 20. Calendario de Microsoft Teams. La reunión «DAILY TEAM» ocupa la franja de 10:00 a 10:30 los cinco días laborables, con el icono de serie recurrente en cada una.](evidencias-apf3/capturas/15-teams-calendario-recurrente.png)
+
+![Figura 21. Detalle de la reunión, que confirma el horario, su condición de serie recurrente y los tres integrantes convocados.](evidencias-apf3/capturas/16-teams-detalle-recurrencia.png)
