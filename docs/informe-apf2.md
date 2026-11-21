@@ -123,10 +123,17 @@ en la sustentación.
 
 El equipo utilizó **Microsoft Teams** como herramienta de colaboración.
 
-Se estableció una **reunión de coordinación diaria de lunes a viernes, de 10:00
-a 10:30 horas**, es decir cinco reuniones de media hora por semana. En cada
-reunión cada integrante expuso el avance de su rama, se revisaron los Pull
-Requests pendientes de aprobación y se repartieron las tarjetas del tablero.
+El equipo acordó una **reunión de coordinación diaria de lunes a viernes, de
+10:00 a 10:30 horas**, media hora al comienzo de la jornada para exponer el
+avance de cada rama, revisar los Pull Requests pendientes de aprobación y
+repartir las tarjetas del tablero.
+
+Conviene precisar un punto que la evidencia adjunta deja ver: la reunión
+funcionó primero como un acuerdo del equipo y **se formalizó como serie
+recurrente en el calendario hacia el final del avance**, cuando quedó claro que
+el ritmo diario iba a mantenerse también en el APF3. La captura del calendario
+corresponde por tanto a la serie ya establecida, no al primer día en que el
+equipo empezó a reunirse.
 
 El canal del equipo en Teams se utilizó además para resolver dudas puntuales
 entre reuniones y, sobre todo, para acordar el **orden de integración de las
