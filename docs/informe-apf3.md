@@ -220,7 +220,7 @@ leerlas.
 
 ### 4.3. Qué cubren
 
-Treinta y seis pruebas repartidas en cuatro archivos:
+Treinta y nueve pruebas repartidas en cinco archivos:
 
 | Archivo | Pruebas | Qué cubre |
 | --- | --- | --- |
@@ -228,6 +228,7 @@ Treinta y seis pruebas repartidas en cuatro archivos:
 | `cursos.test.js` | 12 | Catálogo, edición de cursos y panel de ocupación |
 | `exportacion.test.js` | 7 | Exportación a CSV, filtros, orden y escapado |
 | `ordenamiento.test.js` | 4 | Ordenamiento por fecha con datos incompletos |
+| `integridad.test.js` | 3 | Coherencia entre el catálogo y las matrículas |
 
 Entre ellas, las que cubren los dos defectos que la revisión del APF2 detectó:
 que al renombrar un curso se actualicen las matrículas, y que dos cursos
@@ -276,7 +277,7 @@ GitHub Actions en cada push y en cada Pull Request hacia `main`.
 | Instalar dependencias | `npm ci` sobre el archivo de bloqueo |
 | Sintaxis de los módulos | `node --check` sobre los cuatro archivos |
 | Estructura del proyecto | Las diez comprobaciones estáticas |
-| Pruebas automatizadas | Las 36 pruebas |
+| Pruebas automatizadas | Las 39 pruebas |
 
 La configuración, resumida:
 
@@ -420,22 +421,34 @@ lunes a viernes de 10:00 a 10:30 horas**, establecida en el avance anterior.
 
 ## 10. Revisión de código entre integrantes
 
-Los nueve Pull Requests del avance recibieron revisión. La del PR #2 en el
-avance anterior ya había demostrado su utilidad; en este, cuatro observaciones
-sobre líneas concretas apuntaron a defectos que seguían vivos:
+El avance acumuló trece Pull Requests, **doce de ellos revisados por otro
+integrante**. La revisión del PR #2 en el avance anterior ya había demostrado
+su utilidad; en este, cinco observaciones sobre líneas concretas apuntaron a
+defectos que seguían vivos:
 
 | Pull Request | Observación | Desenlace |
 | --- | --- | --- |
 | #19 | El resumen del flujo de CI repetía `job.status` en las tres filas, de modo que un fallo en las pruebas marcaba también la sintaxis y la estructura | Corregido en el PR #39 |
 | #28 | Al reutilizar `ordenarMatriculas()`, la exportación heredaba el fallo de la incidencia #21 | Cubierto al integrar el PR #37 |
 | #32 | Un curso sin vacantes pero con matriculados está sobrepasado, y se mostraba como `3 / 0 (0%)` con la barra en verde | Corregido en el PR #39 |
+| #33 | El retroceso estaba incompleto: las matrículas se propagaban y guardaban antes que el catálogo, de modo que al fallar ese guardado quedaban apuntando a un código inexistente | Corregido en el PR #44 |
 | #35 | Cancelar un despliegue a Pages en curso puede cortarlo; la causa de fondo era el nombre repetido del artefacto | Anotado como deuda técnica |
 
-La tercera es la más reveladora: la corrección de la incidencia #22 resolvió el
-`NaN`, pero al devolver 0 % dejó **el caso más grave pintado como el más
-tranquilo**. Un defecto introducido al corregir otro, que ni las pruebas ni la
-verificación estática podían detectar, porque ambas comprueban que el código
-hace lo que dice y no que lo que dice sea lo correcto.
+Dos de ellas son defectos **introducidos al corregir otros**, y ninguna de las
+dos era detectable por las pruebas ni por la verificación estática, porque
+ambas comprueban que el código hace lo que dice y no que lo que dice sea lo
+correcto.
+
+La del PR #32: la corrección de la incidencia #22 resolvió el `NaN`, pero al
+devolver 0 % dejó **el caso más grave pintado como el más tranquilo**.
+
+La del PR #33, más seria: el retroceso ante un fallo de almacenamiento
+devolvía el catálogo a su estado anterior, pero las matrículas ya se habían
+propagado y guardado con el código nuevo. El resultado era una matrícula
+apuntando a un curso que nunca llegó a existir, y un curso que perdía la cuenta
+de sus matriculados. Se reprodujo antes de corregirlo: tras el fallo, la
+matrícula apuntaba a `SIS-999` —inexistente— y `SIS-101` pasaba a declarar cero
+ocupación teniendo un estudiante.
 
 La cuarta observación cuestionaba una decisión propia del pipeline y tenía
 razón en los dos puntos. Se documenta como deuda técnica en lugar de
@@ -502,9 +515,10 @@ El detalle completo está en `docs/evidencias-apf2/verificacion-funcional.txt`.
 | Indicador | Valor |
 | --- | --- |
 | Incidencias registradas | 6 |
+| Pull Requests del avance | 13, doce con revisión de otro integrante |
 | Incidencias resueltas | **6** |
 | Incidencias abiertas | 0 |
-| Pruebas automatizadas | 36, todas en verde |
+| Pruebas automatizadas | 39, todas en verde |
 | Verificaciones estáticas | 10 |
 | Ejecuciones del pipeline | 27, con 25 correctas |
 | Versión candidata | `v3.0.0-rc.1` |
@@ -579,8 +593,8 @@ Verificacion de estructura: 10 comprobaciones correctas
   - Existe el archivo js/constancia.js
   - Existe el archivo js/ocupacion.js
 
-tests 36
-pass 36
+tests 39
+pass 39
 fail 0
 ```
 
