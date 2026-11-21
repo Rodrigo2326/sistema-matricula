@@ -1,7 +1,7 @@
 RESULTADO DE LAS VALIDACIONES
 =============================
 
-Generado: 19/11/2026 15:46
+Generado: 20/11/2026 20:24
 
 $ npm run verificar
 
@@ -53,32 +53,32 @@ Error: Uncaught [RangeError: Maximum call stack size exceeded]
     at innerInvokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:353:9)
     at invokeEventListeners (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:286:3)
 ▶ Catalogo de cursos
-  ✔ siembra el catalogo inicial la primera vez (111.8711ms)
-  ✔ registra un curso nuevo (153.5433ms)
-  ✔ rechaza un codigo de curso con formato invalido (30.838ms)
-  ✔ rechaza vacantes que no sean un entero positivo (29.6595ms)
-  ✔ rechaza un codigo de curso repetido (20.6435ms)
-✔ Catalogo de cursos (347.7025ms)
+  ✔ siembra el catalogo inicial la primera vez (126.3412ms)
+  ✔ registra un curso nuevo (200.3794ms)
+  ✔ rechaza un codigo de curso con formato invalido (39.1763ms)
+  ✔ rechaza vacantes que no sean un entero positivo (31.6722ms)
+  ✔ rechaza un codigo de curso repetido (28.4765ms)
+✔ Catalogo de cursos (427.5172ms)
 ▶ Edicion de cursos
-  ✔ al renombrar un curso actualiza las matriculas (136.4835ms)
-  ✔ al cambiar el codigo vuelve a apuntar las matriculas (145.8827ms)
-  ✔ no deja reducir las vacantes por debajo de la ocupacion (29.428ms)
-✔ Edicion de cursos (312.175ms)
+  ✔ al renombrar un curso actualiza las matriculas (171.464ms)
+  ✔ al cambiar el codigo vuelve a apuntar las matriculas (145.1379ms)
+  ✔ no deja reducir las vacantes por debajo de la ocupacion (27.2762ms)
+✔ Edicion de cursos (344.2922ms)
 ▶ Edicion de matriculas
-  ✔ se puede corregir una matricula aunque su curso este lleno (25.8388ms)
-✔ Edicion de matriculas (25.975ms)
+  ✔ se puede corregir una matricula aunque su curso este lleno (31.5648ms)
+✔ Edicion de matriculas (31.7055ms)
 ▶ Panel de ocupacion con cero vacantes
-  ✔ no muestra NaN en texto ni en el ancho de la barra cuando un curso tiene 0 vacantes (22.933ms)
-✔ Panel de ocupacion con cero vacantes (23.042ms)
+  ✔ no muestra NaN en texto ni en el ancho de la barra cuando un curso tiene 0 vacantes (22.3619ms)
+✔ Panel de ocupacion con cero vacantes (22.4964ms)
 ▶ Exportacion a CSV
-  ✔ exporta todas las matriculas cuando no hay filtros (141.1943ms)
-  ✔ exporta solo lo visible cuando hay un filtro de carrera activo (46.2775ms)
-  ✔ exporta solo lo visible cuando hay una busqueda activa (41.2256ms)
-  ✔ respeta el orden del listado al exportar (37.6003ms)
-  ✔ avisa y no descarga nada si ningun registro coincide con los filtros (29.4319ms)
-  ✔ avisa de otro modo cuando no hay ninguna matricula registrada (29.6292ms)
-  ✔ el CSV escapa las comillas de los valores (19.4933ms)
-✔ Exportacion a CSV (346.0508ms)
+  ✔ exporta todas las matriculas cuando no hay filtros (221.4069ms)
+  ✔ exporta solo lo visible cuando hay un filtro de carrera activo (69.2389ms)
+  ✔ exporta solo lo visible cuando hay una busqueda activa (54.5832ms)
+  ✔ respeta el orden del listado al exportar (45.149ms)
+  ✔ avisa y no descarga nada si ningun registro coincide con los filtros (37.161ms)
+  ✔ avisa de otro modo cuando no hay ninguna matricula registrada (31.2511ms)
+  ✔ el CSV escapa las comillas de los valores (31.222ms)
+✔ Exportacion a CSV (491.7286ms)
 No se pudieron guardar las matrículas: Error [QuotaExceededError]: No queda espacio en el almacenamiento
     at app.ventana.Storage.setItem (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\tests\entorno.js:157:19)
     at guardarMatriculas (http://localhost/:24:18)
@@ -113,31 +113,37 @@ No se pudieron guardar las matrículas: Error [QuotaExceededError]: No queda esp
     at HTMLFormElement.dispatchEvent (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:241:34)
     at registrarMatricula (C:\Users\rodri\OneDrive\Desktop\sistema-matricula\tests\entorno.js:94:6)
 ▶ Registro de matriculas
-  ✔ registra una matricula valida (143.2259ms)
-  ✔ guarda el nombre del curso ademas del codigo (44.221ms)
-  ✔ rechaza un codigo de estudiante con formato invalido (28.4813ms)
-  ✔ rechaza un DNI que no tenga ocho digitos (24.6389ms)
-  ✔ rechaza la matricula sin curso seleccionado (28.6089ms)
-✔ Registro de matriculas (270.2612ms)
+  ✔ registra una matricula valida (206.6767ms)
+  ✔ guarda el nombre del curso ademas del codigo (59.9457ms)
+  ✔ rechaza un codigo de estudiante con formato invalido (47.0421ms)
+  ✔ rechaza un DNI que no tenga ocho digitos (35.566ms)
+  ✔ rechaza la matricula sin curso seleccionado (31.8521ms)
+✔ Registro de matriculas (382.3079ms)
 ▶ Control de duplicados
-  ✔ rechaza al mismo estudiante en el mismo curso (32.5932ms)
-  ✔ permite dos cursos homonimos en ciclos distintos (25.4264ms)
-✔ Control de duplicados (58.2445ms)
+  ✔ rechaza al mismo estudiante en el mismo curso (30.3201ms)
+  ✔ permite dos cursos homonimos en ciclos distintos (53.1799ms)
+✔ Control de duplicados (83.8413ms)
 ▶ Control de vacantes
-  ✔ rechaza la matricula cuando el curso esta lleno (29.5361ms)
-  ✔ cuenta las matriculas anteriores al catalogo, que no guardan codigo (22.8849ms)
-  ✔ vacantesLibres nunca devuelve un numero negativo (27.3507ms)
-✔ Control de vacantes (80.0993ms)
+  ✔ rechaza la matricula cuando el curso esta lleno (34.6429ms)
+  ✔ cuenta las matriculas anteriores al catalogo, que no guardan codigo (26.8862ms)
+  ✔ vacantesLibres nunca devuelve un numero negativo (30.4974ms)
+✔ Control de vacantes (92.3449ms)
 ▶ Persistencia y manejo de errores al guardar
-  ✔ no avisa de exito ni conserva la matricula si falla el almacenamiento (23.0328ms)
-  ✔ la tabla no muestra una matricula que no se pudo guardar (20.4749ms)
-  ✔ vuelve a guardar con normalidad cuando el almacenamiento se recupera (22.5192ms)
-✔ Persistencia y manejo de errores al guardar (66.1889ms)
-ℹ tests 30
-ℹ suites 9
-ℹ pass 30
+  ✔ no avisa de exito ni conserva la matricula si falla el almacenamiento (29.7128ms)
+  ✔ la tabla no muestra una matricula que no se pudo guardar (19.9094ms)
+  ✔ vuelve a guardar con normalidad cuando el almacenamiento se recupera (24.4239ms)
+✔ Persistencia y manejo de errores al guardar (74.2374ms)
+▶ Ordenamiento por fecha con datos incompletos (#21)
+  ✔ no lanza excepcion si una matricula no tiene fecha (139.2101ms)
+  ✔ en orden ascendente deja las fechas faltantes al final (44.1393ms)
+  ✔ en orden descendente tambien deja las fechas faltantes al final (50.8019ms)
+  ✔ con todas las fechas completas el orden no cambia (45.7415ms)
+✔ Ordenamiento por fecha con datos incompletos (#21) (281.4833ms)
+ℹ tests 34
+ℹ suites 10
+ℹ pass 34
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 1378.1517
+ℹ duration_ms 1905.855

@@ -1,11 +1,17 @@
 HISTORIAL DE EJECUCIONES DEL PIPELINE
 =====================================
 
-Generado: 19/11/2026 15:46
+Generado: 20/11/2026 20:24
 
-Total: 21  |  Exitosas: 19  |  Fallidas: 2
+Total: 27  |  Exitosas: 25  |  Fallidas: 2
 
 FECHA                FLUJO                  RAMA                             RESULTADO
+2026-11-21T01:22:14  Entrega continua       main                             success
+2026-11-21T01:21:50  Integracion continua   main                             success
+2026-11-20T19:15:41  Integracion continua   fix/orden-fecha-sin-dato         success
+2026-11-19T20:49:23  Entrega continua       main                             success
+2026-11-19T20:49:05  Integracion continua   main                             success
+2026-11-19T20:48:25  Integracion continua   feature/actualizar-informe-apf3  success
 2026-11-19T20:45:09  Entrega continua       main                             success
 2026-11-19T20:44:47  Integracion continua   main                             success
 2026-11-19T20:43:57  Integracion continua   fix/despliegues-simultaneos      success

@@ -66,7 +66,7 @@ El segundo avance incorporó tres funcionalidades nuevas, una por integrante:
 El tercer avance no agregó funcionalidades: incorporó la automatización del
 proceso de desarrollo y la publicación del proyecto en la nube.
 
-- **Pruebas automatizadas.** 26 pruebas sobre la lógica de la aplicación,
+- **Pruebas automatizadas.** 34 pruebas sobre la lógica de la aplicación,
   ejecutadas con el runner de Node y un DOM simulado.
 - **Verificación estática.** Diez comprobaciones sobre la estructura del
   proyecto, el balance de la hoja de estilos y el orden de carga de los
@@ -130,7 +130,7 @@ Por separado:
 | --- | --- |
 | `npm run verificar:js` | Comprueba la sintaxis de los cuatro módulos |
 | `npm run verificar:estructura` | Diez comprobaciones sobre la estructura del proyecto |
-| `npm test` | Las 26 pruebas automatizadas |
+| `npm test` | Las 34 pruebas automatizadas |
 
 Las mismas validaciones son las que ejecuta el flujo de integración continua,
 de modo que lo que pasa en local pasa en el pipeline.
@@ -176,8 +176,9 @@ sistema-matricula/
 
 **APF3 (Semana 15) — completado.** Versión candidata `v3.0.0-rc.1`, desplegada
 en https://rodrigo2326.github.io/sistema-matricula/. Pipeline de integración
-continua operativo, entrega continua a la nube y seguimiento de incidencias.
-Ver `docs/evidencias-apf3/`.
+continua operativo, entrega continua a la nube y seguimiento de incidencias:
+las seis registradas en el avance quedaron resueltas. Ver
+`docs/evidencias-apf3/`.
 
 **APF2 (Semana 11) — completado.** Versión `v2.0.0`. Tres funcionalidades nuevas
 integradas mediante Pull Request con revisión previa, conflicto de fusión
@@ -218,6 +219,10 @@ para que el historial conserve el punto de integración.
 | `feature/pruebas-automatizadas` | Pruebas, verificación estática y pipelines | Fusionada (PR #19) |
 | `fix/csv-ignora-filtros` | Incidencia #20: el CSV ignoraba los filtros | Fusionada (PR #28) |
 | `fix/favicon-404` | Incidencia #29: 404 de favicon en el sitio | Fusionada (PR #30) |
+| `fix/ocupacion-sin-vacantes` | Incidencia #22: `NaN%` con cero vacantes | Fusionada (PR #32) |
+| `fix/guardar-sin-perder-datos` | Incidencia #23: aviso antes de guardar | Fusionada (PR #33) |
+| `fix/despliegues-simultaneos` | Incidencia #34: despliegues en conflicto | Fusionada (PR #35) |
+| `fix/orden-fecha-sin-dato` | Incidencia #21: orden por fecha sin dato | Fusionada (PR #37) |
 | `feature/documentacion-apf3` | Informe, README y evidencias del avance | Fusionada |
 
 ### Ramas utilizadas en el APF2
@@ -291,6 +296,7 @@ están en `docs/evidencias-apf3/`:
 | `flujos-configurados.txt` | Flujos de trabajo configurados y su estado |
 | `entorno-nube.txt` | URL del despliegue y verificación de los recursos |
 | `validaciones.txt` | Salida de `npm run verificar` |
+| `participacion.txt` | Commits y correcciones por integrante |
 | `capturas/` | Pipeline, incidencias, release y despliegues |
 
 ## Evidencias del APF2
