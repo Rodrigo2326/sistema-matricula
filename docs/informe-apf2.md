@@ -462,17 +462,13 @@ corrección, está en `docs/evidencias-apf2/revision-pr2.txt`.
 
 ## Anexo D. Colaboración del equipo en Microsoft Teams
 
-Las capturas de esta sección corresponden a la reunión de coordinación diaria
-de lunes a viernes, de 10:00 a 10:30 horas, descrita en la sección 5. Las dos
-primeras documentan la reunión recurrente; las restantes quedan pendientes de
-la cuenta del equipo.
+Las dos capturas de esta sección corresponden a la reunión de coordinación
+diaria de lunes a viernes, de 10:00 a 10:30 horas, descrita en la sección 5, y
+documentan su condición de serie recurrente y los integrantes convocados.
 
 ![Figura 13. Calendario de Microsoft Teams, semana del 16 al 20 de noviembre de 2026. La reunión «DAILY TEAM» ocupa la franja de 10:00 a 10:30 los cinco días laborables, con el icono de serie recurrente en cada una.](evidencias-apf2/capturas/13-teams-calendario-recurrente.png)
 
 ![Figura 14. Detalle de la reunión. Confirma el horario de 10:00 a 10:30, su condición de serie recurrente y los tres integrantes convocados: el organizador y los dos invitados, Arnold Jhuncor Díaz Silva y Giancarlo Ccahuana Huillca.](evidencias-apf2/capturas/14-teams-detalle-recurrencia.png)
 
-[[PENDIENTE: Insertar aquí la captura de la LISTA DE MIEMBROS del equipo en Teams, con los tres integrantes]]
 
-[[PENDIENTE: Insertar aquí la captura de la CONVERSACIÓN DEL CANAL del proyecto, donde se coordinó el reparto de ramas y el orden de integración]]
 
-[[PENDIENTE: Insertar aquí la captura de UNA REUNIÓN DE TRABAJO en curso o su registro de asistencia]]
