@@ -1,15 +1,26 @@
 # Entrega continua del Sistema de Matricula.
 #
 # Publica la aplicacion en GitHub Pages cada vez que main cambia, pero solo
-# despues de que la integracion continua haya terminado correctamente: el
-# disparador es la finalizacion del flujo de CI, no el push.
+# despues de que las validaciones del proyecto hayan pasado dentro de esta
+# misma ejecucion.
+#
+# Sobre el disparador: una version anterior se encadenaba al flujo de
+# integracion continua mediante workflow_run. Era mas elegante sobre el papel
+# -las validaciones no se repetian- pero fallaba de forma intermitente: el paso
+# de empaquetado subia el artefacto y el de despliegue no lo encontraba, porque
+# la busqueda que hace actions/deploy-pages no resulta fiable cuando la
+# ejecucion nace de otro flujo. Cuatro de las ultimas siete ejecuciones
+# fallaron por ese motivo (incidencia #48).
+#
+# Repetir las validaciones cuesta unos quince segundos y elimina el problema de
+# raiz, porque el artefacto se sube y se consume en la misma ejecucion. La
+# garantia de fondo no cambia: si las validaciones fallan, el despliegue no
+# llega a ejecutarse.
 name: Entrega continua
 
 on:
-  workflow_run:
-    workflows: ['Integracion continua']
+  push:
     branches: [main]
-    types: [completed]
   workflow_dispatch:
 
 # Permisos minimos que necesita el despliegue a Pages.
@@ -18,20 +29,16 @@ permissions:
   pages: write
   id-token: write
 
-# Un despliegue a la vez. Si llega uno nuevo mientras otro corre, el anterior
-# se cancela en lugar de encolarse: publicar un commit ya superado no aporta
-# nada, y encolarlos hacia que las dos ejecuciones subieran un artefacto con el
-# mismo nombre, de modo que la que esperaba se quedaba sin el suyo y fallaba al
-# desplegar.
+# Un despliegue a la vez. Los superados se encolan en lugar de cancelarse, que
+# es lo que recomienda GitHub para Pages: cancelar un despliegue en curso puede
+# dejarlo a medias.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   publicar:
-    name: Publicar en GitHub Pages
-    # Si la integracion continua fallo, no se publica nada.
-    if: github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch'
+    name: Validar y publicar en GitHub Pages
     runs-on: ubuntu-latest
 
     environment:
@@ -41,6 +48,18 @@ jobs:
     steps:
       - name: Descargar el repositorio
         uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Validar el proyecto antes de publicar
+        run: npm run verificar
 
       - name: Preparar el sitio
         # La aplicacion es estatica: se publica tal cual, sin node_modules ni

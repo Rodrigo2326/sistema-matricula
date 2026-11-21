@@ -44,9 +44,9 @@ Las incidencias de este avance no se inventaron para cumplir con el requisito:
 salieron de someter la aplicación a casos que nadie había probado a mano,
 usando el arnés de pruebas descrito en la sección 4.
 
-Se registraron seis incidencias: cuatro las encontró el arnés de pruebas, una
-la verificación del entorno desplegado y la última una revisión del propio
-historial de ejecuciones del pipeline.
+Se registraron siete incidencias: cuatro las encontró el arnés de pruebas, una
+la verificación del entorno desplegado y las dos restantes la revisión del
+propio historial de ejecuciones del pipeline.
 
 ### 3.2. Lista de incidencias
 
@@ -57,6 +57,7 @@ historial de ejecuciones del pipeline.
 | 23 | El aviso de éxito aparece antes de guardar | Robustez | Arnold Díaz | Resuelta |
 | 29 | El sitio desplegado registra un 404 de `favicon.ico` | Error menor | Rodrigo Aparcana | Resuelta |
 | 34 | Dos despliegues simultáneos compiten y uno falla | Error del pipeline | Rodrigo Aparcana | Resuelta |
+| 48 | El despliegue falla al no encontrar su artefacto | Error del pipeline | Rodrigo Aparcana | Resuelta |
 | 21 | Ordenar por fecha lanza una excepción si falta el dato | Error | Giancarlo Ccahuana | Resuelta |
 
 Cada incidencia incluye el comportamiento observado, los pasos para
@@ -183,6 +184,7 @@ La cadena es trazable en los dos sentidos:
 | #23 | `fix/guardar-sin-perder-datos` | #33 | Arnold Díaz |
 | #29 | `fix/favicon-404` | #30 | Rodrigo Aparcana |
 | #34 | `fix/despliegues-simultaneos` | #35 | Rodrigo Aparcana |
+| #48 | `fix/despliegue-sin-workflow-run` | #49 | Rodrigo Aparcana |
 
 Cada Pull Request lleva `Closes #N` en su cuerpo, de modo que GitHub cerró la
 incidencia al integrar y dejó el enlace en ambas direcciones. **Las seis
@@ -321,6 +323,7 @@ se conservaron deliberadamente en lugar de borrarlas:
 | --- | --- | --- |
 | Primer despliegue | GitHub Pages todavía no estaba habilitado | Corregido al habilitarlo |
 | Despliegue duplicado | Dos integraciones en ocho segundos (incidencia #34) | Corregido en el PR #35 |
+| Artefacto no encontrado | El disparador `workflow_run` no localizaba el artefacto de forma fiable (incidencia #48) | Corregido suprimiendo ese disparador |
 
 En ninguno de los dos casos llegó a publicarse una versión defectuosa, que es
 justamente lo que el encadenamiento entre los dos flujos pretende evitar.
@@ -332,10 +335,21 @@ justamente lo que el encadenamiento entre los dos flujos pretende evitar.
 El flujo está definido en `.github/workflows/cd.yml` y publica la aplicación en
 **GitHub Pages**.
 
-La decisión de diseño relevante es el disparador: el flujo **no** se dispara con
-el push a `main`, sino con la **finalización correcta del flujo de integración
-continua**. Si las validaciones fallan, no se publica nada. Disparar con el
-push habría permitido publicar una versión que no pasa las pruebas.
+La decisión de diseño relevante es cómo se garantiza que no se publique una
+versión defectuosa. El flujo **ejecuta las mismas validaciones antes de
+desplegar**: si fallan, el despliegue no llega a ejecutarse.
+
+La primera versión resolvía esto de otra forma, encadenándose a la
+finalización del flujo de integración continua mediante `workflow_run`. Era más
+elegante sobre el papel, porque no repetía las validaciones, pero resultó poco
+fiable: el paso de empaquetado subía el artefacto y el de despliegue no lo
+encontraba, de modo que cuatro de siete ejecuciones fallaron. Se documenta en
+la incidencia #48.
+
+Repetir las validaciones cuesta unos quince segundos y elimina el problema de
+raíz, porque el artefacto se sube y se consume en la misma ejecución. Es un
+ejemplo útil de una decisión que parecía mejor y hubo que revertir: lo que
+importa no es ahorrar quince segundos, sino que el pipeline sea de fiar.
 
 El flujo prepara el sitio copiando únicamente lo que la aplicación necesita
 —`index.html`, `css/` y `js/`—, de modo que ni las dependencias de prueba ni la
@@ -502,9 +516,9 @@ presentar una como sustituto de la otra daría una confianza que no corresponde.
 
 | Indicador | Valor |
 | --- | --- |
-| Incidencias registradas | 6 |
+| Incidencias registradas | 7 |
 | Pull Requests del avance | 13, doce con revisión de otro integrante |
-| Incidencias resueltas | **6** |
+| Incidencias resueltas | **7** |
 | Incidencias abiertas | 0 |
 | Pruebas automatizadas | 39, todas en verde |
 | Verificaciones estáticas | 10 |
